@@ -12,13 +12,5 @@
     { "source": "/dong-hanh", "destination": "/dong-hanh.dc.html" },
     { "source": "/vision", "destination": "/vision.dc.html" },
     { "source": "/museum", "destination": "/museum.html" }
-  ],
-  "headers": [
-    {
-      "source": "/(.*)\.(js|jpg|png|mp3|glb)",
-      "headers": [
-        { "key": "Cache-Control", "value": "public, max-age=3600, must-revalidate" }
-      ]
-    }
   ]
 }
