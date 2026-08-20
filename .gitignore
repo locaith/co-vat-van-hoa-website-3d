@@ -1,0 +1,14 @@
+# Nguồn gốc & file nội bộ — không đưa lên site công khai
+*.zip
+.thumbnail
+uploads/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Vercel
+.vercel/
+node_modules/

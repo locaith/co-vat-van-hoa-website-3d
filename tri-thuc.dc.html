@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Trợ lý tri thức &amp; Mạng tri thức — Bảo tàng số Di sản Việt Nam</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Be+Vietnam+Pro:wght@300;400;500;600&display=swap" rel="stylesheet">
+<script src="./locales.js"></script>
+<script src="./i18n.js"></script>
+<style>
+body{margin:0;background:#F5F1E8;-webkit-font-smoothing:antialiased}
+a{color:#8A6E3F;text-decoration:none}
+a:hover{color:#A03D2D}
+@media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important}}
+</style>
+</helmet>
+
+<div style="font-family:'Be Vietnam Pro',sans-serif;color:#2B241C;background:#F5F1E8">
+
+<!-- NAV -->
+<div style="position:sticky;top:0;z-index:50;background:rgba(245,241,232,.94);backdrop-filter:blur(10px);border-bottom:1px solid #E3DACA">
+  <div style="max-width:1320px;margin:0 auto;padding:10px 32px;min-height:50px;display:flex;align-items:center;gap:18px 36px;flex-wrap:wrap">
+    <a href="index.dc.html" style="display:flex;align-items:center;gap:12px;flex-shrink:0">
+      <div style="width:34px;height:34px;background:#9E3B2C;display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:22px;color:#F5F1E8;border-radius:2px">V</div>
+      <div>
+        <div style="font-size:14px;font-weight:600;letter-spacing:.12em;color:#2B241C">DI SẢN VIỆT</div>
+        <div style="font-size:10px;letter-spacing:.08em;color:#8A7B67;text-transform:uppercase" data-i18n="brand.sub">Bảo tàng số · bản thử nghiệm</div>
+      </div>
+    </a>
+    <nav style="display:flex;flex-wrap:wrap;gap:8px 22px;font-size:13.5px;margin-left:auto;row-gap:4px">
+      <a href="index.dc.html" style="color:#4A4237;padding:4px 0;white-space:nowrap" data-i18n="nav.home">Trang chủ</a>
+      <a href="kham-pha.dc.html" style="color:#4A4237;padding:4px 0;white-space:nowrap" data-i18n="nav.explore">Khám phá</a>
+      <a href="bo-suu-tap.dc.html" style="color:#4A4237;padding:4px 0;white-space:nowrap" data-i18n="nav.collection">Bộ sưu tập</a>
+      <a href="trien-lam.dc.html" style="color:#4A4237;padding:4px 0;white-space:nowrap" data-i18n="nav.exhibit">Triển lãm</a>
+      <a href="museum.html" style="color:#9E3B2C;font-weight:600;padding:4px 0;white-space:nowrap" data-i18n="nav.museum">Bảo tàng 3D</a>
+      <a href="tri-thuc.dc.html" style="color:#2B241C;font-weight:600;border-bottom:2px solid #8A6E3F;padding:4px 0;white-space:nowrap" data-i18n="nav.knowledge">Tri thức</a>
+      <a href="du-an.dc.html" style="color:#4A4237;padding:4px 0;white-space:nowrap" data-i18n="nav.project">Dự án</a>
+      <a href="tra-cuu-ai.dc.html" style="color:#4A4237;padding:4px 0;white-space:nowrap" data-i18n="nav.ai">Tra cứu AI</a>
+      <a href="dong-hanh.dc.html" style="color:#4A4237;padding:4px 0;white-space:nowrap" data-i18n="nav.join">Đồng hành</a>
+    </nav>
+    <div style="display:flex;font-size:12px;border:1px solid #D8CDBA;border-radius:2px;overflow:hidden;flex-shrink:0">
+      <button data-lang="vi" style="padding:5px 10px;border:none;background:#2B241C;color:#F5F1E8;font-weight:600;font-family:inherit;font-size:12px;cursor:pointer">VI</button>
+      <button data-lang="en" style="padding:5px 10px;border:none;background:transparent;color:#8A7B67;font-family:inherit;font-size:12px;cursor:pointer">EN</button>
+    </div>
+  </div>
+</div>
+
+<!-- AI ASSISTANT -->
+<section data-screen-label="Trợ lý tri thức" style="max-width:1200px;margin:0 auto;padding:80px 32px 110px">
+  <div style="max-width:680px;margin-bottom:56px">
+    <div style="font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:#8A6E3F;margin-bottom:16px">Bản demo tương tác</div>
+    <h1 style="font-family:'Cormorant Garamond',serif;font-weight:500;font-size:clamp(36px,4.2vw,54px);line-height:1.15;margin:0 0 18px">Trợ lý tri thức di sản</h1>
+    <p style="font-size:16px;line-height:1.8;color:#6E6355;margin:0 0 14px">AI hỗ trợ tiếp cận dữ liệu, không thay thế chuyên gia. Mỗi câu trả lời tách bạch: nội dung — nguồn — mức chắc chắn — ý kiến chuyên gia — và cả những điểm còn tranh luận.</p>
+    <div style="display:inline-flex;align-items:center;gap:10px;background:#EFE9DC;border:1px solid #E3DACA;padding:10px 16px;border-radius:2px;font-size:13.5px;font-weight:600"><span style="width:8px;height:8px;background:#A03D2D;border-radius:50%"></span>AI không tự xác nhận cổ vật.</div>
+  </div>
+
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:30px;align-items:start">
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <div style="font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#8A7B67;margin-bottom:4px">Chọn một câu hỏi mẫu</div>
+      <sc-for list="{{ questions }}" as="q" hint-placeholder-count="4">
+        <button onClick="{{ q.on }}" style="text-align:left;font-family:inherit;font-size:14px;line-height:1.5;cursor:pointer;border-radius:3px;padding:14px 18px;border:1px solid {{ q.bd }};background:{{ q.bg }};color:{{ q.cl }}">{{ q.text }}</button>
+      </sc-for>
+      <div style="font-size:12px;color:#8A7B67;line-height:1.65;margin-top:8px">Hội thoại demo được soạn sẵn để minh họa nguyên tắc trả lời — chưa kết nối AI thật.</div>
+    </div>
+
+    <div style="background:#FBF8F1;border:1px solid #E3DACA;border-radius:4px;overflow:hidden">
+      <div style="background:#2B241C;padding:13px 20px;display:flex;justify-content:space-between;align-items:center">
+        <span style="font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#F0EADC">Trợ lý tri thức di sản</span>
+        <span style="font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:#A98E4B;border:1px solid rgba(169,142,75,.4);padding:3px 8px;border-radius:2px">Demo soạn sẵn</span>
+      </div>
+      <div style="padding:26px">
+        <div style="display:flex;justify-content:flex-end;margin-bottom:20px">
+          <div style="background:#2B241C;color:#F0EADC;font-size:14.5px;line-height:1.6;padding:13px 18px;border-radius:4px 4px 1px 4px;max-width:75%">{{ activeQuestion }}</div>
+        </div>
+        <div style="border:1px solid #E3DACA;border-radius:4px;overflow:hidden">
+          <div style="padding:5px 14px;background:#F0EDE4;border-bottom:1px solid #E3DACA;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#8A7B67">Câu trả lời · nội dung do AI tạo</div>
+          <div style="padding:18px 20px;font-size:14.5px;line-height:1.8;color:#4A4237;white-space:pre-line">{{ answerText }}</div>
+          <sc-if value="{{ isRefusal }}" hint-placeholder-val="{{ false }}">
+            <div style="margin:0 20px 18px;border:1px solid rgba(160,61,45,.35);background:rgba(160,61,45,.05);border-radius:3px;padding:13px 16px;font-size:13.5px;color:#7A3226"><strong>Chưa đủ bằng chứng để kết luận.</strong> Hệ thống không suy đoán khi hồ sơ thiếu nguồn — câu hỏi này đã được chuyển vào danh sách chờ chuyên gia.</div>
+          </sc-if>
+          <div style="border-top:1px solid #E3DACA;padding:14px 20px;display:grid;grid-template-columns:1fr 1fr;gap:14px;background:#F7F3EA">
+            <div>
+              <div style="font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#8A7B67;margin-bottom:7px">Nguồn</div>
+              <div style="display:flex;flex-wrap:wrap;gap:6px">
+                <sc-for list="{{ answerSources }}" as="sc" hint-placeholder-count="3">
+                  <span style="font-size:11px;background:#EFE9DC;border:1px solid #E3DACA;color:#4A4237;padding:4px 9px;border-radius:2px">{{ sc }}</span>
+                </sc-for>
+              </div>
+            </div>
+            <div>
+              <div style="font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#8A7B67;margin-bottom:7px">Mức độ chắc chắn</div>
+              <div style="font-size:13px;font-weight:600;color:{{ confColor }}">{{ confLabel }}</div>
+              <div style="font-size:11px;color:#8A7B67;margin-top:4px;line-height:1.55">Đánh giá định tính theo hồ sơ nguồn — không phải xác suất thống kê</div>
+            </div>
+            <div>
+              <div style="font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#8A7B67;margin-bottom:7px">Ý kiến chuyên gia</div>
+              <div style="font-size:12.5px;color:#4A4237;line-height:1.6">{{ expertNote }}</div>
+            </div>
+            <div>
+              <div style="font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#8A7B67;margin-bottom:7px">Còn tranh luận</div>
+              <div style="font-size:12.5px;color:#4A4237;line-height:1.6">{{ disputedNote }}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- KNOWLEDGE GRAPH -->
+<section data-screen-label="Mạng tri thức" style="background:#201914;padding:110px 32px">
+  <div style="max-width:1200px;margin:0 auto">
+    <div style="max-width:640px;margin-bottom:50px">
+      <div style="font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:#A98E4B;margin-bottom:16px">Mạng tri thức · khái niệm tương tác</div>
+      <h2 style="font-family:'Cormorant Garamond',serif;font-weight:500;font-size:clamp(32px,3.8vw,46px);line-height:1.2;color:#F0EADC;margin:0 0 16px">Mỗi hiện vật không đứng riêng lẻ. Nó là một nút trong mạng lưới ký ức văn hóa.</h2>
+      <p style="font-size:15px;line-height:1.75;color:#B8AB97;margin:0">Chạm vào một nút để xem quan hệ. Dữ liệu là minh họa cấu trúc, không phải kết luận nghiên cứu.</p>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:40px;align-items:start">
+      <div style="background:#2A221B;border:1px solid rgba(184,171,151,.14);border-radius:4px;padding:10px">
+        <div style="position:relative;width:100%;padding-top:75%">
+          <svg viewBox="0 0 640 480" preserveAspectRatio="none" style="position:absolute;inset:0;width:100%;height:100%" aria-hidden="true">
+            <sc-for list="{{ edges }}" as="e" hint-placeholder-count="11">
+              <line x1="320" y1="240" x2="{{ e.x }}" y2="{{ e.y }}" stroke="{{ e.stroke }}" stroke-width="{{ e.w }}"></line>
+            </sc-for>
+          </svg>
+          <sc-for list="{{ nodes }}" as="n" hint-placeholder-count="11">
+            <button onClick="{{ n.on }}" style="position:absolute;left:{{ n.lx }};top:{{ n.ly }};transform:translate(-50%,-50%);width:76px;height:76px;border-radius:50%;background:{{ n.fill }};border:1.5px solid {{ n.stroke }};color:{{ n.tfill }};font-family:'Be Vietnam Pro',sans-serif;font-size:11px;line-height:1.25;cursor:pointer;padding:5px;text-align:center">{{ n.label }}</button>
+          </sc-for>
+          <button onClick="{{ centerOn }}" style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:106px;height:106px;border-radius:50%;background:#55705F;border:1.5px solid #C9D6C6;color:#F0EADC;font-family:'Cormorant Garamond',serif;font-size:15px;line-height:1.3;cursor:pointer;padding:8px;text-align:center">Bình men ngọc<span style="display:block;font-family:'Be Vietnam Pro',sans-serif;font-size:9.5px;color:#C9D6C6;margin-top:3px">DS-001 · demo</span></button>
+        </div>
+      </div>
+      <div style="background:#F5F1E8;border-radius:4px;padding:28px;min-height:280px">
+        <div style="font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#8A7B67;margin-bottom:10px">Nút đang chọn</div>
+        <div style="font-family:'Cormorant Garamond',serif;font-size:30px;color:#2B241C;margin-bottom:12px">{{ selTitle }}</div>
+        <p style="font-size:14px;line-height:1.75;color:#4A4237;margin:0 0 18px">{{ selDesc }}</p>
+        <div style="font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#8A7B67;margin-bottom:8px">Quan hệ trong mạng</div>
+        <div style="display:flex;flex-direction:column;gap:7px;font-size:13px;color:#4A4237">
+          <sc-for list="{{ selRels }}" as="r" hint-placeholder-count="3">
+            <div style="display:flex;gap:8px"><span style="color:#8A6E3F">→</span>{{ r }}</div>
+          </sc-for>
+        </div>
+        <div style="margin-top:20px;font-size:11px;color:#A03D2D;border:1px solid rgba(160,61,45,.3);display:inline-block;padding:4px 10px;border-radius:2px">Dữ liệu minh họa cấu trúc</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer style="background:#0F0C0A;color:#6E6355;padding:28px;text-align:center;font-size:12px">Hội thoại và đồ thị trên là bản demo soạn sẵn minh họa nguyên tắc thiết kế — chưa kết nối hệ thống AI hay cơ sở dữ liệu thật. · <a href="index.dc.html" style="color:#B8AB97">Trang chủ</a></footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { q: 0, node: 'center' };
+  renderVals() {
+    const QA = [
+      { q: 'Đồ gốm Lý và Trần khác nhau như thế nào?',
+        a: 'Theo các mô tả tổng quát thường gặp trong nghiên cứu gốm Việt: gốm thời Lý hay được nhắc tới với tạo hình thanh thoát, men ngọc và men trắng ngà cùng trang trí khắc chìm tinh tế; gốm thời Trần thường được mô tả khỏe khoắn hơn, với dòng hoa nâu phát triển mạnh.\n\nĐây là khái quát định hướng — việc phân định cụ thể cho từng hiện vật luôn cần chuyên gia thẩm định trên bằng chứng thực tế.',
+        src: ['Khung biên tập nội bộ', 'Tổng quan nghiên cứu (chờ trích dẫn)'], conf: .55, confLabel: 'Trung bình', 
+        expert: 'Chưa có thẩm định chuyên gia cho câu trả lời này ở bản demo.', disputed: 'Ranh giới phong cách Lý–Trần ở nhiều hiện vật vẫn là chủ đề thảo luận chuyên môn.', refusal: false },
+      { q: 'Hiện vật DS-001 được xác định niên đại dựa vào đâu?',
+        a: 'Hồ sơ mẫu DS-001 ước tính niên đại dựa trên ba nhóm bằng chứng: (A) hình thái dáng bình, (B) đặc điểm men ngọc và độ đọng men ở chân, (C) băng cánh sen khắc chìm đối chiếu với nhóm hiện vật tương đồng.\n\nKết luận hiện ở trạng thái "đang thẩm định chuyên môn" — chưa phải VERIFIED.',
+        src: ['Hồ sơ hiện vật DS-001', 'Tư liệu đối chiếu (demo)'], conf: .55, confLabel: 'Trung bình',
+        expert: 'Đang chờ thẩm định độc lập; hệ thống hiển thị rõ trạng thái chờ.', disputed: 'Chưa ghi nhận ý kiến trái chiều trong hồ sơ demo.', refusal: false },
+      { q: 'Tôi muốn xem các hiện vật có họa tiết sen.',
+        a: 'Trong bộ dữ liệu minh họa có 3 hồ sơ gắn mô típ sen: DS-001 (băng cánh sen khắc chìm), DS-007 (hoa dây khắc chìm liên quan nhóm mô típ sen) và DS-010 (nắp núm sen).\n\nBạn có thể mở trang Khám phá và lọc theo loại hình để xem chi tiết.',
+        src: ['Truy vấn danh mục demo'], conf: .9, confLabel: 'Cao (dữ liệu nội bộ)',
+        expert: 'Không cần thẩm định — đây là truy vấn dữ liệu, không phải nhận định chuyên môn.', disputed: 'Không.', refusal: false },
+      { q: 'Chiếc bình này có phải do lò Thăng Long sản xuất không?',
+        a: 'Hồ sơ DS-001 hiện chưa có bằng chứng về lò sản xuất: chưa có phân tích thai gốm, chưa có tư liệu khai quật liên quan, chưa có nhận định chuyên gia về dấu lò.',
+        src: ['Hồ sơ hiện vật DS-001'], conf: .1, confLabel: 'Không kết luận',
+        expert: 'Câu hỏi đã được ghi vào danh sách chờ chuyên gia thẩm định.', disputed: 'Không thể đánh giá khi chưa có bằng chứng.', refusal: true }
+    ];
+    const cur = QA[this.state.q];
+    const NODES = [
+      { id: 'tran', label: 'Triều Trần', x: 320, y: 70, desc: 'Bối cảnh triều đại của ước tính niên đại — liên kết tới các hiện vật, sự kiện và tư liệu cùng giai đoạn.', rels: ['DS-001 · ước tính thuộc giai đoạn này (đang thẩm định)', 'Liên kết 4 hiện vật demo cùng nhóm niên đại'] },
+      { id: 'gom', label: 'Gốm', x: 140, y: 110, desc: 'Loại hình chất liệu — cửa ngõ tới toàn bộ dòng gốm trong hệ thống.', rels: ['12/12 hồ sơ demo thuộc nhóm gốm — sành'] },
+      { id: 'men', label: 'Men ngọc', x: 80, y: 240, desc: 'Dòng men — mỗi dòng men mang đặc trưng nguyên liệu, kỹ thuật và giai đoạn.', rels: ['DS-001, DS-007, DS-009 dùng men ngọc', 'Liên kết ghi chú kỹ thuật về độ đọng men'] },
+      { id: 'sen', label: 'Hoa sen', x: 140, y: 380, desc: 'Mô típ trang trí gắn với mỹ thuật Phật giáo — xuất hiện trên nhiều chất liệu và giai đoạn.', rels: ['Băng cánh sen trên DS-001', 'Núm sen trên nắp ấm DS-010'] },
+      { id: 'battrang', label: 'Làng nghề', x: 320, y: 420, desc: 'Các trung tâm sản xuất gốm — nơi kỹ thuật được trao truyền qua nhiều thế hệ.', rels: ['Chưa xác định lò sản xuất cho DS-001 (hệ thống nói rõ điều chưa biết)'] },
+      { id: 'thanglong', label: 'Thăng Long', x: 500, y: 380, desc: 'Không gian lịch sử — kinh đô, thị trường và trung tâm tiêu thụ đồ gốm.', rels: ['Liên kết bối cảnh đô thị của giai đoạn Lý–Trần'] },
+      { id: 'thuongmai', label: 'Thương mại', x: 560, y: 240, desc: 'Các tuyến buôn bán gốm sứ — lý do nhiều hiện vật Việt hiện diện khắp khu vực.', rels: ['Bối cảnh cho dòng hoa lam Lê sơ (DS-003, DS-010)'] },
+      { id: 'tongiao', label: 'Tín ngưỡng', x: 500, y: 110, desc: 'Đời sống tinh thần — đồ thờ, tự khí và mô típ tôn giáo.', rels: ['Lư hương DS-006, chân đèn DS-011 thuộc nhóm đồ thờ'] },
+      { id: 'doisong', label: 'Đời sống', x: 210, y: 40, desc: 'Công năng thường nhật của hiện vật trong xã hội đương thời.', rels: ['Bát, đĩa, bình vôi trong nhóm đồ gia dụng'] },
+      { id: 'tailieu', label: 'Tư liệu', x: 430, y: 40, desc: 'Nguồn nghiên cứu, catalog và hồ sơ khai quật — xương sống bằng chứng của hệ thống.', rels: ['Mỗi tuyên bố trong hồ sơ đều phải trỏ về đây'] },
+      { id: 'tuongdong', label: 'Hiện vật tương đồng', x: 600, y: 160, desc: 'Nhóm đối chiếu — cơ sở của phương pháp so sánh hình thái.', rels: ['Bằng chứng A của ước tính niên đại DS-001'] }
+    ];
+    const CENTER = { id: 'center', label: 'Bình men ngọc DS-001', desc: 'Hiện vật trung tâm của đồ thị demo. Mỗi cạnh nối là một quan hệ có thể truy nguồn: niên đại, chất liệu, mô típ, bối cảnh, tư liệu.', rels: ['11 quan hệ minh họa tới bối cảnh, chất liệu và tư liệu'] };
+    const sel = this.state.node === 'center' ? CENTER : NODES.find(n => n.id === this.state.node);
+    return {
+      questions: QA.map((x, i) => ({
+        text: x.q,
+        on: () => this.setState({ q: i }),
+        bg: i === this.state.q ? '#2B241C' : '#FBF8F1',
+        cl: i === this.state.q ? '#F0EADC' : '#4A4237',
+        bd: i === this.state.q ? '#2B241C' : '#D8CDBA'
+      })),
+      activeQuestion: cur.q,
+      answerText: cur.a,
+      answerSources: cur.src,
+      confWidth: Math.round(cur.conf * 100) + '%',
+      confColor: cur.conf < .2 ? '#A03D2D' : (cur.conf < .7 ? '#8A6E3F' : '#55705F'),
+      confLabel: cur.confLabel,
+      expertNote: cur.expert,
+      disputedNote: cur.disputed,
+      isRefusal: cur.refusal,
+      nodes: NODES.map(n => {
+        const active = this.state.node === n.id;
+        return {
+          label: n.label, lx: (n.x / 640 * 100) + '%', ly: (n.y / 480 * 100) + '%',
+          fill: active ? '#8A6E3F' : '#3A322A',
+          stroke: active ? '#F0EADC' : 'rgba(184,171,151,.4)',
+          tfill: active ? '#F5F1E8' : '#C7BBA6',
+          on: () => this.setState({ node: n.id })
+        };
+      }),
+      edges: NODES.map(n => ({
+        x: n.x, y: n.y,
+        stroke: this.state.node === n.id ? '#A98E4B' : 'rgba(184,171,151,.22)',
+        w: this.state.node === n.id ? 2 : 1
+      })),
+      centerOn: () => this.setState({ node: 'center' }),
+      selTitle: sel.label,
+      selDesc: sel.desc,
+      selRels: sel.rels
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tra cứu cổ vật bằng AI — Bảo tàng số Di sản Việt Nam</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Be+Vietnam+Pro:wght@300;400;500;600&display=swap" rel="stylesheet">
+<script src="./locales.js"></script>
+<script src="./i18n.js"></script>
+<script src="./artifacts-data.js"></script>
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://unpkg.com/three@0.184.0/build/three.module.js",
+    "three/addons/controls/OrbitControls.js": "https://unpkg.com/three@0.184.0/examples/jsm/controls/OrbitControls.js",
+    "three/addons/exporters/OBJExporter.js": "https://unpkg.com/three@0.184.0/examples/jsm/exporters/OBJExporter.js",
+    "three/addons/exporters/GLTFExporter.js": "https://unpkg.com/three@0.184.0/examples/jsm/exporters/GLTFExporter.js"
+  },
+  "integrity": {
+    "https://unpkg.com/three@0.184.0/build/three.module.js": "sha384-8FCZ1eVO6it4+pbec2aDtnTrwjWXZLJRC+MAGCIPDgsYnUrl/E0A2YlF8ioMKI/J",
+    "https://unpkg.com/three@0.184.0/build/three.core.js": "sha384-dw2ooPewaEIrAgl6oFDBmmBWCE9oW9LxRGcfwZ0hLvEprzo202wXl7vCYHRlSnOT",
+    "https://unpkg.com/three@0.184.0/examples/jsm/controls/OrbitControls.js": "sha384-4rziNxOBZKQ69i+w+f89KJ55TCYquwchVbByQwmaOeIOXdOU2PLDn3kOfXHwIJC9",
+    "https://unpkg.com/three@0.184.0/examples/jsm/exporters/OBJExporter.js": "sha384-nbwtoZENJD3Vq+ACK0CuGQdPMuDWHkamC2KJD70EV5nfg6jQjfppKOea07YJN+N3",
+    "https://unpkg.com/three@0.184.0/examples/jsm/exporters/GLTFExporter.js": "sha384-VofkvpG6HERhFCYbsUOHeNXBCqID2nfqkQqnVzE1jc/oPcz+qJ13ADdXH08hE+cQ"
+  }
+}
+</script>
+<script type="module" src="./artifacts3d.js"></script>
+<style>
+body{margin:0;background:#181310;-webkit-font-smoothing:antialiased}
+a{color:#A98E4B;text-decoration:none}
+a:hover{color:#C9D6C6}
+@keyframes pulse{0%{opacity:.4}50%{opacity:1}100%{opacity:.4}}
+@media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important}}
+</style>
+</helmet>
+
+<div style="font-family:'Be Vietnam Pro',sans-serif;color:#E8DFCE;background:#181310;min-height:100vh">
+
+<!-- NAV (dark variant) -->
+<div style="position:sticky;top:0;z-index:50;background:rgba(24,19,16,.92);backdrop-filter:blur(10px);border-bottom:1px solid rgba(184,171,151,.14)">
+  <div style="max-width:1320px;margin:0 auto;padding:10px 32px;min-height:50px;display:flex;align-items:center;gap:18px 36px;flex-wrap:wrap">
+    <a href="index.dc.html" style="display:flex;align-items:center;gap:12px;flex-shrink:0">
+      <div style="width:34px;height:34px;background:#9E3B2C;display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:22px;color:#F5F1E8;border-radius:2px">V</div>
+      <div>
+        <div style="font-size:14px;font-weight:600;letter-spacing:.12em;color:#F0EADC">DI SẢN VIỆT</div>
+        <div style="font-size:10px;letter-spacing:.08em;color:#8A7B67;text-transform:uppercase" data-i18n="brand.sub">Bảo tàng số · bản thử nghiệm</div>
+      </div>
+    </a>
+    <nav style="display:flex;flex-wrap:wrap;gap:8px 22px;font-size:13.5px;margin-left:auto;row-gap:4px">
+      <a href="index.dc.html" style="color:#B8AB97;padding:4px 0;white-space:nowrap" data-i18n="nav.home">Trang chủ</a>
+      <a href="kham-pha.dc.html" style="color:#B8AB97;padding:4px 0;white-space:nowrap" data-i18n="nav.explore">Khám phá</a>
+      <a href="bo-suu-tap.dc.html" style="color:#B8AB97;padding:4px 0;white-space:nowrap" data-i18n="nav.collection">Bộ sưu tập</a>
+      <a href="trien-lam.dc.html" style="color:#B8AB97;padding:4px 0;white-space:nowrap" data-i18n="nav.exhibit">Triển lãm</a>
+      <a href="museum.html" style="color:#C98A5B;font-weight:600;padding:4px 0;white-space:nowrap" data-i18n="nav.museum">Bảo tàng 3D</a>
+      <a href="tri-thuc.dc.html" style="color:#B8AB97;padding:4px 0;white-space:nowrap" data-i18n="nav.knowledge">Tri thức</a>
+      <a href="tra-cuu-ai.dc.html" style="color:#F0EADC;font-weight:600;border-bottom:2px solid #8A6E3F;padding:4px 0;white-space:nowrap" data-i18n="nav.ai">Tra cứu AI</a>
+      <a href="du-an.dc.html" style="color:#B8AB97;padding:4px 0;white-space:nowrap" data-i18n="nav.project">Dự án</a>
+      <a href="dong-hanh.dc.html" style="color:#B8AB97;padding:4px 0;white-space:nowrap" data-i18n="nav.join">Đồng hành</a>
+    </nav>
+    <div style="display:flex;font-size:12px;border:1px solid rgba(184,171,151,.3);border-radius:2px;overflow:hidden;flex-shrink:0">
+      <button data-lang="vi" style="padding:5px 10px;border:none;background:#2B241C;color:#F5F1E8;font-weight:600;font-family:inherit;font-size:12px;cursor:pointer">VI</button>
+      <button data-lang="en" style="padding:5px 10px;border:none;background:transparent;color:#8A7B67;font-family:inherit;font-size:12px;cursor:pointer">EN</button>
+    </div>
+  </div>
+</div>
+
+<div style="max-width:1320px;margin:0 auto;padding:56px 32px 90px">
+  <div style="max-width:720px;margin-bottom:40px">
+    <div style="font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:#A98E4B;margin-bottom:14px">AI Heritage Search · Demo pipeline</div>
+    <h1 style="font-family:'Cormorant Garamond',serif;font-weight:500;font-size:clamp(34px,4vw,52px);line-height:1.15;color:#F0EADC;margin:0 0 14px" data-i18n="ai.title">Tra cứu cổ vật bằng AI</h1>
+    <p style="font-size:15px;line-height:1.75;color:#B8AB97;margin:0" data-i18n="ai.sub">Hỏi bằng ngôn ngữ tự nhiên — hệ thống tìm hồ sơ, dựng bản thể số và trả lời kèm nguồn. Toàn bộ dưới đây là mock pipeline cho bản demo; backend AI thật sẽ thay thế.</p>
+    <div style="display:inline-flex;align-items:center;gap:10px;margin-top:16px;border:1px solid rgba(160,61,45,.45);background:rgba(160,61,45,.08);padding:9px 14px;border-radius:2px;font-size:12.5px;color:#E8DFCE"><span style="width:7px;height:7px;background:#A03D2D;border-radius:50%"></span>AI không tự xác nhận cổ vật — mọi kết quả kèm mức chắc chắn và trạng thái kiểm chứng.</div>
+  </div>
+
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(360px,1fr));gap:26px;align-items:start">
+    <!-- CHAT -->
+    <div style="background:#201914;border:1px solid rgba(184,171,151,.16);border-radius:4px;display:flex;flex-direction:column;min-height:560px">
+      <div style="padding:13px 20px;border-bottom:1px solid rgba(184,171,151,.12);display:flex;justify-content:space-between;align-items:center;gap:10px">
+        <span style="font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#B8AB97">Hội thoại</span>
+        <span style="font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:#A03D2D;border:1px solid rgba(160,61,45,.5);padding:3px 8px;border-radius:2px;white-space:nowrap">Mock — chờ backend</span>
+      </div>
+      <div style="flex:1;padding:22px;display:flex;flex-direction:column;gap:14px;overflow:auto">
+        <sc-for list="{{ msgs }}" as="m" hint-placeholder-count="1">
+          <div style="display:flex;justify-content:{{ m.align }}">
+            <div style="background:{{ m.bg }};color:{{ m.cl }};font-size:14px;line-height:1.7;padding:12px 16px;border-radius:{{ m.rad }};max-width:85%;border:1px solid {{ m.bd }}">
+              <div style="font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:{{ m.tag }};margin-bottom:6px">{{ m.who }}</div>
+              {{ m.text }}
+            </div>
+          </div>
+        </sc-for>
+        <sc-if value="{{ empty }}" hint-placeholder-val="{{ true }}">
+          <div style="font-size:13px;color:#8A7B67;line-height:1.7;text-align:center;margin:auto;max-width:320px">Chọn một câu hỏi mẫu bên dưới để xem quy trình: AI suy luận → tìm tư liệu → dựng bản thể số → trả lời kèm nguồn.</div>
+        </sc-if>
+      </div>
+      <div style="padding:16px 20px;border-top:1px solid rgba(184,171,151,.12)">
+        <div style="font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#8A7B67;margin-bottom:10px">Câu hỏi mẫu</div>
+        <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:14px">
+          <sc-for list="{{ presets }}" as="q" hint-placeholder-count="3">
+            <button onClick="{{ q.on }}" disabled="{{ busy }}" style="text-align:left;font-family:inherit;font-size:13px;line-height:1.5;cursor:pointer;border-radius:3px;padding:11px 15px;border:1px solid rgba(184,171,151,.25);background:{{ q.bg }};color:#E8DFCE">{{ q.text }}</button>
+          </sc-for>
+        </div>
+        <div style="display:flex;gap:8px">
+          <input type="text" placeholder="Nhập câu hỏi tự do — sẽ kích hoạt khi nối backend AI" disabled style="flex:1;padding:11px 14px;font-size:13px;background:#181310;border:1px solid rgba(184,171,151,.2);border-radius:3px;color:#8A7B67;font-family:inherit">
+          <button disabled style="padding:11px 18px;font-size:13px;background:rgba(138,110,63,.3);border:1px solid rgba(138,110,63,.4);border-radius:3px;color:#8A7B67;font-family:inherit">Gửi</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- STAGE + PIPELINE -->
+    <div style="display:flex;flex-direction:column;gap:18px">
+      <div style="background:#201914;border:1px solid rgba(184,171,151,.16);border-radius:4px;overflow:hidden">
+        <div style="padding:13px 20px;border-bottom:1px solid rgba(184,171,151,.12);display:flex;justify-content:space-between;align-items:center;gap:10px">
+          <span style="font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#B8AB97">Bản thể số — dựng realtime (mô phỏng)</span>
+          <span style="font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:#A03D2D;border:1px solid rgba(160,61,45,.5);padding:3px 8px;border-radius:2px;white-space:nowrap">Demo</span>
+        </div>
+        <div style="position:relative;height:400px;background:radial-gradient(ellipse 70% 60% at 50% 42%, rgba(169,142,75,.13), transparent 75%), #241D17">
+          <canvas id="ai-stage" style="position:absolute;inset:0;width:100%;height:100%;display:block;cursor:grab;touch-action:none"></canvas>
+          <sc-if value="{{ stageEmpty }}" hint-placeholder-val="{{ true }}">
+            <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:13px;color:#6E6355;pointer-events:none">Hiện vật 3D sẽ xuất hiện tại đây</div>
+          </sc-if>
+          <div style="position:absolute;bottom:10px;left:14px;font-size:10px;color:rgba(184,171,151,.5);pointer-events:none">Kéo để xoay · lăn chuột để phóng to · mô hình demo</div>
+        </div>
+      </div>
+
+      <!-- STEPPER -->
+      <div style="background:#201914;border:1px solid rgba(184,171,151,.16);border-radius:4px;padding:18px 22px">
+        <div style="display:flex;flex-wrap:wrap;gap:8px 22px">
+          <sc-for list="{{ steps }}" as="s" hint-placeholder-count="4">
+            <div style="display:flex;align-items:center;gap:9px;font-size:12px;color:{{ s.cl }}">
+              <span style="width:22px;height:22px;border-radius:50%;border:1.5px solid {{ s.bd }};background:{{ s.bg }};display:flex;align-items:center;justify-content:center;font-size:10.5px;color:{{ s.numCl }};animation:{{ s.anim }}">{{ s.icon }}</span>
+              {{ s.label }}
+            </div>
+          </sc-for>
+        </div>
+      </div>
+
+      <!-- RESULT META -->
+      <sc-if value="{{ showMeta }}" hint-placeholder-val="{{ false }}">
+        <div style="background:#201914;border:1px solid rgba(169,142,75,.35);border-radius:4px;padding:24px 26px">
+          <div style="font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#A98E4B;margin-bottom:8px">{{ metaId }} · Hồ sơ minh họa</div>
+          <div style="font-family:'Cormorant Garamond',serif;font-size:26px;color:#F0EADC;margin-bottom:14px">{{ metaTitle }}</div>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:10px 22px;font-size:12.5px">
+            <sc-for list="{{ metaRows }}" as="r" hint-placeholder-count="8">
+              <div><div style="font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:#8A7B67;margin-bottom:3px">{{ r.k }}</div><div style="color:#E8DFCE">{{ r.v }}</div></div>
+            </sc-for>
+          </div>
+          <div style="margin-top:16px;border-top:1px dashed rgba(184,171,151,.25);padding-top:14px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px">
+            <div>
+              <div style="font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:#A98E4B">Giá trị tham khảo (demo)</div>
+              <div style="font-family:'Cormorant Garamond',serif;font-size:26px;color:#F0EADC">{{ metaPrice }}</div>
+            </div>
+            <button onClick="{{ openDetail }}" style="font-family:inherit;font-size:12.5px;padding:10px 18px;border-radius:2px;cursor:pointer;border:1px solid rgba(169,142,75,.5);background:rgba(169,142,75,.15);color:#E8DFCE">Mở hồ sơ chi tiết + 3D lớn</button>
+          </div>
+          <div style="font-size:10.5px;line-height:1.65;color:#8A7B67;margin-top:10px">{{ priceNotes }}</div>
+        </div>
+      </sc-if>
+    </div>
+  </div>
+</div>
+
+<footer style="background:#0F0C0A;color:#6E6355;padding:26px;text-align:center;font-size:12px">Trang demo kiến trúc tích hợp AI — hội thoại, tiến trình và mô hình 3D là mock; xem README_HANDOFF.md để nối backend thật. · <a href="index.dc.html" style="color:#B8AB97">Trang chủ</a></footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { msgs: [], step: 0, cur: null, busy: false, tick: 0 };
+  componentDidMount() {
+    const poll = () => { window.DS_AI_MOCK ? this.forceUpdate() : setTimeout(poll, 120); };
+    poll();
+  }
+  ask(i) {
+    const M = window.DS_AI_MOCK || [];
+    const q = M[i]; if (!q || this.state.busy) return;
+    this.setState({ msgs: [{ who: 'user', text: q.q }], step: 1, busy: true, cur: null });
+    setTimeout(() => this.setState({ step: 2 }), 900);
+    setTimeout(() => { this.setState({ step: 3 }); window.__artifacts && window.__artifacts.stageSet(q.id); }, 1900);
+    setTimeout(() => this.setState({
+      step: 4, busy: false, cur: i,
+      msgs: [{ who: 'user', text: q.q }, { who: 'ai', text: q.answer + ' (Mức chắc chắn: ' + q.confidence + ')' }]
+    }), 3400);
+  }
+  renderVals() {
+    const s = this.state;
+    const M = window.DS_AI_MOCK || [];
+    const A = window.DS_ARTIFACTS || [];
+    const cur = s.cur != null ? M[s.cur] : null;
+    const art = cur ? A.find(a => a.id === cur.id) : null;
+    const STEPS = ['Đang suy luận', 'Đang tìm tư liệu', 'Đang dựng hình 3D', 'Hoàn tất — kèm nguồn'];
+    return {
+      msgs: s.msgs.map(m => m.who === 'user'
+        ? { who: 'Bạn', text: m.text, align: 'flex-end', bg: '#2B241C', cl: '#F0EADC', bd: 'rgba(184,171,151,.2)', rad: '4px 4px 1px 4px', tag: '#8A7B67' }
+        : { who: 'Trợ lý AI · nội dung mock', text: m.text, align: 'flex-start', bg: '#241D17', cl: '#D8CDBA', bd: 'rgba(169,142,75,.3)', rad: '4px 4px 4px 1px', tag: '#A98E4B' }),
+      empty: s.msgs.length === 0,
+      presets: M.map((q, i) => ({
+        text: q.q,
+        on: () => this.ask(i),
+        bg: s.cur === i ? 'rgba(169,142,75,.2)' : '#181310'
+      })),
+      busy: s.busy,
+      stageEmpty: s.step < 3,
+      steps: STEPS.map((label, i) => {
+        const n = i + 1;
+        const done = s.step > n || s.step === 4 && n === 4;
+        const active = s.step === n && s.step !== 4;
+        return {
+          label,
+          icon: done ? '✓' : String(n),
+          cl: done ? '#93AC9B' : active ? '#E8DFCE' : '#6E6355',
+          bd: done ? '#55705F' : active ? '#A98E4B' : 'rgba(184,171,151,.25)',
+          bg: done ? 'rgba(85,112,95,.25)' : 'transparent',
+          numCl: done ? '#C9D6C6' : active ? '#A98E4B' : '#6E6355',
+          anim: active ? 'pulse 1.2s ease-in-out infinite' : 'none'
+        };
+      }),
+      showMeta: s.step === 4 && !!art,
+      metaId: art ? art.id : '',
+      metaTitle: art ? art.title : '',
+      metaPrice: art ? art.price : '',
+      metaRows: art ? [
+        { k: 'Niên đại ước tính', v: art.dating + ' — minh họa' },
+        { k: 'Chất liệu', v: art.material },
+        { k: 'Kỹ thuật', v: art.technique },
+        { k: 'Kích thước', v: art.dims + ' (demo)' },
+        { k: 'Vùng văn hóa', v: art.origin },
+        { k: 'Bề mặt / hoa văn', v: art.surface },
+        { k: 'Mức chắc chắn', v: cur.confidence },
+        { k: 'Nguồn tham khảo', v: art.sources.join(' · ') }
+      ] : [],
+      priceNotes: (window.DS_PRICE_NOTES || []).join(' · '),
+      openDetail: () => art && window.__artifacts && window.__artifacts.open(art.id)
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>/vision — Trình bày nội bộ · Bảo tàng số Di sản Việt Nam</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Be+Vietnam+Pro:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#F5F1E8;-webkit-font-smoothing:antialiased}
+a{color:#8A6E3F;text-decoration:none}
+a:hover{color:#A03D2D}
+@media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important}}
+</style>
+</helmet>
+
+<div style="font-family:'Be Vietnam Pro',sans-serif;color:#2B241C;background:#F5F1E8">
+
+<!-- INTERNAL BANNER -->
+<div style="background:#9E3B2C;color:#F5F1E8;text-align:center;padding:9px;font-size:11.5px;letter-spacing:.18em;text-transform:uppercase">Trình bày nội bộ — dành cho chị Ngọc &amp; nhóm sáng lập · không chia sẻ công khai</div>
+
+<div style="position:sticky;top:0;z-index:50;background:rgba(245,241,232,.94);backdrop-filter:blur(10px);border-bottom:1px solid #E3DACA">
+  <div style="max-width:1320px;margin:0 auto;padding:0 32px;height:64px;display:flex;align-items:center;justify-content:space-between">
+    <a href="index.dc.html" style="display:flex;align-items:center;gap:12px">
+      <div style="width:30px;height:30px;background:#9E3B2C;display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:19px;color:#F5F1E8;border-radius:2px">V</div>
+      <span style="font-size:12px;letter-spacing:.14em;color:#4A4237">DI SẢN VIỆT · /VISION</span>
+    </a>
+    <a href="index.dc.html" style="font-size:13px;color:#8A6E3F">Xem website công khai →</a>
+  </div>
+</div>
+
+<!-- TITLE -->
+<section style="max-width:1000px;margin:0 auto;padding:90px 32px 70px">
+  <div style="font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:#8A6E3F;margin-bottom:20px">Tầm nhìn chiến lược · 08/2026</div>
+  <h1 style="font-family:'Cormorant Garamond',serif;font-weight:500;font-size:clamp(40px,5vw,66px);line-height:1.12;margin:0 0 26px">Xây hạ tầng tri thức di sản trước.<br><em style="color:#55705F">Xây bảo tàng số trên nền đó.</em></h1>
+  <p style="font-size:17px;line-height:1.8;color:#6E6355;max-width:700px;margin:0">Đề xuất gốc tại California đặt công nghệ (VR, blockchain, DAO) làm trung tâm. Hướng đi mới đảo ngược thứ tự: <strong style="color:#2B241C">Việt Nam trước — di sản trước — chuyên gia trước — bằng chứng trước</strong>, công nghệ là công cụ phục vụ.</p>
+  <div style="margin-top:34px;border-left:3px solid #8A6E3F;padding:6px 0 6px 24px"><div style="font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#8A7B67;margin-bottom:8px">Câu để kể lại trong một hơi thở</div><div style="font-family:'Cormorant Garamond',serif;font-size:24px;font-style:italic;line-height:1.45;color:#2B241C">"Chúng tôi không chỉ số hóa hiện vật Việt Nam — chúng tôi lưu giữ tri thức giúp các thế hệ sau hiểu được chúng."</div></div>
+</section>
+
+<!-- PROBLEM -->
+<section style="background:#201914;padding:90px 32px">
+  <div style="max-width:1000px;margin:0 auto">
+    <div style="font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:#A98E4B;margin-bottom:18px">01 · Vấn đề</div>
+    <h2 style="font-family:'Cormorant Garamond',serif;font-weight:500;font-size:clamp(30px,3.6vw,44px);color:#F0EADC;margin:0 0 44px">Năm vết nứt của di sản Việt hôm nay</h2>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px">
+      <sc-for list="{{ problems }}" as="p" hint-placeholder-count="5">
+        <div style="border:1px solid rgba(184,171,151,.15);background:#2A221B;border-radius:4px;padding:24px 26px">
+          <div style="font-size:15px;font-weight:600;color:#F0EADC;margin-bottom:8px">{{ p.t }}</div>
+          <div style="font-size:13.5px;line-height:1.7;color:#B8AB97">{{ p.d }}</div>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+</section>
+
+<!-- SOLUTION STACK -->
+<section style="max-width:1000px;margin:0 auto;padding:90px 32px">
+  <div style="font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:#8A6E3F;margin-bottom:18px">02 · Giải pháp</div>
+  <h2 style="font-family:'Cormorant Garamond',serif;font-weight:500;font-size:clamp(30px,3.6vw,44px);margin:0 0 12px">Hạ tầng tri thức di sản Việt Nam</h2>
+  <p style="font-size:15px;color:#6E6355;margin:0 0 44px;max-width:640px;line-height:1.75">Bảy lớp xếp chồng — lớp dưới là điều kiện của lớp trên. Trải nghiệm bảo tàng chỉ là lớp cuối cùng.</p>
+  <div style="display:flex;flex-direction:column-reverse;gap:8px;max-width:640px">
+    <sc-for list="{{ stack }}" as="s" hint-placeholder-count="7">
+      <div style="display:flex;align-items:center;gap:20px;border:1px solid {{ s.bd }};background:{{ s.bg }};border-radius:3px;padding:16px 24px">
+        <span style="font-family:'Cormorant Garamond',serif;font-size:22px;color:#8A6E3F;width:30px">{{ s.n }}</span>
+        <div>
+          <div style="font-size:15px;font-weight:600;color:#2B241C">{{ s.t }}</div>
+          <div style="font-size:12.5px;color:#6E6355">{{ s.d }}</div>
+        </div>
+      </div>
+    </sc-for>
+  </div>
+</section>
+
+<!-- PILOT -->
+<section style="background:#EFE9DC;border-top:1px solid #E3DACA;border-bottom:1px solid #E3DACA;padding:90px 32px">
+  <div style="max-width:1000px;margin:0 auto">
+    <div style="font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:#8A6E3F;margin-bottom:18px">03 · Thí điểm đề xuất</div>
+    <h2 style="font-family:'Cormorant Garamond',serif;font-weight:500;font-size:clamp(30px,3.6vw,44px);margin:0 0 44px">100 hiện vật đầu tiên — nhỏ đủ để làm chuẩn, đủ lớn để thuyết phục</h2>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px;margin-bottom:36px">
+      <sc-for list="{{ pilot }}" as="p" hint-placeholder-count="6">
+        <div style="background:#FBF8F1;border:1px solid #E3DACA;border-radius:3px;padding:20px 22px">
+          <div style="font-size:14.5px;font-weight:600;margin-bottom:5px">{{ p.t }}</div>
+          <div style="font-size:12.5px;color:#6E6355;line-height:1.6">{{ p.d }}</div>
+        </div>
+      </sc-for>
+    </div>
+    <div style="display:flex;align-items:center;gap:18px;flex-wrap:wrap;font-family:'Cormorant Garamond',serif;font-size:clamp(24px,3vw,36px);color:#2B241C">
+      <span>100</span><span style="color:#8A6E3F">→</span><span>1.000</span><span style="color:#8A6E3F">→</span><span>10.000</span><span style="color:#8A6E3F">→</span><span style="font-style:italic;color:#55705F">mạng lưới tổ chức</span>
+    </div>
+    <p style="font-size:13px;color:#8A7B67;margin:16px 0 0">Lộ trình mở rộng là định hướng, không phải cam kết mốc thời gian.</p>
+  </div>
+</section>
+
+<!-- WHY NOW -->
+<section style="max-width:1000px;margin:0 auto;padding:90px 32px">
+  <div style="font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:#8A6E3F;margin-bottom:18px">04 · Vì sao lúc này</div>
+  <h2 style="font-family:'Cormorant Garamond',serif;font-weight:500;font-size:clamp(30px,3.6vw,44px);margin:0 0 44px">Cửa sổ cơ hội đang mở</h2>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px">
+    <sc-for list="{{ whynow }}" as="w" hint-placeholder-count="6">
+      <div style="border:1px solid #E3DACA;background:#FBF8F1;border-radius:3px;padding:22px 24px">
+        <div style="font-size:14.5px;font-weight:600;margin-bottom:6px">{{ w.t }}</div>
+        <div style="font-size:13px;color:#6E6355;line-height:1.7">{{ w.d }}</div>
+      </div>
+    </sc-for>
+  </div>
+</section>
+
+<section style="background:#EFE9DC;border-top:1px solid #E3DACA;border-bottom:1px solid #E3DACA;padding:90px 32px">
+  <div style="max-width:1000px;margin:0 auto">
+    <div style="font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:#8A6E3F;margin-bottom:18px">05 · Góc nhìn đầu tư</div>
+    <h2 style="font-family:'Cormorant Garamond',serif;font-weight:500;font-size:clamp(30px,3.6vw,44px);margin:0 0 44px">Vì sao đây là hạ tầng, không phải một website đẹp</h2>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:18px">
+      <div style="background:#FBF8F1;border:1px solid #E3DACA;border-radius:4px;padding:26px"><div style="font-size:15px;font-weight:600;margin-bottom:8px">Tài sản cốt lõi: mô hình dữ liệu bằng chứng</div><div style="font-size:13.5px;line-height:1.75;color:#6E6355">Mỗi tuyên bố (niên đại, chất liệu, nguồn gốc) là một bản ghi có nguồn, người đóng góp, độ tin cậy, trạng thái kiểm chứng và lịch sử sửa đổi — 7 trạng thái từ UNVERIFIED tới VERIFIED và DISPUTED. Website có thể sao chép trong một tuần; kho tri thức có cấu trúc và mạng chuyên gia thì không.</div></div>
+      <div style="background:#FBF8F1;border:1px solid #E3DACA;border-radius:4px;padding:26px"><div style="font-size:15px;font-weight:600;margin-bottom:8px">Hiệu ứng mạng theo thời gian</div><div style="font-size:13.5px;line-height:1.75;color:#6E6355">Mỗi hồ sơ được thẩm định làm tăng giá trị của các hồ sơ đối chiếu quanh nó; mỗi chuyên gia tham gia kéo theo bộ sưu tập; mỗi bộ sưu tập kéo theo tổ chức. Chuẩn dữ liệu mở là lớp keo liên kết.</div></div>
+      <div style="background:#FBF8F1;border:1px solid #E3DACA;border-radius:4px;padding:26px"><div style="font-size:15px;font-weight:600;margin-bottom:8px">Nguồn thu dịch vụ tương lai</div><div style="font-size:13.5px;line-height:1.75;color:#6E6355">API dữ liệu cho tổ chức, dịch vụ số hóa — lập hồ sơ cho bộ sưu tập, học liệu giáo dục, triển lãm số theo đơn đặt hàng. Chưa có nguồn thu nào được kích hoạt — đây là định hướng, không phải dự báo tài chính.</div></div>
+      <div style="background:#FBF8F1;border:1px solid #E3DACA;border-radius:4px;padding:26px"><div style="font-size:15px;font-weight:600;margin-bottom:8px">Điều dự án cần ngay (giai đoạn 0)</div><div style="font-size:13.5px;line-height:1.75;color:#6E6355">Cố vấn chuyên môn và quản trị; giới thiệu tới chuyên gia, nhà sưu tập uy tín; tài trợ hạt giống gắn với cấu phần cụ thể của thí điểm 100 hiện vật. Chưa kêu gọi vòng vốn lớn.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- NEEDS CONFIRMATION -->
+<section style="background:#201914;padding:90px 32px">
+  <div style="max-width:1000px;margin:0 auto">
+    <div style="font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:#A98E4B;margin-bottom:18px">06 · Cần chị Ngọc &amp; nhóm sáng lập quyết định</div>
+    <h2 style="font-family:'Cormorant Garamond',serif;font-weight:500;font-size:clamp(30px,3.6vw,44px);color:#F0EADC;margin:0 0 44px">Trước khi website này ra khỏi phòng họp</h2>
+    <div style="display:flex;flex-direction:column;gap:14px">
+      <sc-for list="{{ decisions }}" as="d" hint-placeholder-count="6">
+        <div style="display:flex;gap:18px;border:1px solid rgba(184,171,151,.15);background:#2A221B;border-radius:3px;padding:20px 24px;align-items:flex-start">
+          <span style="width:22px;height:22px;border:1.5px solid #A98E4B;border-radius:2px;flex-shrink:0;margin-top:2px"></span>
+          <div>
+            <div style="font-size:15px;font-weight:600;color:#F0EADC;margin-bottom:4px">{{ d.t }}</div>
+            <div style="font-size:13px;line-height:1.7;color:#B8AB97">{{ d.d }}</div>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+    <div style="margin-top:40px;border:1px solid rgba(169,142,75,.4);background:rgba(169,142,75,.08);border-radius:3px;padding:22px 26px;font-size:14px;line-height:1.75;color:#E8DFCE">
+      <strong style="color:#A98E4B">Nguyên tắc đã cài vào toàn bộ prototype:</strong> không bịa bảo trợ nhà nước, không nêu tên chuyên gia chưa xác nhận (bao gồm TS. Phạm Ngọc Dũng), không trình bày dữ liệu minh họa như sự thật, không nêu con số tài chính nổi bật, AI không tự xác nhận cổ vật.
+    </div>
+  </div>
+</section>
+
+<section style="max-width:1000px;margin:0 auto;padding:80px 32px 90px">
+  <div style="font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:#8A6E3F;margin-bottom:18px">07 · For international partners — English summary</div>
+  <p style="font-size:15.5px;line-height:1.8;color:#4A4237;max-width:720px;margin:0 0 22px"><strong>Vietnam Heritage Digital Museum</strong> is an early-stage, privately initiated project building a trustworthy digital knowledge infrastructure for Vietnamese cultural heritage — starting with ancient Vietnamese ceramics.</p>
+  <div style="display:flex;flex-direction:column;gap:10px;font-size:14px;color:#4A4237;max-width:720px">
+    <div style="display:flex;gap:11px"><span style="color:#8A6E3F">—</span>Evidence-first data model: every claim carries its source, contributor, confidence and verification status.</div>
+    <div style="display:flex;gap:11px"><span style="color:#8A6E3F">—</span>Human experts retain final curatorial authority; AI assists, cites sources, and can answer "insufficient evidence".</div>
+    <div style="display:flex;gap:11px"><span style="color:#8A6E3F">—</span>Proposed pilot: 100 objects with full evidence dossiers, research-grade photography and selected 3D models.</div>
+    <div style="display:flex;gap:11px"><span style="color:#8A6E3F">—</span>Current status: concept &amp; pilot preparation. No funding raised, no partnerships signed, legal entity in formation.</div>
+    <div style="display:flex;gap:11px"><span style="color:#8A6E3F">—</span>All artifact records in this prototype are illustrative (demo) data.</div>
+  </div>
+</section>
+
+<footer style="background:#0F0C0A;color:#6E6355;padding:28px;text-align:center;font-size:12px">Tài liệu nội bộ kèm prototype · <a href="index.dc.html" style="color:#B8AB97">Website công khai</a> · Ma trận sự thật: CONFIRMED ≠ PROPOSED ≠ DEMO ≠ REQUIRES_VERIFICATION</footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  renderVals() {
+    return {
+      problems: [
+        { t: 'Dữ liệu di sản phân mảnh', d: 'Hiện vật và hồ sơ nằm rải rác ở bảo tàng, kho khảo cổ, bộ sưu tập tư nhân, gia đình — không có lớp kết nối chung.' },
+        { t: 'Tri thức ngầm đang biến mất', d: 'Kinh nghiệm thẩm định của thế hệ chuyên gia lớn tuổi chưa được ghi lại có hệ thống — mỗi năm trôi qua là mất thêm.' },
+        { t: 'Bộ sưu tập khó tiếp cận', d: 'Phần lớn hiện vật quý trong tay tư nhân không có hồ sơ khoa học và không ai được nhìn thấy.' },
+        { t: 'Trải nghiệm số hời hợt', d: 'Đa số "bảo tàng ảo" dừng ở chụp ảnh 360° — có hình ảnh nhưng không có tri thức.' },
+        { t: 'AI trả lời thiếu căn cứ', d: 'Các chatbot về lịch sử — cổ vật sẵn sàng bịa. Không có hạ tầng bằng chứng, AI là rủi ro thay vì công cụ.' }
+      ],
+      stack: [
+        { n: '1', t: 'Hiện vật', d: 'vật thể gốc và quyền sở hữu minh bạch', bg: '#FBF8F1', bd: '#E3DACA' },
+        { n: '2', t: 'Bản thể số', d: 'ảnh chuẩn, 3D, đo đạc', bg: '#FBF8F1', bd: '#E3DACA' },
+        { n: '3', t: 'Chuyên gia', d: 'con người giữ thẩm quyền xác nhận', bg: '#F0EDE3', bd: '#D8CDBA' },
+        { n: '4', t: 'Bằng chứng', d: 'nguồn, đối chiếu, độ tin cậy, lịch sử sửa đổi', bg: '#F0EDE3', bd: '#D8CDBA' },
+        { n: '5', t: 'Mạng tri thức', d: 'quan hệ giữa hiện vật, bối cảnh, tư liệu', bg: '#E9EFE7', bd: '#C9D6C6' },
+        { n: '6', t: 'AI có nguồn', d: 'trợ lý trả lời kèm trích dẫn, biết nói "chưa đủ bằng chứng"', bg: '#E9EFE7', bd: '#C9D6C6' },
+        { n: '7', t: 'Trải nghiệm bảo tàng', d: 'triển lãm số, giáo dục, cộng đồng — lớp mọi người nhìn thấy', bg: '#F5EDE0', bd: '#C9BC9F' }
+      ],
+      pilot: [
+        { t: '100 hồ sơ chuẩn', d: 'Cấu trúc bằng chứng đầy đủ: nguồn, độ tin cậy, trạng thái thẩm định.' },
+        { t: '100 hồ sơ nguồn gốc', d: 'Lịch sử sở hữu ghi nhận trung thực, kể cả những đoạn còn trống.' },
+        { t: 'Nhiếp ảnh chuẩn nghiên cứu', d: 'Ảnh tổng thể, macro men, đáy và dấu lò cho từng hiện vật.' },
+        { t: '3D chọn lọc', d: 'Mô hình 3D cho nhóm hiện vật tiêu biểu nhất của bộ sưu tập.' },
+        { t: 'Song ngữ VI/EN', d: 'Tiếng Việt chuẩn trước, tiếng Anh biên tập cẩn thận sau.' },
+        { t: 'Trợ lý AI có nguồn', d: 'Demo công khai đầu tiên của nguyên tắc "trả lời kèm bằng chứng".' }
+      ],
+      whynow: [
+        { t: 'Công nghệ số hóa đã chín', d: 'Photogrammetry và lưu trữ 3D đã rẻ và chuẩn hóa đủ cho quy mô 100 hiện vật.' },
+        { t: 'AI cần nền bằng chứng', d: 'Đúng lúc AI bùng nổ là đúng lúc cần nguồn dữ liệu di sản đáng tin để AI đứng lên trên.' },
+        { t: 'Nhu cầu văn hóa trong nước', d: 'Công chúng trẻ Việt Nam đang quay lại với lịch sử — cần điểm đến xứng đáng.' },
+        { t: 'Kiều bào muốn kết nối', d: 'Thế hệ thứ hai, thứ ba tìm về nguồn cội qua kênh số là chính.' },
+        { t: 'Giáo dục cần học liệu', d: 'Trường học thiếu học liệu di sản trực quan, có kiểm chứng, bằng tiếng Việt.' },
+        { t: 'Chuyên gia còn kịp', d: 'Thế hệ nắm tri thức thẩm định sâu nhất vẫn đang hoạt động — cửa sổ này không mở mãi.' }
+      ],
+      decisions: [
+        { t: 'Tên gọi & pháp nhân', d: 'Chốt tên chính thức ("Bảo tàng số Di sản Việt Nam"?) và hình thức pháp lý phù hợp trước khi công bố.' },
+        { t: 'Lời mời chuyên gia sáng lập', d: 'Xác nhận việc mời TS. Phạm Ngọc Dũng và các chuyên gia khác — chỉ đưa tên lên website sau khi có đồng ý bằng văn bản.' },
+        { t: 'Phạm vi thí điểm', d: 'Chốt con số 100 hiện vật, nguồn hiện vật (từ bộ sưu tập nào) và khung thời gian.' },
+        { t: 'Ngân sách giai đoạn 0–1', d: 'Chi phí số hóa, nhân sự hồ sơ và vận hành — trước khi tiếp cận nhà tài trợ.' },
+        { t: 'Chiến lược tiếp cận đối tác', d: 'Thứ tự ưu tiên: chuyên gia → nhà sưu tập → tổ chức → nhà tài trợ.' },
+        { t: 'Nội dung website công khai', d: 'Duyệt từng trang của prototype này; mọi dữ liệu minh họa cần thay bằng dữ liệu thật trước khi mở công khai.' }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Khám phá di sản — Bảo tàng số Di sản Việt Nam</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Be+Vietnam+Pro:wght@300;400;500;600&display=swap" rel="stylesheet">
+<script src="./locales.js"></script>
+<script src="./i18n.js"></script>
+<script src="./artifacts-data.js"></script>
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://unpkg.com/three@0.184.0/build/three.module.js",
+    "three/addons/controls/OrbitControls.js": "https://unpkg.com/three@0.184.0/examples/jsm/controls/OrbitControls.js",
+    "three/addons/exporters/OBJExporter.js": "https://unpkg.com/three@0.184.0/examples/jsm/exporters/OBJExporter.js",
+    "three/addons/exporters/GLTFExporter.js": "https://unpkg.com/three@0.184.0/examples/jsm/exporters/GLTFExporter.js"
+  },
+  "integrity": {
+    "https://unpkg.com/three@0.184.0/build/three.module.js": "sha384-8FCZ1eVO6it4+pbec2aDtnTrwjWXZLJRC+MAGCIPDgsYnUrl/E0A2YlF8ioMKI/J",
+    "https://unpkg.com/three@0.184.0/build/three.core.js": "sha384-dw2ooPewaEIrAgl6oFDBmmBWCE9oW9LxRGcfwZ0hLvEprzo202wXl7vCYHRlSnOT",
+    "https://unpkg.com/three@0.184.0/examples/jsm/controls/OrbitControls.js": "sha384-4rziNxOBZKQ69i+w+f89KJ55TCYquwchVbByQwmaOeIOXdOU2PLDn3kOfXHwIJC9",
+    "https://unpkg.com/three@0.184.0/examples/jsm/exporters/OBJExporter.js": "sha384-nbwtoZENJD3Vq+ACK0CuGQdPMuDWHkamC2KJD70EV5nfg6jQjfppKOea07YJN+N3",
+    "https://unpkg.com/three@0.184.0/examples/jsm/exporters/GLTFExporter.js": "sha384-VofkvpG6HERhFCYbsUOHeNXBCqID2nfqkQqnVzE1jc/oPcz+qJ13ADdXH08hE+cQ"
+  }
+}
+</script>
+<script type="module" src="./artifacts3d.js"></script>
+<style>
+body{margin:0;background:#F5F1E8;-webkit-font-smoothing:antialiased}
+a{color:#8A6E3F;text-decoration:none}
+a:hover{color:#A03D2D}
+@media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important}}
+</style>
+</helmet>
+
+<div style="font-family:'Be Vietnam Pro',sans-serif;color:#2B241C;background:#F5F1E8;min-height:100vh">
+
+<!-- NAV -->
+<div style="position:sticky;top:0;z-index:50;background:rgba(245,241,232,.94);backdrop-filter:blur(10px);border-bottom:1px solid #E3DACA">
+  <div style="max-width:1320px;margin:0 auto;padding:10px 32px;min-height:50px;display:flex;align-items:center;gap:18px 36px;flex-wrap:wrap">
+    <a href="index.dc.html" style="display:flex;align-items:center;gap:12px;flex-shrink:0">
+      <div style="width:34px;height:34px;background:#9E3B2C;display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:22px;color:#F5F1E8;border-radius:2px">V</div>
+      <div>
+        <div style="font-size:14px;font-weight:600;letter-spacing:.12em;color:#2B241C">DI SẢN VIỆT</div>
+        <div style="font-size:10px;letter-spacing:.08em;color:#8A7B67;text-transform:uppercase" data-i18n="brand.sub">Bảo tàng số · bản thử nghiệm</div>
+      </div>
+    </a>
+    <nav style="display:flex;flex-wrap:wrap;gap:8px 22px;font-size:13.5px;margin-left:auto;row-gap:4px">
+      <a href="index.dc.html" style="color:#4A4237;padding:4px 0;white-space:nowrap" data-i18n="nav.home">Trang chủ</a>
+      <a href="kham-pha.dc.html" style="color:#2B241C;font-weight:600;border-bottom:2px solid #8A6E3F;padding:4px 0;white-space:nowrap" data-i18n="nav.explore">Khám phá</a>
+      <a href="bo-suu-tap.dc.html" style="color:#4A4237;padding:4px 0;white-space:nowrap" data-i18n="nav.collection">Bộ sưu tập</a>
+      <a href="trien-lam.dc.html" style="color:#4A4237;padding:4px 0;white-space:nowrap" data-i18n="nav.exhibit">Triển lãm</a>
+      <a href="museum.html" style="color:#9E3B2C;font-weight:600;padding:4px 0;white-space:nowrap" data-i18n="nav.museum">Bảo tàng 3D</a>
+      <a href="tri-thuc.dc.html" style="color:#4A4237;padding:4px 0;white-space:nowrap" data-i18n="nav.knowledge">Tri thức</a>
+      <a href="du-an.dc.html" style="color:#4A4237;padding:4px 0;white-space:nowrap" data-i18n="nav.project">Dự án</a>
+      <a href="tra-cuu-ai.dc.html" style="color:#4A4237;padding:4px 0;white-space:nowrap" data-i18n="nav.ai">Tra cứu AI</a>
+      <a href="dong-hanh.dc.html" style="color:#4A4237;padding:4px 0;white-space:nowrap" data-i18n="nav.join">Đồng hành</a>
+    </nav>
+    <div style="display:flex;font-size:12px;border:1px solid #D8CDBA;border-radius:2px;overflow:hidden;flex-shrink:0">
+      <button data-lang="vi" style="padding:5px 10px;border:none;background:#2B241C;color:#F5F1E8;font-weight:600;font-family:inherit;font-size:12px;cursor:pointer">VI</button>
+      <button data-lang="en" style="padding:5px 10px;border:none;background:transparent;color:#8A7B67;font-family:inherit;font-size:12px;cursor:pointer">EN</button>
+    </div>
+  </div>
+</div>
+
+<!-- HEADER -->
+<section style="border-bottom:1px solid #E3DACA;background:#FBF8F1">
+  <div style="max-width:1320px;margin:0 auto;padding:64px 32px 40px">
+    <div style="font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:#8A6E3F;margin-bottom:16px">Kho hiện vật · Bộ sưu tập thử nghiệm</div>
+    <h1 style="font-family:'Cormorant Garamond',serif;font-weight:500;font-size:clamp(36px,4vw,52px);margin:0 0 16px" data-i18n="explore.title">Khám phá di sản</h1>
+    <p style="font-size:15.5px;color:#6E6355;max-width:660px;line-height:1.75;margin:0 0 10px">Danh mục hiện vật của bộ sưu tập thí điểm. Mỗi hồ sơ ghi rõ tình trạng dữ liệu và mức độ xác nhận — thông tin chưa kiểm chứng không bao giờ được trình bày như kết luận.</p>
+    <div style="display:inline-flex;align-items:center;gap:8px;font-size:12px;color:#A03D2D;border:1px solid rgba(160,61,45,.3);padding:6px 12px;border-radius:2px;background:rgba(160,61,45,.04)">Toàn bộ 12 hồ sơ dưới đây là dữ liệu minh họa (demo) phục vụ trình bày prototype.</div>
+  </div>
+</section>
+
+<!-- FILTERS + GRID -->
+<section style="max-width:1320px;margin:0 auto;padding:36px 32px 110px">
+  <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:30px;flex-wrap:wrap;margin-bottom:34px">
+    <div style="display:flex;flex-direction:column;gap:14px">
+      <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+        <span style="font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#8A7B67;width:110px">Thời kỳ</span>
+        <sc-for list="{{ periodChips }}" as="f" hint-placeholder-count="5">
+          <button onClick="{{ f.on }}" style="font-family:inherit;font-size:12.5px;cursor:pointer;border-radius:2px;padding:6px 14px;border:1px solid {{ f.bd }};background:{{ f.bg }};color:{{ f.cl }}">{{ f.label }}</button>
+        </sc-for>
+      </div>
+      <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+        <span style="font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#8A7B67;width:110px">Loại hình</span>
+        <sc-for list="{{ typeChips }}" as="f" hint-placeholder-count="6">
+          <button onClick="{{ f.on }}" style="font-family:inherit;font-size:12.5px;cursor:pointer;border-radius:2px;padding:6px 14px;border:1px solid {{ f.bd }};background:{{ f.bg }};color:{{ f.cl }}">{{ f.label }}</button>
+        </sc-for>
+      </div>
+      <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+        <span style="font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#8A7B67;width:110px">Mức xác nhận</span>
+        <sc-for list="{{ statusChips }}" as="f" hint-placeholder-count="4">
+          <button onClick="{{ f.on }}" style="font-family:inherit;font-size:12.5px;cursor:pointer;border-radius:2px;padding:6px 14px;border:1px solid {{ f.bd }};background:{{ f.bg }};color:{{ f.cl }}">{{ f.label }}</button>
+        </sc-for>
+      </div>
+    </div>
+    <div style="display:flex;gap:2px;border:1px solid #D8CDBA;border-radius:2px;overflow:hidden;font-size:12.5px">
+      <span style="padding:8px 18px;background:#2B241C;color:#F5F1E8;font-weight:600">Thư viện</span>
+      <span style="padding:8px 18px;color:#B0A48F" title="Giai đoạn sau">Dòng thời gian</span>
+      <span style="padding:8px 18px;color:#B0A48F" title="Giai đoạn sau">Bản đồ</span>
+    </div>
+  </div>
+
+  <div style="font-size:13px;color:#8A7B67;margin-bottom:22px">{{ countLabel }}</div>
+
+  <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:22px">
+    <sc-for list="{{ filtered }}" as="a" hint-placeholder-count="12">
+      <div role="button" tabIndex="0" onClick="{{ a.openM }}" style="display:block;background:#FBF8F1;border:1px solid #E3DACA;border-radius:4px;overflow:hidden;color:#2B241C;cursor:pointer" style-hover="border-color:#8A6E3F;transform:translateY(-2px)">
+        <div style="position:relative;height:230px;background:linear-gradient(170deg,#F0EBDF, #E9E1CF);display:flex;align-items:center;justify-content:center">
+          <div style="position:absolute;top:12px;left:12px;font-size:9.5px;letter-spacing:.13em;text-transform:uppercase;color:#A03D2D;border:1px solid rgba(160,61,45,.35);padding:3px 7px;border-radius:2px;background:rgba(251,248,241,.8)">Hồ sơ minh họa</div>
+          <img data-art-thumb="{{ a.id }}" alt="{{ a.title }}" style="height:195px;width:auto;opacity:0;transition:opacity .8s ease, transform .7s ease" style-hover="transform:perspective(700px) rotate3d(0,1,0,16deg) scale(1.05)">
+          <div style="position:absolute;bottom:12px;right:14px;font-size:10.5px;letter-spacing:.1em;color:#8A7B67">{{ a.id }}</div>
+        </div>
+        <div style="padding:20px 22px 24px">
+          <div style="font-family:'Cormorant Garamond',serif;font-size:22px;line-height:1.25;margin-bottom:6px">{{ a.title }}</div>
+          <div style="font-size:12.5px;color:#6E6355;margin-bottom:8px">{{ a.dating }}</div>
+          <div style="font-size:12.5px;color:#8A6E3F;font-weight:600;margin-bottom:13px">{{ a.price }} <span style="font-weight:400;color:#B0A48F">· giá tham khảo demo</span></div>
+          <div style="display:flex;flex-wrap:wrap;gap:6px;font-size:11px">
+            <span style="background:#EFE9DC;border:1px solid #E3DACA;padding:3px 9px;border-radius:2px;color:#4A4237">{{ a.type }}</span>
+            <span style="background:#EFE9DC;border:1px solid #E3DACA;padding:3px 9px;border-radius:2px;color:#4A4237">{{ a.material }}</span>
+            <span style="border:1px solid {{ a.stBd }};color:{{ a.stCl }};padding:3px 9px;border-radius:2px">{{ a.stIcon }} {{ a.status }}</span>
+          </div>
+        </div>
+      </div>
+    </sc-for>
+  </div>
+</section>
+
+<footer style="background:#201914;color:#8A7B67;padding:32px;text-align:center;font-size:12px">
+  <div style="max-width:900px;margin:0 auto;line-height:1.7">Bản prototype — dự án do nhóm sáng lập tư nhân khởi xướng, không phải bảo tàng quốc gia. Toàn bộ hồ sơ hiện vật trên trang này là dữ liệu minh họa (is_demo). · <a href="index.dc.html" style="color:#B8AB97">Trang chủ</a> · <a href="du-an.dc.html" style="color:#B8AB97">Về dự án</a></div>
+</footer>
+</div>
+
+<template id="__bundler_thumbnail"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><rect width="200" height="200" fill="#201914"></rect><path d="M78,64 C80,84 88,98 100,102 L100,112 L92,112 L92,120 L108,120 L108,112 L100,112 M100,102 C112,98 120,84 122,64 C112,70 88,70 78,64 Z" fill="#8fae9c"></path><text x="100" y="152" text-anchor="middle" font-family="Georgia,serif" font-size="17" fill="#e8dfce">DI SẢN VIỆT</text></svg></template></x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { period: 'Tất cả', type: 'Tất cả', status: 'Tất cả' };
+  componentDidMount() { const p = () => { window.DS_ARTIFACTS ? this.forceUpdate() : setTimeout(p, 150); }; p(); }
+  data() {
+    const P = {
+      jar: 'M78,26 L122,26 L118,40 C118,48 124,54 138,64 C156,77 164,96 164,118 C164,160 148,196 136,218 C132,226 130,232 130,238 L70,238 C70,232 68,226 64,218 C52,196 36,160 36,118 C36,96 44,77 62,64 C76,54 82,48 82,40 Z',
+      bowl: 'M28,96 C30,146 62,178 100,178 C138,178 170,146 172,96 C140,110 60,110 28,96 Z M84,176 L116,176 L121,194 L79,194 Z',
+      plate: 'M20,118 C26,156 60,178 100,178 C140,178 174,156 180,118 C146,134 54,134 20,118 Z M82,176 L118,176 L124,194 L76,194 Z',
+      am: 'M85,50 L115,50 L112,66 C132,76 150,98 150,138 C150,182 132,210 118,220 L82,220 C68,210 50,182 50,138 C50,98 68,76 88,66 Z',
+      amSpout: 'M52,110 L26,84 L34,78 L58,98 Z M148,110 C168,100 176,120 168,140 L160,136 C166,124 160,114 146,118 Z',
+      tuong: 'M82,74 C82,58 118,58 118,74 L130,196 C130,212 70,212 70,196 Z',
+      tuongHead: 'M100,26 a22,22 0 1,0 0.1,0 Z M78,208 L122,208 L128,226 L72,226 Z',
+      lu: 'M50,112 C50,82 150,82 150,112 C150,152 130,178 100,178 C70,178 50,152 50,112 Z',
+      luLegs: 'M72,175 L64,204 L80,204 Z M128,175 L136,204 L120,204 Z M56,96 L44,68 L62,74 Z M144,96 L156,68 L138,74 Z'
+    };
+    const st = {
+      d: { status: 'Đã số hóa', stIcon: '●', stCl: '#55705F', stBd: 'rgba(85,112,95,.4)' },
+      t: { status: 'Đang thẩm định', stIcon: '◐', stCl: '#8A6E3F', stBd: 'rgba(138,110,63,.4)' },
+      c: { status: 'Chưa kiểm chứng', stIcon: '○', stCl: '#8A7B67', stBd: '#D8CDBA' }
+    };
+    const mk = (id, title, type, material, period, dating, shape, s) => Object.assign({
+      is_demo: true, id, title, type, material, period,
+      dating: dating + ' — dữ liệu minh họa',
+      path: P[shape], path2: '', fill: '#93AC9B', fill2: '#93AC9B'
+    }, s);
+    const A = [
+      mk('DS-001', 'Bình gốm men ngọc, băng cánh sen', 'Bình', 'Gốm men ngọc', 'Trần', 'Khoảng thế kỷ XIII–XIV', 'jar', st.t),
+      mk('DS-002', 'Bát men trắng ngà, lòng ve', 'Bát', 'Gốm men trắng', 'Lý', 'Khoảng thế kỷ XI–XII', 'bowl', st.d),
+      mk('DS-003', 'Đĩa hoa lam, đề tài phong cảnh', 'Đĩa', 'Gốm hoa lam', 'Lê sơ', 'Khoảng thế kỷ XV', 'plate', st.t),
+      mk('DS-004', 'Ấm men nâu, quai chạm nổi', 'Ấm', 'Gốm men nâu', 'Trần', 'Khoảng thế kỷ XIII–XIV', 'am', st.c),
+      mk('DS-005', 'Tượng nghê đất nung', 'Tượng', 'Đất nung', 'Lê Trung Hưng', 'Khoảng thế kỷ XVII', 'tuong', st.c),
+      mk('DS-006', 'Lư hương sành, tai rồng cách điệu', 'Đồ thờ', 'Sành', 'Mạc', 'Khoảng thế kỷ XVI', 'lu', st.t),
+      mk('DS-007', 'Bát men ngọc khắc chìm hoa dây', 'Bát', 'Gốm men ngọc', 'Lý', 'Khoảng thế kỷ XII', 'bowl', st.d),
+      mk('DS-008', 'Bình vôi men trắng vẽ nâu', 'Đồ gia dụng', 'Gốm men trắng', 'Lê sơ', 'Khoảng thế kỷ XV', 'jar', st.c),
+      mk('DS-009', 'Đĩa men ngọc, dấu con kê', 'Đĩa', 'Gốm men ngọc', 'Trần', 'Khoảng thế kỷ XIII–XIV', 'plate', st.d),
+      mk('DS-010', 'Ấm hoa lam, nắp núm sen', 'Ấm', 'Gốm hoa lam', 'Lê sơ', 'Khoảng thế kỷ XV', 'am', st.t),
+      mk('DS-011', 'Chân đèn sành nâu', 'Đồ thờ', 'Sành', 'Mạc', 'Khoảng thế kỷ XVI', 'lu', st.c),
+      mk('DS-012', 'Vò sành miệng loe, vai đắp nổi', 'Đồ gia dụng', 'Sành', 'Nguyễn', 'Khoảng thế kỷ XIX', 'jar', st.c)
+    ];
+    const fills = { 'Gốm men ngọc': '#93AC9B', 'Gốm men trắng': '#D9D2BE', 'Gốm hoa lam': '#B9C4CE', 'Gốm men nâu': '#8A6E3F', 'Đất nung': '#A9764C', 'Sành': '#6E5B44' };
+    A.forEach(a => {
+      a.fill = fills[a.material]; a.fill2 = a.fill;
+      if (a.path === P.am) a.path2 = P.amSpout;
+      if (a.path === P.tuong) a.path2 = P.tuongHead;
+      if (a.path === P.lu) a.path2 = P.luLegs;
+    });
+    return A;
+  }
+  chips(values, key) {
+    return ['Tất cả'].concat(values).map(v => {
+      const active = this.state[key] === v;
+      return {
+        label: v,
+        bg: active ? '#2B241C' : '#FBF8F1',
+        cl: active ? '#F5F1E8' : '#4A4237',
+        bd: active ? '#2B241C' : '#D8CDBA',
+        on: () => this.setState({ [key]: v })
+      };
+    });
+  }
+  renderVals() {
+    const W = window.DS_ARTIFACTS || [];
+    const all = this.data().map(a => { const w = W.find(x => x.id === a.id) || {}; Object.assign(a, { price: w.price, title: w.title || a.title }); a.openM = () => window.__artifacts && window.__artifacts.open(a.id); return a; });
+    const s = this.state;
+    const filtered = all.filter(a =>
+      (s.period === 'Tất cả' || a.period === s.period) &&
+      (s.type === 'Tất cả' || a.type === s.type) &&
+      (s.status === 'Tất cả' || a.status === s.status));
+    return {
+      periodChips: this.chips(['Lý', 'Trần', 'Lê sơ', 'Mạc', 'Lê Trung Hưng', 'Nguyễn'], 'period'),
+      typeChips: this.chips(['Bình', 'Bát', 'Đĩa', 'Ấm', 'Tượng', 'Đồ thờ', 'Đồ gia dụng'], 'type'),
+      statusChips: this.chips(['Đã số hóa', 'Đang thẩm định', 'Chưa kiểm chứng'], 'status'),
+      filtered,
+      countLabel: filtered.length + ' / ' + all.length + ' hồ sơ minh họa'
+    };
+  }
+}
+</script>
+</body>
+</html>

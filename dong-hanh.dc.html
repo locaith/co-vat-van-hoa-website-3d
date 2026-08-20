@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Đồng hành — Bảo tàng số Di sản Việt Nam</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Be+Vietnam+Pro:wght@300;400;500;600&display=swap" rel="stylesheet">
+<script src="./locales.js"></script>
+<script src="./i18n.js"></script>
+<style>
+body{margin:0;background:#F5F1E8;-webkit-font-smoothing:antialiased}
+a{color:#8A6E3F;text-decoration:none}
+a:hover{color:#A03D2D}
+input,select,textarea{font-family:'Be Vietnam Pro',sans-serif}
+input:focus,select:focus,textarea:focus{outline:2px solid #8A6E3F;outline-offset:1px}
+@media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important}}
+</style>
+</helmet>
+
+<div style="font-family:'Be Vietnam Pro',sans-serif;color:#2B241C;background:#F5F1E8">
+
+<!-- NAV -->
+<div style="position:sticky;top:0;z-index:50;background:rgba(245,241,232,.94);backdrop-filter:blur(10px);border-bottom:1px solid #E3DACA">
+  <div style="max-width:1320px;margin:0 auto;padding:10px 32px;min-height:50px;display:flex;align-items:center;gap:18px 36px;flex-wrap:wrap">
+    <a href="index.dc.html" style="display:flex;align-items:center;gap:12px;flex-shrink:0">
+      <div style="width:34px;height:34px;background:#9E3B2C;display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:22px;color:#F5F1E8;border-radius:2px">V</div>
+      <div>
+        <div style="font-size:14px;font-weight:600;letter-spacing:.12em;color:#2B241C">DI SẢN VIỆT</div>
+        <div style="font-size:10px;letter-spacing:.08em;color:#8A7B67;text-transform:uppercase" data-i18n="brand.sub">Bảo tàng số · bản thử nghiệm</div>
+      </div>
+    </a>
+    <nav style="display:flex;flex-wrap:wrap;gap:8px 22px;font-size:13.5px;margin-left:auto;row-gap:4px">
+      <a href="index.dc.html" style="color:#4A4237;padding:4px 0;white-space:nowrap" data-i18n="nav.home">Trang chủ</a>
+      <a href="kham-pha.dc.html" style="color:#4A4237;padding:4px 0;white-space:nowrap" data-i18n="nav.explore">Khám phá</a>
+      <a href="bo-suu-tap.dc.html" style="color:#4A4237;padding:4px 0;white-space:nowrap" data-i18n="nav.collection">Bộ sưu tập</a>
+      <a href="trien-lam.dc.html" style="color:#4A4237;padding:4px 0;white-space:nowrap" data-i18n="nav.exhibit">Triển lãm</a>
+      <a href="museum.html" style="color:#9E3B2C;font-weight:600;padding:4px 0;white-space:nowrap" data-i18n="nav.museum">Bảo tàng 3D</a>
+      <a href="tri-thuc.dc.html" style="color:#4A4237;padding:4px 0;white-space:nowrap" data-i18n="nav.knowledge">Tri thức</a>
+      <a href="du-an.dc.html" style="color:#4A4237;padding:4px 0;white-space:nowrap" data-i18n="nav.project">Dự án</a>
+      <a href="tra-cuu-ai.dc.html" style="color:#4A4237;padding:4px 0;white-space:nowrap" data-i18n="nav.ai">Tra cứu AI</a>
+      <a href="dong-hanh.dc.html" style="color:#2B241C;font-weight:600;border-bottom:2px solid #8A6E3F;padding:4px 0;white-space:nowrap" data-i18n="nav.join">Đồng hành</a>
+    </nav>
+    <div style="display:flex;font-size:12px;border:1px solid #D8CDBA;border-radius:2px;overflow:hidden;flex-shrink:0">
+      <button data-lang="vi" style="padding:5px 10px;border:none;background:#2B241C;color:#F5F1E8;font-weight:600;font-family:inherit;font-size:12px;cursor:pointer">VI</button>
+      <button data-lang="en" style="padding:5px 10px;border:none;background:transparent;color:#8A7B67;font-family:inherit;font-size:12px;cursor:pointer">EN</button>
+    </div>
+  </div>
+</div>
+
+<!-- HEADER -->
+<section style="background:#201914;padding:100px 32px 80px;position:relative;overflow:hidden">
+  <div style="position:absolute;inset:0;background:radial-gradient(ellipse 55% 55% at 70% 40%, rgba(169,142,75,.16), transparent 70%)"></div>
+  <div style="max-width:1100px;margin:0 auto;position:relative">
+    <div style="font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:#A98E4B;margin-bottom:18px">Đồng hành</div>
+    <h1 style="font-family:'Cormorant Garamond',serif;font-weight:500;font-size:clamp(40px,4.8vw,64px);line-height:1.12;color:#F0EADC;margin:0 0 22px;max-width:760px">Đồng hành để di sản được tiếp tục sống.</h1>
+    <p style="font-size:16px;line-height:1.8;color:#B8AB97;max-width:620px;margin:0">Dự án dự kiến phát triển theo từng giai đoạn, với cơ chế tài trợ, hợp tác và đầu tư phù hợp theo từng cấu phần. Trang này dành cho những người muốn cùng đặt các viên gạch đầu tiên.</p>
+    <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:32px;font-size:12.5px">
+      <a href="#suu-tap" style="border:1px solid rgba(184,171,151,.35);color:#E8DFCE;padding:8px 18px;border-radius:2px">Nhà sưu tập</a>
+      <a href="#to-chuc" style="border:1px solid rgba(184,171,151,.35);color:#E8DFCE;padding:8px 18px;border-radius:2px">Tổ chức</a>
+      <a href="#tai-tro" style="border:1px solid rgba(184,171,151,.35);color:#E8DFCE;padding:8px 18px;border-radius:2px">Tài trợ &amp; đầu tư</a>
+      <a href="#lien-he" style="background:#8A6E3F;color:#F5F1E8;padding:8px 18px;border-radius:2px;font-weight:600">Liên hệ</a>
+    </div>
+  </div>
+</section>
+
+<!-- COLLECTORS -->
+<section id="suu-tap" style="max-width:1100px;margin:0 auto;padding:100px 32px">
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(330px,1fr));gap:50px;align-items:start">
+    <div>
+      <div style="font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:#8A6E3F;margin-bottom:16px">Dành cho nhà sưu tập</div>
+      <h2 style="font-family:'Cormorant Garamond',serif;font-weight:500;font-size:clamp(30px,3.4vw,42px);line-height:1.2;margin:0 0 20px">Số hóa không có nghĩa là mất kiểm soát.</h2>
+      <p style="font-size:15.5px;line-height:1.8;color:#6E6355;margin:0 0 20px">Nhiều hiện vật quý nhất của di sản Việt đang nằm trong các bộ sưu tập tư nhân. Dự án được thiết kế để nhà sưu tập <strong style="color:#2B241C">giữ toàn quyền sở hữu và quyền quyết định mức độ công khai</strong> — hệ thống chỉ giúp hiện vật của bạn có một hồ sơ khoa học xứng đáng.</p>
+      <div style="display:flex;flex-direction:column;gap:12px;font-size:14.5px;color:#4A4237">
+        <div style="display:flex;gap:11px"><span style="color:#8A6E3F">—</span>Số hóa chất lượng cao và lập hồ sơ nghiên cứu chuẩn mực</div>
+        <div style="display:flex;gap:11px"><span style="color:#8A6E3F">—</span>Bảo tồn 3D — phòng khi hiện vật hư hại, thất lạc</div>
+        <div style="display:flex;gap:11px"><span style="color:#8A6E3F">—</span>Kết nối thẩm định chuyên gia, tăng giá trị học thuật của bộ sưu tập</div>
+        <div style="display:flex;gap:11px"><span style="color:#8A6E3F">—</span>Di sản gia đình được ghi danh và trao truyền có hệ thống</div>
+        <div style="display:flex;gap:11px"><span style="color:#8A6E3F">—</span>Quyền và danh tính có thể ẩn danh theo yêu cầu</div>
+      </div>
+    </div>
+    <div>
+      <div style="font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#8A7B67;margin-bottom:14px">Bốn mức công khai — bạn chọn, bạn đổi được bất kỳ lúc nào</div>
+      <div style="display:flex;flex-direction:column;gap:12px">
+        <sc-for list="{{ privacy }}" as="p" hint-placeholder-count="4">
+          <div style="border:1px solid #E3DACA;background:#FBF8F1;border-radius:4px;padding:20px 22px;display:flex;gap:16px;align-items:flex-start">
+            <div style="width:34px;height:34px;border-radius:50%;border:1.5px solid {{ p.ring }};background:{{ p.fillc }};flex-shrink:0"></div>
+            <div>
+              <div style="font-size:15px;font-weight:600;margin-bottom:4px">{{ p.t }}</div>
+              <div style="font-size:13px;line-height:1.65;color:#6E6355">{{ p.d }}</div>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section style="max-width:1100px;margin:0 auto;padding:0 32px 100px">
+  <div style="border:1px solid #E3DACA;background:#FBF8F1;border-radius:4px;padding:36px 40px">
+    <div style="font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:#8A6E3F;margin-bottom:24px">Những câu hỏi nhà sưu tập sẽ hỏi — trả lời thẳng</div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:26px 44px">
+      <div><div style="font-size:15px;font-weight:600;margin-bottom:6px">Dữ liệu hồ sơ thuộc về ai?</div><div style="font-size:13.5px;line-height:1.7;color:#6E6355">Về bạn. Bạn có quyền tải về, đổi mức công khai hoặc yêu cầu gỡ hồ sơ bất kỳ lúc nào — nguyên tắc này sẽ được ghi trong thỏa thuận số hóa.</div></div>
+      <div><div style="font-size:15px;font-weight:600;margin-bottom:6px">Danh tính và nơi lưu giữ có bị lộ?</div><div style="font-size:13.5px;line-height:1.7;color:#6E6355">Không, trừ khi bạn chọn công khai. Mặc định hệ thống ẩn danh tính chủ sở hữu và không hiển thị vị trí lưu giữ hiện vật.</div></div>
+      <div><div style="font-size:15px;font-weight:600;margin-bottom:6px">Nền tảng có định giá hay môi giới mua bán?</div><div style="font-size:13.5px;line-height:1.7;color:#6E6355">Không. Hệ thống lập hồ sơ khoa học — không định giá thương mại, không tham gia giao dịch cổ vật.</div></div>
+      <div><div style="font-size:15px;font-weight:600;margin-bottom:6px">Hồ sơ ghi "chưa kiểm chứng" — hiện vật của tôi bị hạ thấp?</div><div style="font-size:13.5px;line-height:1.7;color:#6E6355">Không. Trạng thái đó mô tả mức hoàn thiện của hồ sơ dữ liệu, không phán xét hiện vật. Hồ sơ càng được thẩm định sâu, giá trị học thuật của bộ sưu tập càng tăng.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- INSTITUTIONS -->
+<section id="to-chuc" style="background:#EFE9DC;border-top:1px solid #E3DACA;border-bottom:1px solid #E3DACA;padding:100px 32px">
+  <div style="max-width:1100px;margin:0 auto">
+    <div style="max-width:640px;margin-bottom:50px">
+      <div style="font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:#8A6E3F;margin-bottom:16px">Dành cho tổ chức</div>
+      <h2 style="font-family:'Cormorant Garamond',serif;font-weight:500;font-size:clamp(30px,3.4vw,42px);line-height:1.2;margin:0 0 18px">Bảo tàng, đại học, thư viện, trường học.</h2>
+      <p style="font-size:15.5px;line-height:1.8;color:#6E6355;margin:0">Dự án chưa có đối tác tổ chức nào — và sẽ không nêu tên bất kỳ đơn vị nào trước khi có thỏa thuận thực. Dưới đây là những gì nền tảng dự kiến mang lại cho các tổ chức tham gia sớm.</p>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:20px">
+      <sc-for list="{{ services }}" as="s" hint-placeholder-count="6">
+        <div style="background:#FBF8F1;border:1px solid #E3DACA;border-radius:4px;padding:26px">
+          <div style="font-size:15px;font-weight:600;margin-bottom:8px">{{ s.t }}</div>
+          <div style="font-size:13.5px;line-height:1.7;color:#6E6355">{{ s.d }}</div>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+</section>
+
+<!-- FUNDING -->
+<section id="tai-tro" style="max-width:1100px;margin:0 auto;padding:100px 32px">
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(330px,1fr));gap:50px;align-items:start">
+    <div>
+      <div style="font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:#8A6E3F;margin-bottom:16px">Tài trợ &amp; đầu tư</div>
+      <h2 style="font-family:'Cormorant Garamond',serif;font-weight:500;font-size:clamp(30px,3.4vw,42px);line-height:1.2;margin:0 0 20px">Tài trợ một hạ tầng, không phải một chiến dịch.</h2>
+      <p style="font-size:15.5px;line-height:1.8;color:#6E6355;margin:0 0 16px">Nguồn lực được gắn với từng cấu phần cụ thể — số hóa, hồ sơ bằng chứng, nền tảng, giáo dục — với tiến độ minh bạch theo giai đoạn. Không gọi vốn cho lời hứa; gọi vốn cho sản phẩm kiểm chứng được ở từng bước.</p>
+      <p style="font-size:14px;line-height:1.75;color:#8A7B67;margin:0">Cơ chế tài chính tương lai có thể kết hợp: tài trợ (grants), bảo trợ doanh nghiệp, hiến tặng cá nhân, tham gia cộng đồng, hợp tác văn hóa, doanh thu dịch vụ và đầu tư tác động.</p>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:12px">
+      <div style="font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#8A7B67;margin-bottom:2px">Các nhóm đồng hành</div>
+      <sc-for list="{{ partners }}" as="pt" hint-placeholder-count="7">
+        <div style="border:1px solid #E3DACA;background:#FBF8F1;border-radius:3px;padding:15px 20px;display:flex;justify-content:space-between;align-items:center">
+          <span style="font-size:14.5px;font-weight:500">{{ pt.t }}</span>
+          <span style="font-size:12px;color:#8A7B67">{{ pt.d }}</span>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+</section>
+
+<section style="max-width:1100px;margin:0 auto;padding:0 32px 100px">
+  <div style="font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:#8A6E3F;margin-bottom:18px">Tài trợ theo cấu phần — mỗi đồng gắn với một đầu ra kiểm chứng được</div>
+  <div style="border:1px solid #E3DACA;border-radius:4px;overflow:hidden">
+    <div style="display:grid;grid-template-columns:1.2fr 1.4fr 1fr;background:#2B241C;color:#F0EADC;font-size:11px;letter-spacing:.12em;text-transform:uppercase"><div style="padding:12px 20px">Cấu phần</div><div style="padding:12px 20px">Sản phẩm đầu ra</div><div style="padding:12px 20px">Trạng thái</div></div>
+    <div style="display:grid;grid-template-columns:1.2fr 1.4fr 1fr;background:#FBF8F1;border-top:1px solid #E3DACA;font-size:13.5px"><div style="padding:14px 20px;font-weight:600">Số hóa &amp; nhiếp ảnh chuẩn</div><div style="padding:14px 20px;color:#6E6355">100 bộ ảnh nghiên cứu + mô hình 3D chọn lọc</div><div style="padding:14px 20px;color:#8A6E3F">Chờ tài trợ giai đoạn 1</div></div>
+    <div style="display:grid;grid-template-columns:1.2fr 1.4fr 1fr;background:#FBF8F1;border-top:1px solid #E3DACA;font-size:13.5px"><div style="padding:14px 20px;font-weight:600">Hồ sơ bằng chứng</div><div style="padding:14px 20px;color:#6E6355">100 hồ sơ nguồn — thẩm định có lịch sử sửa đổi</div><div style="padding:14px 20px;color:#8A6E3F">Chờ tài trợ giai đoạn 1</div></div>
+    <div style="display:grid;grid-template-columns:1.2fr 1.4fr 1fr;background:#FBF8F1;border-top:1px solid #E3DACA;font-size:13.5px"><div style="padding:14px 20px;font-weight:600">Ghi lại tri thức chuyên gia</div><div style="padding:14px 20px;color:#6E6355">Phỏng vấn, chú giải, ghi âm có bản quyền rõ ràng</div><div style="padding:14px 20px;color:#55705F">Thiết kế quy trình (giai đoạn 0)</div></div>
+    <div style="display:grid;grid-template-columns:1.2fr 1.4fr 1fr;background:#FBF8F1;border-top:1px solid #E3DACA;font-size:13.5px"><div style="padding:14px 20px;font-weight:600">Nền tảng &amp; lưu trữ dài hạn</div><div style="padding:14px 20px;color:#6E6355">Hạ tầng dữ liệu mở, sao lưu bền vững</div><div style="padding:14px 20px;color:#55705F">Thiết kế kiến trúc (giai đoạn 0)</div></div>
+    <div style="display:grid;grid-template-columns:1.2fr 1.4fr 1fr;background:#FBF8F1;border-top:1px solid #E3DACA;font-size:13.5px"><div style="padding:14px 20px;font-weight:600">Giáo dục &amp; song ngữ</div><div style="padding:14px 20px;color:#6E6355">Học liệu VI/EN cho trường học</div><div style="padding:14px 20px;color:#8A7B67">Sau thí điểm</div></div>
+  </div>
+  <p style="font-size:12.5px;color:#8A7B67;margin:14px 0 0;line-height:1.7">Ngân sách chi tiết được chia sẻ trực tiếp với nhà tài trợ quan tâm sau khi pháp nhân hoàn tất — không công bố con số trên bản prototype.</p>
+</section>
+
+<!-- CONTACT -->
+<section id="lien-he" style="background:#201914;padding:100px 32px">
+  <div style="max-width:760px;margin:0 auto">
+    <div style="text-align:center;margin-bottom:44px">
+      <div style="font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:#A98E4B;margin-bottom:14px">Liên hệ</div>
+      <h2 style="font-family:'Cormorant Garamond',serif;font-weight:500;font-size:clamp(30px,3.4vw,42px);color:#F0EADC;margin:0 0 12px">Cùng xây dựng kho tri thức di sản Việt Nam.</h2>
+      <p style="font-size:14px;color:#8A7B67;margin:0">Biểu mẫu prototype — chưa gửi dữ liệu thật.</p>
+      <p style="font-size:12.5px;color:#8A7B67;margin:8px 0 0;line-height:1.7">Kênh liên hệ chính thức và pháp nhân nhận tài trợ sẽ công bố sau khi hoàn tất thủ tục — trước thời điểm đó, dự án không nhận đóng góp tài chính.</p>
+    </div>
+    <sc-if value="{{ notSent }}" hint-placeholder-val="{{ true }}">
+      <div style="background:#F5F1E8;border-radius:4px;padding:36px;display:flex;flex-direction:column;gap:18px">
+        <div>
+          <label for="role" style="display:block;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#8A7B67;margin-bottom:8px">Tôi là</label>
+          <select id="role" value="{{ role }}" onChange="{{ setRole }}" style="width:100%;padding:13px 14px;font-size:14.5px;border:1px solid #D8CDBA;border-radius:3px;background:#FBF8F1;color:#2B241C">
+            <option>Chuyên gia / nhà nghiên cứu</option>
+            <option>Nhà sưu tập</option>
+            <option>Bảo tàng / tổ chức văn hóa</option>
+            <option>Trường học / đại học</option>
+            <option>Nhà tài trợ / nhà đầu tư</option>
+            <option>Đối tác công nghệ</option>
+            <option>Cộng đồng / kiều bào</option>
+            <option>Khác</option>
+          </select>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px">
+          <div>
+            <label for="name" style="display:block;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#8A7B67;margin-bottom:8px">Họ tên</label>
+            <input id="name" type="text" placeholder="Nguyễn Văn A" style="width:100%;box-sizing:border-box;padding:13px 14px;font-size:14.5px;border:1px solid #D8CDBA;border-radius:3px;background:#FBF8F1;color:#2B241C">
+          </div>
+          <div>
+            <label for="email" style="display:block;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#8A7B67;margin-bottom:8px">Email</label>
+            <input id="email" type="email" placeholder="ban@example.com" style="width:100%;box-sizing:border-box;padding:13px 14px;font-size:14.5px;border:1px solid #D8CDBA;border-radius:3px;background:#FBF8F1;color:#2B241C">
+          </div>
+        </div>
+        <div>
+          <label for="msg" style="display:block;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#8A7B67;margin-bottom:8px">{{ msgLabel }}</label>
+          <textarea id="msg" rows="5" placeholder="{{ msgPlaceholder }}" style="width:100%;box-sizing:border-box;padding:13px 14px;font-size:14.5px;border:1px solid #D8CDBA;border-radius:3px;background:#FBF8F1;color:#2B241C;resize:vertical"></textarea>
+        </div>
+        <button onClick="{{ submit }}" style="background:#8A6E3F;color:#F5F1E8;border:none;padding:15px;font-family:inherit;font-size:14.5px;font-weight:600;letter-spacing:.04em;border-radius:3px;cursor:pointer">Gửi lời nhắn</button>
+      </div>
+    </sc-if>
+    <sc-if value="{{ sent }}" hint-placeholder-val="{{ false }}">
+      <div style="background:#F5F1E8;border-radius:4px;padding:56px 36px;text-align:center">
+        <div style="font-family:'Cormorant Garamond',serif;font-size:30px;color:#2B241C;margin-bottom:12px">Cảm ơn bạn.</div>
+        <p style="font-size:14.5px;color:#6E6355;line-height:1.75;margin:0 0 24px">Đây là bản prototype nên lời nhắn chưa được gửi đi thật. Trong phiên bản chính thức, đội ngũ dự án sẽ phản hồi trong 5–7 ngày làm việc.</p>
+        <button onClick="{{ reset }}" style="background:none;border:1px solid #C9BC9F;color:#8A6E3F;padding:10px 22px;font-family:inherit;font-size:13px;border-radius:3px;cursor:pointer">Viết lời nhắn khác</button>
+      </div>
+    </sc-if>
+  </div>
+</section>
+
+<footer style="background:#0F0C0A;color:#6E6355;padding:28px;text-align:center;font-size:12px">Dự án khởi xướng tư nhân — chưa có đối tác, nhà tài trợ hay hội đồng nào được xác nhận; mọi danh mục trên trang mô tả định hướng hợp tác. · <a href="index.dc.html" style="color:#B8AB97">Trang chủ</a></footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { role: 'Chuyên gia / nhà nghiên cứu', sent: false };
+  renderVals() {
+    const msgByRole = {
+      'Chuyên gia / nhà nghiên cứu': ['Lĩnh vực chuyên môn của bạn', 'VD: Tôi nghiên cứu gốm thương mại thế kỷ XV...'],
+      'Nhà sưu tập': ['Đôi nét về bộ sưu tập (không bắt buộc nêu chi tiết)', 'VD: Tôi có nhóm hiện vật gốm gia truyền, muốn tìm hiểu việc lập hồ sơ...'],
+      'Nhà tài trợ / nhà đầu tư': ['Mối quan tâm của bạn', 'VD: Tôi quan tâm tới cấu phần số hóa của giai đoạn thí điểm...'],
+    };
+    const m = msgByRole[this.state.role] || ['Lời nhắn', 'Bạn muốn đồng hành cùng dự án như thế nào?'];
+    return {
+      privacy: [
+        { t: 'Riêng tư', d: 'Chỉ bạn và nhóm hồ sơ được xem. Hiện vật vô hình với mọi người khác.', ring: '#2B241C', fillc: '#2B241C' },
+        { t: 'Chỉ nghiên cứu', d: 'Nhà nghiên cứu được cấp quyền xem hồ sơ; công chúng không thấy.', ring: '#8A6E3F', fillc: 'linear-gradient(135deg,#8A6E3F 50%,transparent 50%)' },
+        { t: 'Công khai giới hạn', d: 'Công chúng xem ảnh và mô tả cơ bản; nguồn gốc và danh tính chủ sở hữu được ẩn.', ring: '#8A6E3F', fillc: 'linear-gradient(135deg,#C9BC9F 50%,#FBF8F1 50%)' },
+        { t: 'Công khai', d: 'Hồ sơ đầy đủ (trừ thông tin bạn giữ riêng) phục vụ giáo dục và nghiên cứu.', ring: '#55705F', fillc: '#93AC9B' }
+      ],
+      services: [
+        { t: 'Bộ sưu tập số', d: 'Số hóa và quản lý hiện vật trên hạ tầng chung, dữ liệu thuộc về tổ chức.' },
+        { t: 'Chuẩn liên thông', d: 'Siêu dữ liệu theo chuẩn mở, sẵn sàng liên kết liên bảo tàng.' },
+        { t: 'Triển lãm số', d: 'Công cụ dựng triển lãm trực tuyến từ hiện vật của nhiều đơn vị.' },
+        { t: 'Giáo dục', d: 'Học liệu di sản có kiểm chứng cho trường phổ thông và đại học.' },
+        { t: 'Truy cập nghiên cứu', d: 'API và quyền truy cập sâu cho nhà nghiên cứu được xác thực.' },
+        { t: 'Lưu trữ dài hạn', d: 'Bản sao số an toàn — một lớp bảo hiểm cho hiện vật vật lý.' }
+      ],
+      partners: [
+        { t: 'Đối tác văn hóa', d: 'bảo tàng, di tích, lễ hội' },
+        { t: 'Đối tác học thuật', d: 'đại học, viện nghiên cứu' },
+        { t: 'Đối tác công nghệ', d: 'số hóa, 3D, AI, hạ tầng' },
+        { t: 'Nhà hảo tâm', d: 'cá nhân & quỹ từ thiện' },
+        { t: 'Nhà đầu tư tác động', d: 'theo cấu phần, theo giai đoạn' },
+        { t: 'Kiều bào', d: 'đóng góp tri thức & lan tỏa' },
+        { t: 'Doanh nghiệp bảo trợ', d: 'gắn thương hiệu với di sản' }
+      ],
+      role: this.state.role,
+      setRole: (e) => this.setState({ role: e.target.value }),
+      msgLabel: m[0],
+      msgPlaceholder: m[1],
+      sent: this.state.sent,
+      notSent: !this.state.sent,
+      submit: () => this.setState({ sent: true }),
+      reset: () => this.setState({ sent: false })
+    };
+  }
+}
+</script>
+</body>
+</html>

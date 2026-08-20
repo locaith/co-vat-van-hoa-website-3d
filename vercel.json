@@ -1,0 +1,24 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "rewrites": [
+    { "source": "/", "destination": "/index.dc.html" },
+    { "source": "/kham-pha", "destination": "/kham-pha.dc.html" },
+    { "source": "/hien-vat", "destination": "/hien-vat.dc.html" },
+    { "source": "/bo-suu-tap", "destination": "/bo-suu-tap.dc.html" },
+    { "source": "/trien-lam", "destination": "/trien-lam.dc.html" },
+    { "source": "/tri-thuc", "destination": "/tri-thuc.dc.html" },
+    { "source": "/tra-cuu-ai", "destination": "/tra-cuu-ai.dc.html" },
+    { "source": "/du-an", "destination": "/du-an.dc.html" },
+    { "source": "/dong-hanh", "destination": "/dong-hanh.dc.html" },
+    { "source": "/vision", "destination": "/vision.dc.html" },
+    { "source": "/museum", "destination": "/museum.html" }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)\.(js|jpg|png|mp3|glb)",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=3600, must-revalidate" }
+      ]
+    }
+  ]
+}

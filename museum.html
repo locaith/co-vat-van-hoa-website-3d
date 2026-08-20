@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bảo tàng 3D — Di Sản Việt</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Be+Vietnam+Pro:wght@300;400;500;600&display=swap" rel="stylesheet">
+<script src="./locales.js"></script>
+<script src="./i18n.js"></script>
+<script src="./artifacts-data.js"></script>
+<script src="./museum-manifest.js"></script>
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://unpkg.com/three@0.184.0/build/three.module.js",
+    "three/addons/controls/OrbitControls.js": "https://unpkg.com/three@0.184.0/examples/jsm/controls/OrbitControls.js",
+    "three/addons/exporters/OBJExporter.js": "https://unpkg.com/three@0.184.0/examples/jsm/exporters/OBJExporter.js",
+    "three/addons/exporters/GLTFExporter.js": "https://unpkg.com/three@0.184.0/examples/jsm/exporters/GLTFExporter.js"
+  },
+  "integrity": {
+    "https://unpkg.com/three@0.184.0/build/three.module.js": "sha384-8FCZ1eVO6it4+pbec2aDtnTrwjWXZLJRC+MAGCIPDgsYnUrl/E0A2YlF8ioMKI/J",
+    "https://unpkg.com/three@0.184.0/build/three.core.js": "sha384-dw2ooPewaEIrAgl6oFDBmmBWCE9oW9LxRGcfwZ0hLvEprzo202wXl7vCYHRlSnOT",
+    "https://unpkg.com/three@0.184.0/examples/jsm/controls/OrbitControls.js": "sha384-4rziNxOBZKQ69i+w+f89KJ55TCYquwchVbByQwmaOeIOXdOU2PLDn3kOfXHwIJC9",
+    "https://unpkg.com/three@0.184.0/examples/jsm/exporters/OBJExporter.js": "sha384-nbwtoZENJD3Vq+ACK0CuGQdPMuDWHkamC2KJD70EV5nfg6jQjfppKOea07YJN+N3",
+    "https://unpkg.com/three@0.184.0/examples/jsm/exporters/GLTFExporter.js": "sha384-VofkvpG6HERhFCYbsUOHeNXBCqID2nfqkQqnVzE1jc/oPcz+qJ13ADdXH08hE+cQ"
+  }
+}
+</script>
+<style>
+html,body{margin:0;height:100%;overflow:hidden;background:#0d0a08;font-family:'Be Vietnam Pro',sans-serif;color:#E8DFCE;-webkit-font-smoothing:antialiased}
+#stage{position:fixed;top:0;left:0;width:100vw;height:100vh;display:block;touch-action:none}
+.ov{position:fixed;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;z-index:30}
+.btn{font-family:'Be Vietnam Pro',sans-serif;font-size:13px;letter-spacing:.14em;text-transform:uppercase;padding:14px 30px;border-radius:2px;cursor:pointer;border:1px solid rgba(169,142,75,.6);background:rgba(169,142,75,.14);color:#F0EADC}
+.btn:hover{background:rgba(169,142,75,.3)}
+.btn2{font-family:'Be Vietnam Pro',sans-serif;font-size:12px;padding:10px 18px;border-radius:2px;cursor:pointer;border:1px solid rgba(184,171,151,.35);background:rgba(20,16,13,.7);color:#D8CDBA}
+.hud{position:fixed;z-index:20;pointer-events:none}
+a{color:#A98E4B;text-decoration:none}
+@keyframes spin{to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<canvas id="stage"></canvas>
+
+<!-- LOADER -->
+<div id="loader" class="ov" style="background:#0d0a08">
+  <svg width="74" height="90" viewBox="0 0 74 90" style="animation:spin 7s linear infinite;opacity:.85">
+    <path d="M22,6 C30,10 44,10 52,6 C50,16 54,22 58,30 C64,42 62,62 50,72 C42,79 32,79 24,72 C12,62 10,42 16,30 C20,22 24,16 22,6 Z" fill="none" stroke="#8fae9c" stroke-width="2"></path>
+  </svg>
+  <div style="font-family:'Cormorant Garamond',serif;font-size:30px;letter-spacing:.24em;margin:26px 0 10px;color:#F0EADC">DI SẢN VIỆT</div>
+  <div id="load-txt" style="font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:#8A7B67">Đang mở không gian bảo tàng… 0%</div>
+</div>
+
+<!-- TITLE / ENTER -->
+<div id="enter" class="ov" style="background:radial-gradient(ellipse 80% 60% at 50% 45%, rgba(40,30,22,.6), #0d0a08 80%);display:none">
+  <div style="font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:#A98E4B;margin-bottom:22px" data-mt="kicker">Bảo tàng số di sản Việt Nam · Bản demo</div>
+  <div style="font-family:'Cormorant Garamond',serif;font-size:clamp(34px,5vw,58px);line-height:1.25;max-width:760px;padding:0 24px" data-mt="title">Bước vào ký ức<br>của Việt Nam.</div>
+  <div style="font-size:13.5px;color:#B8AB97;margin:20px 0 38px;max-width:520px;line-height:1.8;padding:0 24px" data-mt="sub">Hiện vật. Tri thức. Bằng chứng. Ký ức.</div>
+  <div style="display:flex;gap:14px;flex-wrap:wrap;justify-content:center">
+    <button id="btn-free" class="btn">Tham quan tự do</button>
+    <button id="btn-tour" class="btn" style="background:rgba(32,25,20,.6)">Tham quan có hướng dẫn</button>
+  </div>
+  <div style="font-size:11px;color:#6E6355;margin-top:30px;line-height:1.8;max-width:480px;padding:0 24px" data-mt="demo">Toàn bộ hiện vật trong bảo tàng là bản thể số minh họa (demo) — kiến trúc sẵn sàng thay bằng hiện vật quét thật.</div>
+  <a href="index.dc.html" style="margin-top:18px;font-size:12px;color:#8A7B67" data-mt="back">← Trở về website</a>
+</div>
+
+<!-- HUD -->
+<div id="hints" class="hud" style="left:50%;bottom:34px;transform:translateX(-50%);background:rgba(15,12,10,.72);border:1px solid rgba(184,171,151,.2);border-radius:3px;padding:12px 22px;font-size:12px;color:#D8CDBA;display:none;letter-spacing:.04em;backdrop-filter:blur(4px)"></div>
+<div id="prompt" class="hud" style="left:50%;bottom:96px;transform:translateX(-50%);background:rgba(169,142,75,.92);color:#1a140f;border-radius:2px;padding:9px 18px;font-size:12.5px;font-weight:600;display:none;letter-spacing:.05em"></div>
+<div id="dot" class="hud" style="left:50%;top:50%;width:4px;height:4px;margin:-2px;border-radius:50%;background:rgba(232,223,206,.75);display:none"></div>
+<div id="topbar" class="hud" style="top:16px;left:16px;right:16px;display:none;justify-content:space-between;align-items:flex-start;pointer-events:none">
+  <div style="display:flex;gap:8px;pointer-events:auto">
+    <button id="btn-exit" class="btn2">✕ <span data-mt="exit">Thoát</span></button>
+    <button id="btn-map" class="btn2" data-mt="map">Bản đồ</button>
+    <button id="btn-audio" class="btn2">♪ <span id="audio-lb" data-mt="soundOn">Bật âm thanh</span></button>
+  </div>
+  <div style="display:flex;gap:8px;pointer-events:auto">
+    <button id="btn-vi" class="btn2">VI</button><button id="btn-en" class="btn2">EN</button>
+  </div>
+</div>
+
+<!-- TOUR CARD -->
+<div id="tour" class="hud" style="left:50%;bottom:30px;transform:translateX(-50%);max-width:620px;width:calc(100% - 40px);background:rgba(15,12,10,.85);border:1px solid rgba(169,142,75,.4);border-radius:3px;padding:20px 24px;display:none;pointer-events:auto;backdrop-filter:blur(6px)">
+  <div id="tour-step" style="font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#A98E4B;margin-bottom:8px"></div>
+  <div id="tour-txt" style="font-size:14px;line-height:1.75;color:#E8DFCE"></div>
+  <div style="display:flex;gap:10px;margin-top:14px">
+    <button id="tour-next" class="btn2" style="border-color:rgba(169,142,75,.6)">Tiếp tục →</button>
+    <button id="tour-quit" class="btn2">Kết thúc — tự do khám phá</button>
+  </div>
+</div>
+
+<!-- MAP -->
+<div id="map" class="ov" style="background:rgba(13,10,8,.88);display:none;backdrop-filter:blur(6px)">
+  <div style="font-family:'Cormorant Garamond',serif;font-size:26px;margin-bottom:18px" data-mt="mapTitle">Bản đồ bảo tàng</div>
+  <svg id="map-svg" width="300" height="470" viewBox="0 0 300 470" style="border:1px solid rgba(184,171,151,.25);background:#141009;border-radius:3px"></svg>
+  <div style="font-size:11.5px;color:#8A7B67;margin-top:14px" data-mt="mapHint">Chạm tên phòng để di chuyển nhanh tới đó</div>
+  <button id="map-close" class="btn2" style="margin-top:18px" data-mt="close">Đóng</button>
+</div>
+
+<!-- ESC MENU -->
+<div id="menu" class="ov" style="background:rgba(13,10,8,.9);display:none;backdrop-filter:blur(8px)">
+  <div style="font-family:'Cormorant Garamond',serif;font-size:30px;letter-spacing:.18em;margin-bottom:30px">DI SẢN VIỆT</div>
+  <div style="display:flex;flex-direction:column;gap:12px;width:270px">
+    <button id="m-resume" class="btn" data-mt="resume">Tiếp tục tham quan</button>
+    <button id="m-map" class="btn2" data-mt="map">Bản đồ</button>
+    <button id="m-audio" class="btn2" data-mt="audio">Âm thanh</button>
+    <button id="m-lang" class="btn2">VI / EN</button>
+    <a href="index.dc.html" class="btn2" style="text-align:center" data-mt="exitSite">Trở về website</a>
+  </div>
+</div>
+
+<!-- KIOSK -->
+<div id="kiosk" class="ov" style="background:rgba(13,10,8,.86);display:none;backdrop-filter:blur(6px)">
+  <div style="max-width:560px;width:calc(100% - 40px);background:#201914;border:1px solid rgba(169,142,75,.4);border-radius:4px;padding:30px 32px;text-align:left">
+    <div style="font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#A98E4B;margin-bottom:6px">Trợ lý tri thức di sản · Kiosk demo</div>
+    <div id="kiosk-q" style="font-family:'Cormorant Garamond',serif;font-size:23px;color:#F0EADC;margin-bottom:18px"></div>
+    <div id="kiosk-steps" style="display:flex;flex-direction:column;gap:9px;font-size:13px"></div>
+    <div id="kiosk-done" style="display:none;margin-top:18px">
+      <button id="kiosk-open" class="btn" style="width:100%" data-mt="kioskOpen">Mở bản thể số + hồ sơ</button>
+    </div>
+    <button id="kiosk-close" class="btn2" style="margin-top:16px" data-mt="close">Đóng</button>
+  </div>
+</div>
+
+<!-- FALLBACK -->
+<div id="nogl" class="ov" style="background:#0d0a08;display:none;padding:24px">
+  <div style="font-family:'Cormorant Garamond',serif;font-size:30px;margin-bottom:14px">Bảo tàng 3D cần WebGL</div>
+  <div style="font-size:13.5px;color:#B8AB97;max-width:440px;line-height:1.8">Thiết bị của bạn chưa hỗ trợ trải nghiệm này. Mời xem bộ sưu tập với trình xem 3D nhẹ hơn.</div>
+  <a href="kham-pha.dc.html" class="btn" style="margin-top:24px;display:inline-block">Khám phá di sản →</a>
+</div>
+
+<audio id="amb" loop preload="none" src="public/museum/audio/ambient.mp3"></audio>
+<script type="module" src="./museum.js"></script>
+</body>
+</html>

@@ -1,0 +1,47 @@
+// i18n dictionaries. EN falls back to VI for untranslated keys. Extend here.
+window.DS_LOCALES = {
+  vi: {
+    'nav.home': 'Trang chủ', 'nav.explore': 'Khám phá', 'nav.collection': 'Bộ sưu tập', 'nav.exhibit': 'Triển lãm',
+    'nav.knowledge': 'Tri thức', 'nav.ai': 'Tra cứu AI', 'nav.project': 'Dự án', 'nav.join': 'Đồng hành',
+    'brand.sub': 'Bảo tàng số · bản thử nghiệm',
+    'hero.kicker': 'Bảo tàng số di sản Việt Nam · Dự án khởi xướng tư nhân',
+    'hero.sub': 'Nền tảng số hóa, xác thực và lan tỏa di sản Việt — bằng hiện vật số, tri thức chuyên gia và trải nghiệm tương tác.',
+    'hero.cta1': 'Khám phá di sản', 'hero.cta2': 'Xem câu chuyện dự án', 'hero.hint': 'Cuộn để bước vào bảo tàng',
+    'sec.collections': 'Những câu chuyện được lưu giữ trong đất, lửa và thời gian.',
+    'sec.twin': 'Bản thể số · tương tác', 'sec.ai': 'Trợ lý tri thức di sản', 'sec.goals': 'Mục tiêu dài hạn — chưa phải thành tựu',
+    'explore.title': 'Khám phá di sản',
+    'explore.sub': 'Danh mục hiện vật của bộ sưu tập thí điểm. Mỗi hồ sơ ghi rõ tình trạng dữ liệu và mức độ xác nhận — thông tin chưa kiểm chứng không bao giờ được trình bày như kết luận.',
+    'explore.demo': 'Toàn bộ 12 hồ sơ dưới đây là dữ liệu minh họa (demo) phục vụ trình bày prototype.',
+    'ai.title': 'Tra cứu cổ vật bằng AI', 'ai.sub': 'Hỏi bằng ngôn ngữ tự nhiên — hệ thống tìm hồ sơ, dựng bản thể số và trả lời kèm nguồn. Toàn bộ dưới đây là mock pipeline cho bản demo; backend AI thật sẽ thay thế.',
+    'exhibit.cover': 'Hành trình của Gốm Việt',
+    'nav.museum': 'Bảo tàng 3D',
+    'home.m3d.kicker': 'Bảo tàng 3D · Trải nghiệm mới',
+    'home.m3d.title': 'Không chỉ xem di sản. Hãy bước vào bên trong.',
+    'home.m3d.sub': 'Một không gian số nơi hiện vật, tri thức và câu chuyện lịch sử cùng tồn tại trong một trải nghiệm có thể khám phá — đi lại tự do, lại gần hiện vật, mở hồ sơ nghiên cứu ngay trong phòng trưng bày.',
+    'home.m3d.cta': 'Vào bảo tàng',
+    'home.m3d.note': 'Trải nghiệm WebGL — mọi hiện vật là bản thể số minh họa.',
+    'footer.disclaimer': 'Dự án di sản do một nhóm sáng lập tư nhân người Việt khởi xướng. Đây không phải bảo tàng quốc gia, chương trình Nhà nước hay tổ chức được bảo trợ chính thức. Website là bản prototype trình bày tầm nhìn; toàn bộ hồ sơ hiện vật là dữ liệu minh họa.'
+  },
+  en: {
+    'nav.home': 'Home', 'nav.explore': 'Explore', 'nav.collection': 'Collections', 'nav.exhibit': 'Exhibition',
+    'nav.knowledge': 'Knowledge', 'nav.ai': 'AI Search', 'nav.project': 'Project', 'nav.join': 'Partner with us',
+    'brand.sub': 'Digital museum · prototype',
+    'hero.kicker': 'Vietnam Heritage Digital Museum · A privately initiated project',
+    'hero.sub': 'A platform to digitize, authenticate and share Vietnamese heritage — through digital artifacts, expert knowledge and interactive experiences.',
+    'hero.cta1': 'Explore the heritage', 'hero.cta2': 'The project story', 'hero.hint': 'Scroll to enter the museum',
+    'sec.collections': 'Stories preserved in earth, fire and time.',
+    'sec.twin': 'Digital twin · interactive', 'sec.ai': 'Heritage knowledge assistant', 'sec.goals': 'Long-term goals — not achievements yet',
+    'explore.title': 'Explore the heritage',
+    'explore.sub': 'The pilot collection catalogue. Every record states its data status and verification level — unverified information is never presented as a conclusion.',
+    'explore.demo': 'All 12 records below are illustrative (demo) data for this prototype.',
+    'ai.title': 'AI Artifact Explorer', 'ai.sub': 'Ask in natural language — the system finds records, renders a digital twin and answers with sources. Everything below is a mock pipeline; the real AI backend will replace it.',
+    'exhibit.cover': 'The Journey of Vietnamese Ceramics',
+    'nav.museum': '3D Museum',
+    'home.m3d.kicker': '3D Museum · New experience',
+    'home.m3d.title': "Don't just view heritage. Step inside it.",
+    'home.m3d.sub': 'A digital space where objects, knowledge and history coexist in one explorable experience — walk freely, approach the artifacts, open research records inside the gallery.',
+    'home.m3d.cta': 'Enter the museum',
+    'home.m3d.note': 'A WebGL experience — every object is an illustrative digital twin.',
+    'footer.disclaimer': 'A heritage project initiated by a private Vietnamese founding group. Not a national museum, state program or officially endorsed institution. This website is a vision prototype; all artifact records are illustrative data.'
+  }
+};
