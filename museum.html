@@ -73,6 +73,10 @@ a{color:#A98E4B;text-decoration:none}
 </div>
 
 <!-- HUD -->
+<div id="joy" style="position:fixed;z-index:22;left:20px;bottom:calc(26px + env(safe-area-inset-bottom));width:130px;height:130px;border-radius:50%;display:none;touch-action:none;pointer-events:auto;background:radial-gradient(circle at 50% 50%, rgba(28,22,17,.30), rgba(16,13,10,.52));border:1px solid rgba(169,142,75,.42);backdrop-filter:blur(3px);opacity:.62;transition:opacity .18s">
+  <div style="position:absolute;inset:0;border-radius:50%;border:1px dashed rgba(184,171,151,.18);margin:16px"></div>
+  <div id="joy-nub" style="position:absolute;left:50%;top:50%;width:56px;height:56px;margin:-28px 0 0 -28px;border-radius:50%;background:radial-gradient(circle at 38% 32%, rgba(206,178,111,.92), rgba(150,120,62,.86));border:1px solid rgba(232,223,206,.45);box-shadow:0 2px 10px rgba(0,0,0,.45);will-change:transform"></div>
+</div>
 <div id="hints" class="hud" style="left:50%;bottom:34px;transform:translateX(-50%);background:rgba(15,12,10,.72);border:1px solid rgba(184,171,151,.2);border-radius:3px;padding:12px 22px;font-size:12px;color:#D8CDBA;display:none;letter-spacing:.04em;backdrop-filter:blur(4px)"></div>
 <div id="prompt" class="hud" style="left:50%;bottom:96px;transform:translateX(-50%);background:rgba(169,142,75,.92);color:#1a140f;border-radius:2px;padding:9px 18px;font-size:12.5px;font-weight:600;display:none;letter-spacing:.05em"></div>
 <div id="dot" class="hud" style="left:50%;top:50%;width:4px;height:4px;margin:-2px;border-radius:50%;background:rgba(232,223,206,.75);display:none"></div>

@@ -85,6 +85,13 @@ chuột/phím tiếp theo thay vì bỏ im lặng luôn. File đã hạ về 128
 Thuộc tính `loop` được set bằng JS chứ không chỉ trong thẻ `<audio>`, vì DC runtime dựng lại
 thẻ này qua React và làm rơi mất thuộc tính boolean.
 
+
+### Điều khiển trên mobile
+
+Bảo tàng 3D có cần điều khiển tròn ở góc dưới trái (chỉ hiện trên thiết bị cảm ứng):
+kéo nút vàng để đi, kéo bất kỳ chỗ nào khác trên màn hình để quan sát, chạm hiện vật để xem.
+Trước đây vùng di chuyển là nửa trái màn hình nhưng không vẽ gì ra nên không ai biết.
+
 ## Trạng thái dữ liệu
 
 Toàn bộ hiện vật, giá trị và hội thoại AI trong bản này là **DEMO minh hoạ** (`is_demo: true`).

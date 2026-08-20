@@ -12,8 +12,8 @@ const TOUCH = 'ontouchstart' in window;
 const lang = () => (window.DS_I18N ? window.DS_I18N.lang : 'vi');
 
 const T = {
-  vi: { kicker: 'Bảo tàng số di sản Việt Nam · Bản demo', title: 'Bước vào ký ức\ncủa Việt Nam.', sub: 'Hiện vật. Tri thức. Bằng chứng. Ký ức.', demo: 'Toàn bộ hiện vật trong bảo tàng là bản thể số minh họa (demo) — kiến trúc sẵn sàng thay bằng hiện vật quét thật.', back: '← Trở về website', free: 'Tham quan tự do', tour: 'Tham quan có hướng dẫn', exit: 'Thoát', map: 'Bản đồ', soundOn: 'Bật âm thanh', soundOff: 'Tắt âm thanh', soundNA: 'Không phát được âm thanh', inspect: 'Xem hiện vật', pressE: ' — nhấn E', mapTitle: 'Bản đồ bảo tàng', mapHint: 'Chạm tên phòng để di chuyển nhanh tới đó', close: 'Đóng', resume: 'Tiếp tục tham quan', audio: 'Âm thanh', exitSite: 'Trở về website', kioskOpen: 'Mở bản thể số + hồ sơ', hints: TOUCH ? 'Joystick trái — di chuyển · Kéo phải — quan sát · Chạm hiện vật — xem' : 'WASD — Di chuyển · Chuột / kéo chuột — Quan sát · E hoặc click — Tương tác · ESC — Menu', stop: 'Điểm dừng', next: 'Tiếp tục →', quit: 'Kết thúc — tự do khám phá', hlight: 'Đã tô sáng các hiện vật thời ', kq: 'Tìm cho tôi một bình gốm men ngọc thời Trần.', ks: ['Đang hiểu câu hỏi', 'Đang tìm dữ liệu', 'Đang đối chiếu nguồn', 'Đang chuẩn bị bản thể số', 'Hoàn tất'] },
-  en: { kicker: 'Vietnam Heritage Digital Museum · Demo build', title: "Step into Vietnam's\nliving memory.", sub: 'Objects. Knowledge. Evidence. Memory.', demo: 'Every object in this museum is an illustrative digital twin (demo) — the architecture is ready for real scanned artifacts.', back: '← Back to website', free: 'Free explore', tour: 'Guided tour', exit: 'Exit', map: 'Map', soundOn: 'Enable sound', soundOff: 'Mute sound', soundNA: 'Audio unavailable', inspect: 'Inspect artifact', pressE: ' — press E', mapTitle: 'Museum map', mapHint: 'Tap a room name to travel there', close: 'Close', resume: 'Resume visit', audio: 'Audio', exitSite: 'Exit to website', kioskOpen: 'Open digital twin + record', hints: TOUCH ? 'Left joystick — move · Drag right — look · Tap artifact — inspect' : 'WASD — Move · Mouse / drag — Look · E or click — Interact · ESC — Menu', stop: 'Stop', next: 'Continue →', quit: 'End tour — explore freely', hlight: 'Highlighted objects from the ', kq: 'Find me a celadon ceramic jar from the Trần period.', ks: ['Understanding the question', 'Searching the database', 'Cross-checking sources', 'Preparing the digital twin', 'Done'] }
+  vi: { kicker: 'Bảo tàng số di sản Việt Nam · Bản demo', title: 'Bước vào ký ức\ncủa Việt Nam.', sub: 'Hiện vật. Tri thức. Bằng chứng. Ký ức.', demo: 'Toàn bộ hiện vật trong bảo tàng là bản thể số minh họa (demo) — kiến trúc sẵn sàng thay bằng hiện vật quét thật.', back: '← Trở về website', free: 'Tham quan tự do', tour: 'Tham quan có hướng dẫn', exit: 'Thoát', map: 'Bản đồ', soundOn: 'Bật âm thanh', soundOff: 'Tắt âm thanh', soundNA: 'Không phát được âm thanh', inspect: 'Xem hiện vật', pressE: ' — nhấn E', mapTitle: 'Bản đồ bảo tàng', mapHint: 'Chạm tên phòng để di chuyển nhanh tới đó', close: 'Đóng', resume: 'Tiếp tục tham quan', audio: 'Âm thanh', exitSite: 'Trở về website', kioskOpen: 'Mở bản thể số + hồ sơ', hints: TOUCH ? 'Cần điều khiển — di chuyển · Kéo màn hình — quan sát · Chạm hiện vật — xem' : 'WASD — Di chuyển · Chuột / kéo chuột — Quan sát · E hoặc click — Tương tác · ESC — Menu', stop: 'Điểm dừng', next: 'Tiếp tục →', quit: 'Kết thúc — tự do khám phá', hlight: 'Đã tô sáng các hiện vật thời ', kq: 'Tìm cho tôi một bình gốm men ngọc thời Trần.', ks: ['Đang hiểu câu hỏi', 'Đang tìm dữ liệu', 'Đang đối chiếu nguồn', 'Đang chuẩn bị bản thể số', 'Hoàn tất'] },
+  en: { kicker: 'Vietnam Heritage Digital Museum · Demo build', title: "Step into Vietnam's\nliving memory.", sub: 'Objects. Knowledge. Evidence. Memory.', demo: 'Every object in this museum is an illustrative digital twin (demo) — the architecture is ready for real scanned artifacts.', back: '← Back to website', free: 'Free explore', tour: 'Guided tour', exit: 'Exit', map: 'Map', soundOn: 'Enable sound', soundOff: 'Mute sound', soundNA: 'Audio unavailable', inspect: 'Inspect artifact', pressE: ' — press E', mapTitle: 'Museum map', mapHint: 'Tap a room name to travel there', close: 'Close', resume: 'Resume visit', audio: 'Audio', exitSite: 'Exit to website', kioskOpen: 'Open digital twin + record', hints: TOUCH ? 'Control stick — move · Drag screen — look · Tap artifact — inspect' : 'WASD — Move · Mouse / drag — Look · E or click — Interact · ESC — Menu', stop: 'Stop', next: 'Continue →', quit: 'End tour — explore freely', hlight: 'Highlighted objects from the ', kq: 'Find me a celadon ceramic jar from the Trần period.', ks: ['Understanding the question', 'Searching the database', 'Cross-checking sources', 'Preparing the digital twin', 'Done'] }
 };
 const t = k => (T[lang()] || T.vi)[k];
 function applyMT() {
@@ -349,15 +349,47 @@ addEventListener('mousemove', e => {
 // touch: left joystick + right look
 let joy = null, lookT = null;
 if (TOUCH) {
+  // Movement used to be "anywhere on the left half", with nothing on screen to say so. It is now
+  // an on-screen stick: the pad drives movement, every other touch looks around.
+  const joyEl = $('joy'), nub = $('joy-nub');
+  const JOY_R = 46;                       // px the nub may travel from centre = full speed
+  const nubTo = (x, y) => { nub.style.transform = 'translate(' + x + 'px,' + y + 'px)'; };
+  joyEl.addEventListener('touchstart', e => {
+    if (joy) return;
+    const to = e.changedTouches[0];
+    joy = { id: to.identifier, dx: 0, dy: 0 };
+    joyEl.style.opacity = '1';
+    if (mode === 'free') stopCamAnim();
+  }, { passive: true });
+  joyEl.addEventListener('touchmove', e => {
+    if (!joy) return;
+    for (const to of e.changedTouches) {
+      if (to.identifier !== joy.id) continue;
+      const r = joyEl.getBoundingClientRect();
+      let dx = (to.clientX - (r.left + r.width / 2)) / JOY_R;
+      let dy = (to.clientY - (r.top + r.height / 2)) / JOY_R;
+      const m = Math.hypot(dx, dy);
+      if (m > 1) { dx /= m; dy /= m; }    // clamp to the ring, keep the direction
+      joy.dx = dx; joy.dy = dy;
+      nubTo(dx * JOY_R, dy * JOY_R);
+    }
+  }, { passive: true });
+  const joyEnd = e => {
+    if (!joy) return;
+    for (const to of e.changedTouches) {
+      if (to.identifier !== joy.id) continue;
+      joy = null; nubTo(0, 0); joyEl.style.opacity = '';
+    }
+  };
+  joyEl.addEventListener('touchend', joyEnd, { passive: true });
+  joyEl.addEventListener('touchcancel', joyEnd, { passive: true });
   canvas.addEventListener('touchstart', e => {
     for (const to of e.changedTouches) {
-      if (to.clientX < innerWidth / 2 && !joy) { joy = { id: to.identifier, x0: to.clientX, y0: to.clientY, dx: 0, dy: 0 }; if (mode === 'free') stopCamAnim(); }
-      else if (!lookT) lookT = { id: to.identifier, x: to.clientX, y: to.clientY, moved: 0 };
+      if (!lookT) lookT = { id: to.identifier, x: to.clientX, y: to.clientY, moved: 0 };
     }
   }, { passive: true });
   canvas.addEventListener('touchmove', e => {
     for (const to of e.changedTouches) {
-      if (joy && to.identifier === joy.id) { joy.dx = (to.clientX - joy.x0) / 60; joy.dy = (to.clientY - joy.y0) / 60; }
       if (lookT && to.identifier === lookT.id) {
         player.yaw -= (to.clientX - lookT.x) * 0.005;
         player.pitch = Math.max(-1.2, Math.min(1.2, player.pitch - (to.clientY - lookT.y) * 0.004));
@@ -368,7 +400,6 @@ if (TOUCH) {
   }, { passive: true });
   canvas.addEventListener('touchend', e => {
     for (const to of e.changedTouches) {
-      if (joy && to.identifier === joy.id) joy = null;
       if (lookT && to.identifier === lookT.id) { if (lookT.moved < 12) tryInteract(); lookT = null; }
     }
   });
@@ -609,6 +640,7 @@ function begin(tourMode) {
   $('enter').style.display = 'none';
   $('topbar').style.display = 'flex';
   $('dot').style.display = TOUCH ? 'none' : 'block';
+  if (TOUCH) $('joy').style.display = 'block';
   started = true; entered = true;
   applyMT();
   autoStartAudio();
