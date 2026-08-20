@@ -26,9 +26,10 @@ let renderer;
 try {
   renderer = new THREE.WebGLRenderer({ canvas: $('stage'), antialias: true, preserveDrawingBuffer: true });
 } catch (e) { $('loader').style.display = 'none'; $('nogl').style.display = 'flex'; throw e; }
-renderer.setPixelRatio(Math.min(devicePixelRatio, 1.75));
+renderer.setPixelRatio(Math.min(devicePixelRatio, TOUCH ? 1.6 : 2.5));
+const MAXANISO = renderer.capabilities.getMaxAnisotropy();
 renderer.toneMapping = THREE.ACESFilmicToneMapping;
-renderer.toneMappingExposure = 1.14;
+renderer.toneMappingExposure = 1.05;
 renderer.shadowMap.enabled = true;
 renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 const scene = new THREE.Scene();
@@ -61,7 +62,7 @@ function floorMap() {
   g.strokeStyle = 'rgba(255,246,228,.05)'; g.lineWidth = 1.5;      // catch-light on the joint lip
   g.beginPath(); g.moveTo(258, 0); g.lineTo(258, 512); g.moveTo(0, 258); g.lineTo(512, 258); g.stroke();
   const t = new THREE.CanvasTexture(cv);
-  t.wrapS = t.wrapT = THREE.RepeatWrapping; t.anisotropy = 4;
+  t.wrapS = t.wrapT = THREE.RepeatWrapping; t.anisotropy = MAXANISO;
   return t;
 }
 function plasterMap() {
@@ -69,7 +70,7 @@ function plasterMap() {
     Math.random() < 0.5 ? 214 : 255, Math.random() < 0.5 ? 208 : 255, Math.random() < 0.5 ? 196 : 255,
     (Math.random() * 0.16).toFixed(3), Math.random() * 7 + 1]);
   const t = new THREE.CanvasTexture(cv);
-  t.wrapS = t.wrapT = THREE.RepeatWrapping; t.repeat.set(3, 3); t.anisotropy = 4;
+  t.wrapS = t.wrapT = THREE.RepeatWrapping; t.repeat.set(3, 3); t.anisotropy = MAXANISO;
   return t;
 }
 const FLOOR_TEX = floorMap(), PLASTER_TEX = plasterMap();
@@ -147,20 +148,23 @@ const SHAFT_TEX = (function () {
 })();
 // --- skylights: recessed ceiling windows casting daylight shafts ---
 function skylight(x, z, w, d, ceilY, inten) {
+  const dim = inten === 0;   // frame and glow still read; the light itself is the expensive part
   const fr = new THREE.Mesh(new THREE.BoxGeometry(w + 0.55, 0.16, d + 0.55), mBronze);
   fr.position.set(x, ceilY - 0.04, z); scene.add(fr);
   const glow = new THREE.Mesh(new THREE.PlaneGeometry(w, d), new THREE.MeshBasicMaterial({ color: 0xfdf4e0 }));
   glow.rotation.x = Math.PI / 2; glow.position.set(x, ceilY - 0.1, z); scene.add(glow);
-  const s = new THREE.SpotLight(0xfff1d6, inten, 0, Math.PI / 3.1, 0.75, 1.55);
-  s.position.set(x, ceilY + 2.6, z); s.target.position.set(x, 0, z); scene.add(s, s.target);
+  if (!dim) {
+    const s = new THREE.SpotLight(0xfff1d6, inten, 0, Math.PI / 3.1, 0.75, 1.55);
+    s.position.set(x, ceilY + 2.6, z); s.target.position.set(x, 0, z); scene.add(s, s.target);
+  }
   const shaft = new THREE.Mesh(new THREE.ConeGeometry(Math.max(w, d) * 0.72, ceilY - 0.1, 28, 1, true),
     new THREE.MeshBasicMaterial({ map: SHAFT_TEX, transparent: true, opacity: 0.30, side: THREE.BackSide, depthWrite: false, blending: THREE.AdditiveBlending }));
   shaft.position.set(x, (ceilY - 0.1) / 2, z); scene.add(shaft);
 }
 skylight(0, 0, 5, 5, 7, 60);
 skylight(0, -22.5, 5.5, 6.5, 5.2, 46);
-skylight(0, -33.5, 5.5, 6.5, 5.2, 46);
-skylight(0, -47, 4, 4, 4.6, 34);
+skylight(0, -33.5, 5.5, 6.5, 5.2, TOUCH ? 0 : 46);
+skylight(0, -47, 4, 4, 4.6, TOUCH ? 0 : 34);
 // --- entrance portal: vermilion lacquer columns + warm daylight doorway ---
 const mLacquer = new THREE.MeshStandardMaterial({ color: 0x6e2a1e, roughness: 0.32 });
 [-2.35, 2.35].forEach(x => {
@@ -189,9 +193,9 @@ accent.position.set(0, 2.2, -39.82); scene.add(accent);
 // ---------- TEXT PANELS (canvas) ----------
 function textPanel(lines, w, h, opts) {
   const o = opts || {}, cv = document.createElement('canvas');
-  cv.width = 1024; cv.height = Math.round(1024 * h / w);
+  cv.width = 1536; cv.height = Math.round(1536 * h / w);
   const g = cv.getContext('2d');
-  const MARGIN = o.align === 'left' ? 70 : 46;
+  const MARGIN = (o.align === 'left' ? 70 : 46) * 1.5;
   // Lines used to be drawn at fixed sizes from a fixed padding, so long strings ran off the
   // right edge and the last line fell past the bottom of the canvas — both were simply cut off.
   // Lay the block out first, shrink it to fit, then draw it centred in what is left.
@@ -231,7 +235,7 @@ function textPanel(lines, w, h, opts) {
     });
   }
   draw(lines);
-  const tex = new THREE.CanvasTexture(cv); tex.anisotropy = 4;
+  const tex = new THREE.CanvasTexture(cv); tex.anisotropy = MAXANISO;
   const mesh = new THREE.Mesh(new THREE.PlaneGeometry(w, h), new THREE.MeshBasicMaterial({ map: tex, transparent: true }));
   mesh.userData.redraw = (newLines) => { draw(newLines); tex.needsUpdate = true; };
   return mesh;
@@ -397,7 +401,7 @@ function motifPlate(seed) {
     g.beginPath(); g.moveTo(58, y + 22); g.lineTo(390, y + 22); g.stroke();
     g.globalAlpha = 1;
   }
-  const t = new THREE.CanvasTexture(cv); t.anisotropy = 4;
+  const t = new THREE.CanvasTexture(cv); t.anisotropy = MAXANISO;
   return t;
 }
 const PLATES = [motifPlate(0), motifPlate(1), motifPlate(2)];
@@ -425,12 +429,14 @@ framed(2, 1.25, 1.55, 8.72, 2.6, 2.6, -Math.PI / 2);
 flushBoxes();
 
 // ---------- LIGHTING ----------
-scene.add(new THREE.HemisphereLight(0x9f978a, 0x1a1512, 1.1));
-const fill = new THREE.DirectionalLight(0xfff0dd, 0.5); fill.position.set(3, 8, 2); scene.add(fill);
+// Museums run 6:1 exhibit-to-surround; the old flat 1.1 hemisphere lit everything equally.
+scene.add(new THREE.HemisphereLight(0x9f978a, 0x1a1512, TOUCH ? 0.62 : 0.42));
+const fill = new THREE.DirectionalLight(0xfff0dd, 0.2); fill.position.set(3, 8, 2); scene.add(fill);
 const GHOUSE = new THREE.CylinderGeometry(0.075, 0.105, 0.26, 12);
 const GSTEM = new THREE.CylinderGeometry(0.022, 0.022, 0.3, 8);
 function spot(x, y, z, tx, ty, tz, intensity, shadow, fixture) {
-  const s = new THREE.SpotLight(0xffe2bd, intensity, 0, Math.PI / 5.5, 0.6, 1.9);
+  if (intensity === 0) return null;
+  const s = new THREE.SpotLight(0xffe2bd, intensity, 0, Math.PI / 6.4, 0.72, 1.9);
   s.position.set(x, y, z);
   s.target.position.set(tx, ty, tz);
   if (fixture !== false) {   // a light with no visible fitting reads as magic; hang one on a stem
@@ -438,16 +444,19 @@ function spot(x, y, z, tx, ty, tz, intensity, shadow, fixture) {
     const hs = new THREE.Mesh(GHOUSE, mBronze); hs.position.set(x, y, z);
     hs.lookAt(tx, ty, tz); hs.rotateX(Math.PI / 2); scene.add(hs);
   }
-  if (shadow && !TOUCH) { s.castShadow = true; s.shadow.mapSize.set(512, 512); s.shadow.bias = -0.0004; }
+  if (shadow) {   // contact shadows are what stop objects looking pasted onto the floor
+    s.castShadow = true;
+    s.shadow.mapSize.set(TOUCH ? 512 : 1024, TOUCH ? 512 : 1024);
+    s.shadow.bias = -0.0006; s.shadow.normalBias = 0.02;
+    s.shadow.camera.near = 0.4; s.shadow.camera.far = 14;
+  }
   scene.add(s, s.target);
   return s;
 }
-spot(0, 6.6, 1.5, 0, 1, -2.5, 60, true); // hall hero (one of only two shadow lights)
-spot(0, 6.4, -7, 0, 3.8, -7.9, 34); // title wall wash
+spot(0, 6.6, 1.5, 0, 1, -2.5, 105, true); // hall hero
+spot(0, 6.4, -7, 0, 3.8, -7.9, 26); // title wall wash
 spot(0, 3.4, -12, 0, 1.4, -12, 20); // corridor
 spot(0, 4.9, -46, 0, 3, -53.8, 38); // digital headline
-spot(-6, 5.0, -26, -9.5, 1.2, -27, 30); // west wall wash
-spot(6, 5.0, -29, 9.5, 1.2, -29, 30); // east wall wash
 spot(-2.2, 4.2, -45.4, -2.2, 1.2, -47, 20); // twin station
 
 // ---------- DISPLAYS + ARTIFACTS ----------
@@ -456,11 +465,11 @@ function display(type, x, z, rotY) {
   const g = new THREE.Group();
   let topY = 1.0;
   if (type === 'plinth') {
-    const p = new THREE.Mesh(new THREE.BoxGeometry(0.85, 1.0, 0.85), mPlinth); p.position.y = 0.5; p.castShadow = true; g.add(p);
+    const p = new THREE.Mesh(new THREE.BoxGeometry(0.85, 1.0, 0.85), mPlinth); p.position.y = 0.5; p.castShadow = true; p.receiveShadow = true; g.add(p);
     const cap = new THREE.Mesh(new THREE.BoxGeometry(0.92, 0.05, 0.92), mBronze); cap.position.y = 1.02; g.add(cap);
     topY = 1.05;
   } else if (type === 'vitrine') {
-    const p = new THREE.Mesh(new THREE.BoxGeometry(0.95, 0.9, 0.95), mWood); p.position.y = 0.45; p.castShadow = true; g.add(p);
+    const p = new THREE.Mesh(new THREE.BoxGeometry(0.95, 0.9, 0.95), mWood); p.position.y = 0.45; p.castShadow = true; p.receiveShadow = true; g.add(p);
     const glass = new THREE.Mesh(new THREE.BoxGeometry(0.9, 1.05, 0.9), mGlass); glass.position.y = 1.45; g.add(glass);
     const top = new THREE.Mesh(new THREE.BoxGeometry(0.95, 0.05, 0.95), mBronze); top.position.y = 2.0; g.add(top);
     topY = 0.92;
@@ -494,19 +503,30 @@ function placeArtifact(pl) {
   const obj = buildArtifact(a);
   obj.scale.setScalar(pl.scale || 0.7);
   obj.position.set(pl.pos[0], topY, pl.pos[2]);
-  obj.traverse(o => { if (o.isMesh && o.name !== 'shadow') o.castShadow = !TOUCH; });
+  obj.traverse(o => { if (o.isMesh && o.name !== 'shadow') { o.castShadow = true; o.receiveShadow = true; } });
   scene.add(obj);
-  // exhibit spotlight — hero profile only (shader cost: keep total light count low)
-  if (pl.lightingProfile === 'hero') {
-    const lx = pl.pos[0] * 0.75, lz = pl.pos[2] + (pl.pos[0] === 0 ? 1.6 : 0);
-    spot(lx, 4.6, lz, pl.pos[0], topY + 0.5, pl.pos[2], 46, pl.pos[2] === -28);
-  }
-  // label stand
-  const lab = textPanel(labelLines(a), 0.52, 0.34, { bg: '#e9e2d2', pad: 74, align: 'left' });
-  const off = pl.rotY ? [Math.sin(pl.rotY) * 0.1 + (pl.rotY > 0 ? 0.75 : -0.75) * 0, 0, 0.78] : [0.72, 0, 0.55];
-  lab.position.set(pl.pos[0] + (pl.rotY ? (pl.rotY > 0 ? 0.75 : -0.75) : 0.72), 1.02, pl.pos[2] + (pl.rotY ? 0.75 : 0.55));
-  lab.rotation.x = -0.5; lab.rotation.y = pl.rotY || 0;
-  scene.add(lab);
+  // Every object gets its own beam, the way a real gallery is lit. Only the hero pieces pay
+  // for a shadow map; the rest are cheap unshadowed keys.
+  const hero = pl.lightingProfile === 'hero';
+  const inset = pl.pos[0] === 0 ? 0 : (pl.pos[0] > 0 ? -1.5 : 1.5);
+  spot(pl.pos[0] + inset, hero ? 4.6 : 4.2, pl.pos[2] + (pl.pos[0] === 0 ? 1.6 : 0.5),
+       pl.pos[0], topY + 0.45, pl.pos[2],
+       hero ? 92 : (pl.lightingProfile === 'soft' ? (TOUCH ? 0 : 34) : 48),
+       hero && (!TOUCH || pl.pos[2] === -28), false);   // phones pay for one exhibit shadow map, not four
+  // Label lectern. The card used to hover unsupported beside the plinth; now it sits on a
+  // slim post with a backing plate, the way a real caption stand does.
+  const lab = textPanel(labelLines(a), 0.52, 0.34, { bg: '#e9e2d2', align: 'left' });
+  const stand = new THREE.Group();
+  const post = new THREE.Mesh(new THREE.CylinderGeometry(0.019, 0.024, 0.86, 10), mBronze);
+  post.position.y = 0.43; post.castShadow = true; stand.add(post);
+  const foot = new THREE.Mesh(new THREE.CylinderGeometry(0.11, 0.13, 0.025, 14), mPlinth);
+  foot.position.y = 0.012; stand.add(foot);
+  const plate = new THREE.Mesh(new THREE.BoxGeometry(0.6, 0.42, 0.018), mWood);
+  plate.position.y = 0.92; plate.rotation.x = -0.52; plate.castShadow = true; stand.add(plate);
+  lab.position.set(0, 0.92, 0); lab.rotation.x = -0.52; lab.translateZ(0.014); stand.add(lab);
+  stand.position.set(pl.pos[0] + (pl.rotY ? (pl.rotY > 0 ? 0.82 : -0.82) : 0.86), 0, pl.pos[2] + (pl.rotY ? 0.66 : 0.62));
+  stand.rotation.y = (pl.rotY || 0) + (pl.rotY ? 0 : -0.32);
+  scene.add(stand);
   exhibits.push({ obj, a, pos: new THREE.Vector3(pl.pos[0], topY + 0.5, pl.pos[2]), lab, period: a.period });
 }
 M.placements.forEach(placeArtifact);

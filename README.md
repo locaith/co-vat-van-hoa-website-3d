@@ -100,6 +100,20 @@ trang trí đi qua `bx()`, được gom theo vật liệu rồi phát ra `Instan
 thêm bx() mới thì phải nằm TRƯỚC một lời gọi `flushBoxes()`, nếu không nó sẽ không được vẽ.
 `window.__museum` có `colliders` và `collide()` để dò va chạm khi cần gỡ lỗi đường đi.
 
+Ánh sáng theo chuẩn trưng bày: tương phản hiện vật/nền khoảng 6:1, mỗi hiện vật một chùm
+riêng. Ngân sách khác nhau giữa desktop và mobile vì three.js tô sáng thuận — MỌI đèn được
+tính cho MỌI điểm ảnh:
+
+| | Desktop | Mobile |
+| --- | --- | --- |
+| Đèn spot | 22 | 18 |
+| Đèn đổ bóng | 5 | 2 |
+| Pixel ratio trần | 2.5 | 1.6 |
+| Draw call | ~248 | ~223 |
+
+Thêm đèn mới thì phải cân lại bảng này.
+
+
 ## Trạng thái dữ liệu
 
 Toàn bộ hiện vật, giá trị và hội thoại AI trong bản này là **DEMO minh hoạ** (`is_demo: true`).
