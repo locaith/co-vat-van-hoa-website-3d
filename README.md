@@ -73,11 +73,13 @@ Bản chữ đầy đủ có wordmark màu nâu đậm nên chỉ đọc rõ tr�
 
 | Trang | File | Điều khiển |
 | --- | --- | --- |
-| Bảo tàng 3D (`/museum`) | `public/audio/hon-tranh-co.mp3` — 4:36 | Nút ♪ trên thanh trên cùng, hoặc ESC → Âm thanh |
+| Bảo tàng 3D (`/museum`) | `public/audio/hon-tranh-co.mp3` — 4:36 | **Bật sẵn** khi vào tham quan; tắt bằng nút ♪ trên thanh trên cùng hoặc ESC → Âm thanh |
 | Triển lãm (`/trien-lam`) | `public/audio/stone-lantern-archive.mp3` — 7:12 | Nút "Bật nhạc nền trải nghiệm" trên nav |
 
-Cả hai đặt `preload="none"` và chỉ phát khi người dùng bấm — không tự động chạy, không tốn
-băng thông của người không nghe. File đã hạ về 128 kbps 44.1 kHz và gỡ ảnh bìa nhúng
+Cả hai đặt `preload="none"` nên chỉ tải khi thực sự cần. Trang Triển lãm chờ người dùng bấm.
+Bảo tàng 3D bật nhạc ngay khi vào tham quan: `begin()` chạy bên trong cú click "Tham quan
+tự do" nên trình duyệt chấp nhận `play()`; nếu vẫn bị từ chối thì thử lại ở thao tác
+chuột/phím tiếp theo thay vì bỏ im lặng luôn. File đã hạ về 128 kbps 44.1 kHz và gỡ ảnh bìa nhúng
 (6.4 MB → 4.4 MB và 10.2 MB → 6.9 MB); bản gốc 187 kbps vẫn nằm trong thư mục Downloads.
 
 Thuộc tính `loop` được set bằng JS chứ không chỉ trong thẻ `<audio>`, vì DC runtime dựng lại

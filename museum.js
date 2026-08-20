@@ -507,12 +507,37 @@ function openMap() {
 // ---------- AUDIO ----------
 // Ambient bed: public/audio/hon-tranh-co.mp3 (per-artifact narration still browser TTS).
 let audioOn = false;
+// The label carries its own i18n key so applyMT() keeps saying the right thing after a
+// VI/EN switch — a fixed data-mt would relabel a playing track as "turn sound on".
+function setAudioLabel(key) {
+  const el = $('audio-lb'); if (!el) return;
+  el.setAttribute('data-mt', key);
+  el.textContent = t(key);
+}
 function toggleAudio() {
   const el = $('amb');
-  if (audioOn) { el.pause(); audioOn = false; $('audio-lb').textContent = t('soundOn'); return; }
+  if (audioOn) { el.pause(); audioOn = false; setAudioLabel('soundOn'); return; }
   el.loop = true; el.volume = 0.5;
-  el.play().then(() => { audioOn = true; $('audio-lb').textContent = t('soundOff'); })
-    .catch(() => { $('audio-lb').textContent = t('soundNA'); });
+  el.play().then(() => { audioOn = true; setAudioLabel('soundOff'); })
+    .catch(() => setAudioLabel('soundNA'));
+}
+// Sound is on from the start of the visit. begin() runs inside the click on "Tham quan tự do",
+// so the autoplay policy accepts play(); if a browser still refuses, arm the next real
+// interaction rather than leaving the room silent with no way back.
+let autoArmed = false;
+function autoStartAudio() {
+  if (audioOn) return;
+  const el = $('amb');
+  el.loop = true; el.volume = 0.5;
+  el.play().then(() => { audioOn = true; setAudioLabel('soundOff'); }).catch(() => {
+    if (autoArmed) { setAudioLabel('soundNA'); return; }
+    autoArmed = true;
+    const retry = () => {
+      removeEventListener('pointerdown', retry); removeEventListener('keydown', retry);
+      autoStartAudio();
+    };
+    addEventListener('pointerdown', retry); addEventListener('keydown', retry);
+  });
 }
 
 // ---------- KIOSK ----------
@@ -586,6 +611,7 @@ function begin(tourMode) {
   $('dot').style.display = TOUCH ? 'none' : 'block';
   started = true; entered = true;
   applyMT();
+  autoStartAudio();
   const h = $('hints'); h.style.display = 'block';
   setTimeout(() => { h.style.transition = 'opacity 1.5s'; h.style.opacity = '0'; setTimeout(() => h.style.display = 'none', 1600); }, 7000);
   if (tourMode) startTour();
