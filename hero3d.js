@@ -224,10 +224,24 @@ function storyFallback(wrap) {
 
 // ---------------- DIGITAL TWIN ----------------
 let twin = null; // { canvas, api, dispose }
+// #twin-overlay is rendered by the DC runtime through React. Writing our own nodes into
+// it makes React and this module fight over the same children — React then throws
+// NotFoundError on removeChild and the whole page stops rendering. So the labels live in
+// a layer we own, appended to <body>, kept over the canvas box on every frame.
+function twinLayer() {
+  let l = document.getElementById('tw-layer');
+  if (!l) {
+    l = document.createElement('div');
+    l.id = 'tw-layer';
+    l.style.cssText = 'position:fixed;left:0;top:0;width:0;height:0;overflow:hidden;pointer-events:none;z-index:1';
+    document.body.appendChild(l);
+  }
+  return l;
+}
 function initTwin() {
   const canvas = document.getElementById('twin3d');
-  const overlay = document.getElementById('twin-overlay');
-  if (!canvas || !overlay) return;
+  const host = document.getElementById('twin-overlay');
+  if (!canvas || !host) return;
   if (twin) { if (twin.canvas === canvas && canvas.isConnected) return; twin.dispose(); twin = null; }
   let renderer;
   try { renderer = makeRenderer(canvas); } catch (e) {
@@ -249,6 +263,7 @@ function initTwin() {
   controls.target.set(0, 0.62, 0); controls.saveState();
   const mesh = vessel.getObjectByName('vessel'), wire = vessel.getObjectByName('wire'), pointsObj = vessel.getObjectByName('points');
   const st = { measure: false, hotspots: false };
+  const overlay = twinLayer();
   overlay.innerHTML =
     '<div id="tw-meas" style="position:absolute;left:0;top:0;display:none;pointer-events:none">' +
     '<div id="tw-meas-line" style="position:absolute;width:1px;background:rgba(201,214,198,.75)"></div>' +
@@ -266,7 +281,10 @@ function initTwin() {
     raf = requestAnimationFrame(frame);
     if (!canvas.isConnected) { dispose(); twin = null; setTimeout(initAll, 120); return; }
     const tr = canvas.getBoundingClientRect();
-    if (tr.bottom < -300 || tr.top > innerHeight + 300) return;
+    if (tr.bottom < -300 || tr.top > innerHeight + 300) { overlay.style.display = 'none'; return; }
+    overlay.style.display = 'block';
+    overlay.style.left = tr.left + 'px'; overlay.style.top = tr.top + 'px';
+    overlay.style.width = tr.width + 'px'; overlay.style.height = tr.height + 'px';
     fitRenderer(renderer, camera, canvas);
     controls.update();
     if (!REDUCED) vessel.rotation.y += 0.0009;
@@ -285,7 +303,7 @@ function initTwin() {
     } else if (meas) meas.style.display = 'none';
     renderer.render(scene, camera);
   }
-  function dispose() { disposed = true; cancelAnimationFrame(raf); controls.dispose(); renderer.dispose(); }
+  function dispose() { disposed = true; cancelAnimationFrame(raf); controls.dispose(); renderer.dispose(); overlay.remove(); }
   frame();
   twin = {
     canvas, dispose,
