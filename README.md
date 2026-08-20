@@ -114,6 +114,16 @@ tính cho MỌI điểm ảnh:
 Thêm đèn mới thì phải cân lại bảng này.
 
 
+
+### Bảng thời kỳ trên tường phòng Gốm
+
+Tám thời kỳ gốm Việt (`ERAS` trong `museum.js`), xếp theo trình tự: tường tây bốn thời kỳ đầu,
+tường đông bốn thời kỳ sau. Nội dung **chép nguyên văn** từ trang `bo-suu-tap.dc.html` để bảo tàng
+không khẳng định gì nhiều hơn website đã nói — sửa nội dung thì sửa ở cả hai nơi.
+
+Mỗi bảng liệt kê ID hiện vật cùng thời có trong phòng, và đứng gần bảng nhấn E sẽ tô sáng đúng
+những hiện vật đó (`highlightPeriod`). Nhãn hiện vật cũng ghi triều đại nên liên kết đi được hai chiều.
+
 ## Trạng thái dữ liệu
 
 Toàn bộ hiện vật, giá trị và hội thoại AI trong bản này là **DEMO minh hoạ** (`is_demo: true`).

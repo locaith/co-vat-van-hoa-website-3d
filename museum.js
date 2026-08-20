@@ -419,13 +419,147 @@ framed(2, 1.25, 1.55, -8.72, 2.6, -3.2, Math.PI / 2);
 framed(0, 1.25, 1.55, -8.72, 2.6, 2.6, Math.PI / 2);
 framed(1, 1.25, 1.55, 8.72, 2.6, -3.2, -Math.PI / 2);
 framed(2, 1.25, 1.55, 8.72, 2.6, 2.6, -Math.PI / 2);
-// ceramics gallery: one bay between each pair of pilasters
-[-20.8, -29.6, -34].forEach((z, i) => {
-  framed(i, 1.3, 1.6, -10.72, 2.55, z, Math.PI / 2);
-  framed(i + 1, 1.3, 1.6, 10.72, 2.55, z, -Math.PI / 2);
-});
 // picture rail running the gallery walls
 [-10.66, 10.66].forEach(x => bx(0.1, 0.07, 23.6, mBronze, x, 3.52, -28));
+flushBoxes();
+
+// ---------- PERIOD PANELS ----------
+// Wall panels used to be a repeated arch pattern hung at random. These are proper interpretive
+// panels: the eight periods of Vietnamese ceramics, in order along the gallery, each naming the
+// objects in this room that belong to it. The copy is lifted verbatim from the project's own
+// "Gốm Việt qua các thời kỳ" page so the museum never claims more than the website already does.
+const ERAS = [
+  { key: 'pre', vi: 'Tiền — sơ sử', en: 'Prehistory', range: 'trước TK I', rangeEn: 'before 1st c.',
+    tag: 'Đất nung đầu tiên', tagEn: 'The first fired earth', dot: '#A9764C',
+    desc: 'Đồ gốm đất nung gắn với các văn hóa khảo cổ sớm trên lãnh thổ Việt Nam — nơi bàn tay con người lần đầu biến đất thành vật dụng và ký ức.',
+    descEn: 'Earthenware tied to the early archaeological cultures of Vietnam — where human hands first turned clay into utensil and memory.',
+    motifs: ['Đất nung', 'Văn thừng', 'Bàn xoay sớm'], motifsEn: ['Earthenware', 'Cord marks', 'Early wheel'] },
+  { key: 'bac', vi: 'Bắc thuộc & giai đoạn sớm', en: 'Early period', range: 'TK I–X', rangeEn: '1st–10th c.',
+    tag: 'Giao thoa kỹ thuật', tagEn: 'Techniques in exchange', dot: '#B0A48F',
+    desc: 'Giai đoạn tiếp nhận và bản địa hóa nhiều kỹ thuật chế tác, đặt nền cho các dòng men và dáng gốm Việt về sau.',
+    descEn: 'A period of adopting and localising many making techniques, laying the ground for later Vietnamese glazes and forms.',
+    motifs: ['Gốm men sớm', 'Lò nung', 'Giao thoa'], motifsEn: ['Early glazes', 'Kilns', 'Exchange'] },
+  { key: 'Lý', vi: 'Lý', en: 'Lý', range: 'TK XI–XIII', rangeEn: '11th–13th c.',
+    tag: 'Tinh thần thanh nhã', tagEn: 'A refined spirit', dot: '#93AC9B',
+    desc: 'Gốm thời Lý thường được nhắc tới với men ngọc, men trắng ngà và trang trí khắc chìm thanh thoát — thẩm mỹ gắn với đời sống Phật giáo Thăng Long.',
+    descEn: 'Lý ceramics are often associated with celadon, ivory-white glaze and delicate incised decoration — an aesthetic tied to Buddhist life in Thăng Long.',
+    motifs: ['Men ngọc', 'Men trắng ngà', 'Khắc chìm', 'Cánh sen'], motifsEn: ['Celadon', 'Ivory white', 'Incised', 'Lotus petal'] },
+  { key: 'Trần', vi: 'Trần', en: 'Trần', range: 'TK XIII–XIV', rangeEn: '13th–14th c.',
+    tag: 'Khỏe khoắn, phóng khoáng', tagEn: 'Robust and free', dot: '#55705F',
+    desc: 'Tiếp nối truyền thống Lý với tạo hình khỏe hơn; men nâu, hoa nâu và các dáng đồ dùng lớn xuất hiện phổ biến trong đời sống và tín ngưỡng.',
+    descEn: 'Continuing the Lý tradition with sturdier forms; brown glaze, brown-painted decoration and larger vessels appear widely in daily and ritual life.',
+    motifs: ['Hoa nâu', 'Men ngọc', 'Dáng khỏe', 'Đồ tự khí'], motifsEn: ['Brown decor', 'Celadon', 'Sturdy forms', 'Ritual ware'] },
+  { key: 'Lê sơ', vi: 'Lê sơ', en: 'Early Lê', range: 'TK XV', rangeEn: '15th c.',
+    tag: 'Hoa lam ra biển lớn', tagEn: 'Blue-and-white goes to sea', dot: '#B9C4CE',
+    desc: 'Thời kỳ gốm hoa lam phát triển mạnh và tham gia dòng thương mại gốm sứ khu vực — giai đoạn được ghi dấu bằng nhiều phát hiện khảo cổ quan trọng.',
+    descEn: 'Blue-and-white ware flourished and entered regional ceramic trade — a period marked by a number of significant archaeological finds.',
+    motifs: ['Hoa lam', 'Thương mại biển', 'Lò Chu Đậu'], motifsEn: ['Blue & white', 'Maritime trade', 'Chu Đậu kilns'] },
+  { key: 'Mạc', vi: 'Mạc', en: 'Mạc', range: 'TK XVI', rangeEn: '16th c.',
+    tag: 'Sành nâu và minh văn', tagEn: 'Brown stoneware, inscriptions', dot: '#6E5B44',
+    desc: 'Đồ sành, lư hương, chân đèn với trang trí đắp nổi; một số hiện vật giai đoạn này mang minh văn ghi niên đại và người cung tiến — nguồn sử liệu quý.',
+    descEn: 'Stoneware, censers and lamp stands with applied relief; some objects of this period carry inscriptions naming a date and a donor — valuable historical evidence.',
+    motifs: ['Sành', 'Đắp nổi', 'Minh văn'], motifsEn: ['Stoneware', 'Applied relief', 'Inscriptions'] },
+  { key: 'Lê Trung Hưng', vi: 'Lê Trung Hưng', en: 'Restored Lê', range: 'TK XVII–XVIII', rangeEn: '17th–18th c.',
+    tag: 'Gốm trong đời sống làng xã', tagEn: 'Ceramics in village life', dot: '#8A6E3F',
+    desc: 'Gốm gắn chặt với kiến trúc đình chùa và đời sống làng xã; các trung tâm sản xuất dân gian định hình nhiều dòng sản phẩm quen thuộc.',
+    descEn: 'Ceramics bound up with communal-house and pagoda architecture and with village life; folk production centres shaped many familiar product lines.',
+    motifs: ['Đình chùa', 'Làng nghề', 'Đồ thờ'], motifsEn: ['Temples', 'Craft villages', 'Altar ware'] },
+  { key: 'Nguyễn', vi: 'Nguyễn', en: 'Nguyễn', range: 'TK XIX–XX', rangeEn: '19th–20th c.',
+    tag: 'Từ cung đình tới thị dân', tagEn: 'From court to townsfolk', dot: '#9E3B2C',
+    desc: 'Song hành giữa đồ đặt kiểu cung đình và các làng gốm dân gian còn hoạt động tới ngày nay — cây cầu nối di sản với hiện tại.',
+    descEn: 'Court-commissioned wares alongside folk pottery villages still working today — the bridge between heritage and the present.',
+    motifs: ['Đồ đặt kiểu', 'Làng gốm', 'Tiếp nối'], motifsEn: ['Commissioned', 'Pottery villages', 'Continuity'] },
+];
+function wrapText(g, text, maxW) {
+  const words = text.split(' '), lines = [];
+  let line = '';
+  for (const w of words) {
+    const t = line ? line + ' ' + w : w;
+    if (g.measureText(t).width > maxW && line) { lines.push(line); line = w; } else line = t;
+  }
+  if (line) lines.push(line);
+  return lines;
+}
+function drawEra(cv, era) {
+  const W = cv.width, H = cv.height, g = cv.getContext('2d');
+  const en = lang() === 'en';
+  const here = DATA().filter(a => a.period === era.key).map(a => a.id);
+  g.clearRect(0, 0, W, H);
+  g.fillStyle = '#e9e0c9'; g.fillRect(0, 0, W, H);
+  for (let i = 0; i < 2400; i++) {
+    g.fillStyle = 'rgba(92,74,50,' + (Math.random() * 0.055).toFixed(3) + ')';
+    g.beginPath(); g.arc(Math.random() * W, Math.random() * H, Math.random() * 2.6 + 0.5, 0, 7); g.fill();
+  }
+  const M = 46;
+  g.strokeStyle = 'rgba(110,84,44,.42)'; g.lineWidth = 2;
+  g.strokeRect(M * 0.62, M * 0.62, W - M * 1.24, H - M * 1.24);
+  g.textAlign = 'left';
+  let y = M + 44;
+  g.beginPath(); g.arc(M + 9, y - 8, 9, 0, 7); g.fillStyle = era.dot; g.fill();
+  g.font = '600 22px Be Vietnam Pro,sans-serif'; g.fillStyle = '#7d6b4e';
+  g.fillText((en ? era.rangeEn : era.range).toUpperCase(), M + 28, y);
+  y += 60;
+  g.font = '600 54px Cormorant Garamond,serif'; g.fillStyle = '#2b241c';
+  g.fillText(en ? era.en : era.vi, M, y);
+  y += 38;
+  g.font = 'italic 27px Cormorant Garamond,serif'; g.fillStyle = '#8a6e3f';
+  g.fillText(en ? era.tagEn : era.tag, M, y);
+  y += 32;
+  g.strokeStyle = 'rgba(110,84,44,.35)'; g.lineWidth = 1.4;
+  g.beginPath(); g.moveTo(M, y); g.lineTo(W - M, y); g.stroke();
+  const headBottom = y;
+  const footTop = H - M - 62;
+  g.font = '23px Be Vietnam Pro,sans-serif';
+  const descLines = wrapText(g, en ? era.descEn : era.desc, W - M * 2);
+  g.font = '20px Be Vietnam Pro,sans-serif';
+  const chips = (en ? era.motifsEn : era.motifs).map(m => ({ m, w: g.measureText(m).width + 24 }));
+  let rows = 1, rowW = 0;
+  chips.forEach(c => { if (rowW + c.w > W - M * 2) { rows++; rowW = 0; } rowW += c.w + 10; });
+  const blockH = descLines.length * 33 + 22 + rows * 36;
+  y = headBottom + Math.max(34, (footTop - headBottom - blockH) / 2);
+  g.font = '23px Be Vietnam Pro,sans-serif'; g.fillStyle = '#4a4237';
+  descLines.forEach(L => { g.fillText(L, M, y); y += 33; });
+  y += 22;
+  g.font = '20px Be Vietnam Pro,sans-serif';
+  let cx = M;
+  chips.forEach(c => {
+    if (cx + c.w > W - M) { cx = M; y += 36; }
+    g.fillStyle = 'rgba(138,110,63,.16)'; g.fillRect(cx, y - 17, c.w, 27);
+    g.fillStyle = '#6b5a3d'; g.fillText(c.m, cx + 12, y);
+    cx += c.w + 10;
+  });
+  y = footTop;
+  g.strokeStyle = 'rgba(110,84,44,.35)'; g.lineWidth = 1.4;
+  g.beginPath(); g.moveTo(M, y); g.lineTo(W - M, y); g.stroke();
+  y += 30;
+  g.font = '600 18px Be Vietnam Pro,sans-serif'; g.fillStyle = '#8a6e3f';
+  g.fillText(en ? 'IN THIS ROOM' : 'TRONG PHÒNG NÀY', M, y);
+  y += 28;
+  g.font = '20px Be Vietnam Pro,sans-serif'; g.fillStyle = here.length ? '#4a4237' : '#9a9083';
+  g.fillText(here.length
+    ? here.join(' · ') + (en ? ' · demo records' : ' · hồ sơ minh họa')
+    : (en ? 'No object in this demo build' : 'Chưa có hiện vật trong bản demo'), M, y);
+}
+const eraPanels = [];
+function eraPanel(era, x, y, z, ry) {
+  const cv = document.createElement('canvas');
+  cv.width = 700; cv.height = 772;
+  drawEra(cv, era);
+  const tex = new THREE.CanvasTexture(cv); tex.anisotropy = MAXANISO;
+  const nx = Math.sin(ry), nz = Math.cos(ry);
+  bx(1.62, 1.77, 0.07, mWood, x, y, z, ry);
+  bx(1.52, 1.67, 0.02, mBronze, x + nx * 0.04, y, z + nz * 0.04, ry);
+  const p = new THREE.Mesh(new THREE.PlaneGeometry(1.45, 1.6),
+    new THREE.MeshStandardMaterial({ map: tex, roughness: 0.95, envMapIntensity: 0.28 }));
+  p.position.set(x + nx * 0.055, y, z + nz * 0.055); p.rotation.y = ry;
+  scene.add(p);
+  eraPanels.push({ era, cv, tex, pos: new THREE.Vector3(x, y, z), n: new THREE.Vector3(nx, 0, nz) });
+}
+// West wall carries the first half of the story, east wall the second — walk it in order.
+[-20.8, -25.2, -29.6, -34.0].forEach((z, i) => {
+  eraPanel(ERAS[i], -10.72, 2.62, z, Math.PI / 2);
+  eraPanel(ERAS[i + 4], 10.72, 2.62, z, -Math.PI / 2);
+});
 flushBoxes();
 
 // ---------- LIGHTING ----------
@@ -492,7 +626,8 @@ function labelLines(a) {
   return [
     { text: (en ? a.title_en : a.title).toUpperCase().slice(0, 34), font: `600 46px ${sans}`, color: '#2b241c', gap: 62 },
     { text: en ? a.title : a.title_en, font: `italic 40px ${serif}`, color: '#5a5142', gap: 66 },
-    { text: a.dating + (en ? ' · Demo record' : ' · Hồ sơ minh họa'), font: `36px ${sans}`, color: '#5a5142', gap: 58 },
+    { text: a.period + ' · ' + a.dating, font: `600 36px ${sans}`, color: '#5a5142', gap: 52 },
+    { text: en ? 'Demo record' : 'Hồ sơ minh họa', font: `32px ${sans}`, color: '#8a7b67', gap: 52 },
     { text: 'ID: ' + a.id + ' · is_demo', font: `32px ${sans}`, color: '#8a6e3f', gap: 0 }
   ];
 }
@@ -719,9 +854,11 @@ function move(dt) {
 }
 
 // ---------- INTERACTION ----------
-let nearest = null;
+let nearest = null, eraNear = null;
 const KIOSK_R = 2.4;
+let promptHold = 0;
 function updateNearest() {
+  if (performance.now() < promptHold) return;
   const cp = new THREE.Vector3(player.x, EYE, player.z);
   let best = null, bd = 2.6;
   const [fx, fz] = forward();
@@ -746,6 +883,20 @@ function updateNearest() {
   // timeline plaques via center ray when close
   const px = player.x, pz = player.z;
   plaqueNear = (px > -2.2 && px < 2.2 && pz < -8 && pz > -16) ? plaques.find(p => Math.abs(p.position.z - pz) < 0.9) : null;
+  // wall period panels double as timeline markers — the link from a period to its objects
+  eraNear = null;
+  if (!nearest && !plaqueNear) {
+    let bd2 = 2.5;
+    for (const ep of eraPanels) {
+      if (!DATA().some(a => a.period === ep.era.key)) continue;
+      const d = Math.hypot(ep.pos.x - px, ep.pos.z - pz);
+      if (d < bd2 && (ep.n.x * fx + ep.n.z * fz) < -0.3) { eraNear = ep; bd2 = d; }
+    }
+    if (eraNear) {
+      pr.textContent = (lang() === 'vi' ? 'Thời ' + eraNear.era.vi + ' — tô sáng hiện vật' : 'Highlight ' + eraNear.era.en + ' objects') + (TOUCH ? '' : t('pressE'));
+      pr.style.display = 'block';
+    }
+  }
   if (plaqueNear && !nearest) {
     pr.textContent = (lang() === 'vi' ? 'Thời ' + plaqueNear.userData.period + ' — tô sáng hiện vật' : 'Highlight ' + plaqueNear.userData.period + ' objects') + (TOUCH ? '' : t('pressE'));
     pr.style.display = 'block';
@@ -757,7 +908,8 @@ function tryInteract() {
   if (!started || uiOpen()) return;
   if (nearest && nearest.kiosk) { openKiosk(); return; }
   if (nearest) { openInspect(nearest.a.id); return; }
-  if (plaqueNear) highlightPeriod(plaqueNear.userData.period);
+  if (plaqueNear) { highlightPeriod(plaqueNear.userData.period); return; }
+  if (eraNear) highlightPeriod(eraNear.era.key);
 }
 function openInspect(id) {
   inspectOpen = true;
@@ -777,6 +929,7 @@ function highlightPeriod(period) {
   const pr = $('prompt');
   pr.textContent = t('hlight') + period;
   pr.style.display = 'block';
+  promptHold = performance.now() + 1800;
   setTimeout(() => { pr.style.display = 'none'; }, 1800);
 }
 
@@ -797,6 +950,7 @@ $('btn-en').onclick = () => window.DS_I18N.set('en');
 $('map-close').onclick = () => { $('map').style.display = 'none'; lock(); };
 addEventListener('ds:lang', () => { applyMT(); redrawTexts(); });
 function redrawTexts() {
+  eraPanels.forEach(p => { drawEra(p.cv, p.era); p.tex.needsUpdate = true; });
   hallTitle.userData.redraw(hallLines());
   exhibits.forEach(ex => ex.lab.userData.redraw(labelLines(ex.a)));
 }
