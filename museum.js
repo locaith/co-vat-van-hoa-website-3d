@@ -552,23 +552,28 @@ function toggleAudio() {
   el.play().then(() => { audioOn = true; setAudioLabel('soundOff'); })
     .catch(() => setAudioLabel('soundNA'));
 }
-// Sound is on from the start of the visit. begin() runs inside the click on "Tham quan tự do",
-// so the autoplay policy accepts play(); if a browser still refuses, arm the next real
-// interaction rather than leaving the room silent with no way back.
-let autoArmed = false;
+// Sound is meant to be on from the title screen, before anyone clicks into the museum.
+// Browsers refuse audio on a document with no user activation yet, so we try there and keep
+// re-arming on every interaction until one attempt is allowed — the click that starts the
+// visit is the usual one. Never gives up, so the room is never silently muted for good.
+let audioRetryArmed = false;
+function armAudioRetry() {
+  if (audioRetryArmed) return;
+  audioRetryArmed = true;
+  const retry = () => {
+    audioRetryArmed = false;
+    removeEventListener('pointerdown', retry); removeEventListener('keydown', retry);
+    removeEventListener('touchstart', retry);
+    autoStartAudio();
+  };
+  addEventListener('pointerdown', retry); addEventListener('keydown', retry);
+  addEventListener('touchstart', retry, { passive: true });
+}
 function autoStartAudio() {
   if (audioOn) return;
   const el = $('amb');
   el.loop = true; el.volume = 0.5;
-  el.play().then(() => { audioOn = true; setAudioLabel('soundOff'); }).catch(() => {
-    if (autoArmed) { setAudioLabel('soundNA'); return; }
-    autoArmed = true;
-    const retry = () => {
-      removeEventListener('pointerdown', retry); removeEventListener('keydown', retry);
-      autoStartAudio();
-    };
-    addEventListener('pointerdown', retry); addEventListener('keydown', retry);
-  });
+  el.play().then(() => { audioOn = true; setAudioLabel('soundOff'); }).catch(armAudioRetry);
 }
 
 // ---------- KIOSK ----------
@@ -676,6 +681,7 @@ const li = setInterval(() => {
     setTimeout(() => { $('loader').style.display = 'none'; }, 1150);
     $('enter').style.display = 'flex';
     applyMT();
+    autoStartAudio();
   }
 }, 160);
 
