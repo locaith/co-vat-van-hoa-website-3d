@@ -52,6 +52,23 @@ Các link nội bộ trong site vẫn trỏ thẳng tới `*.dc.html`, nên cả
 Dependency duy nhất: three.js 0.184.0 qua CDN import map (pinned + integrity hash) và Google Fonts.
 Không npm, không bundler.
 
+## Logo & nhận diện
+
+Nguồn: `public/co-vat-logo.png` (1536×1024, nền trong suốt). Các bản dẫn xuất cắt sẵn từ file này:
+
+| File | Dùng ở đâu |
+| --- | --- |
+| `public/logo-mark.png` (256px) | Dấu hiệu trên header mọi trang + footer trang chủ + overlay vào bảo tàng 3D |
+| `public/logo-full.png` (720px) | Logo đầy đủ kèm chữ — dành cho tài liệu, báo chí |
+| `public/favicon.png` (64px) · `public/apple-touch-icon.png` (180px) | Icon tab & màn hình chính |
+| `public/og-image.png` (1200×630) | Ảnh xem trước khi chia sẻ link |
+
+Bản chữ đầy đủ có wordmark màu nâu đậm nên chỉ đọc rõ trên nền sáng; ở các mặt nền tối
+(bảo tàng 3D, trang Triển lãm) dùng `logo-mark.png`.
+
+**Lưu ý:** thẻ `og:image` đang để đường dẫn tương đối. Khi gắn domain thật, đổi thành URL tuyệt đối
+(vd. `https://disanviet.vn/public/og-image.png`) thì Facebook/Zalo mới lấy đúng ảnh preview.
+
 ## Trạng thái dữ liệu
 
 Toàn bộ hiện vật, giá trị và hội thoại AI trong bản này là **DEMO minh hoạ** (`is_demo: true`).
