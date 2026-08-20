@@ -37,14 +37,65 @@ scene.fog = new THREE.Fog(0x120e0b, 30, 80);
 const cam = new THREE.PerspectiveCamera(66, 1, 0.05, 120);
 const EYE = 1.62;
 
+// ---------- SURFACE DETAIL ----------
+// Flat single-colour boxes read as cardboard. Procedural grain on the big surfaces plus a
+// small image-based environment give the stone, bronze, glass and glaze something to sit in.
+function noiseCanvas(size, base, blobs, paint) {
+  const cv = document.createElement('canvas'); cv.width = cv.height = size;
+  const g = cv.getContext('2d');
+  g.fillStyle = base; g.fillRect(0, 0, size, size);
+  for (let i = 0; i < blobs; i++) {
+    const [r, gg, bb, a, rad] = paint();
+    g.fillStyle = 'rgba(' + r + ',' + gg + ',' + bb + ',' + a + ')';
+    g.beginPath(); g.arc(Math.random() * size, Math.random() * size, rad, 0, 7); g.fill();
+  }
+  return { cv, g };
+}
+function floorMap() {
+  const { cv, g } = noiseCanvas(512, '#4b4239', 3200, () => [
+    110 + (Math.random() * 80 | 0), 98 + (Math.random() * 70 | 0), 84 + (Math.random() * 60 | 0),
+    (Math.random() * 0.12).toFixed(3), Math.random() * 24 + 3]);
+  g.strokeStyle = 'rgba(16,12,9,.55)'; g.lineWidth = 3.5;          // slab joints, 2x2 per tile
+  g.strokeRect(1.75, 1.75, 508.5, 508.5);
+  g.beginPath(); g.moveTo(256, 0); g.lineTo(256, 512); g.moveTo(0, 256); g.lineTo(512, 256); g.stroke();
+  g.strokeStyle = 'rgba(255,246,228,.05)'; g.lineWidth = 1.5;      // catch-light on the joint lip
+  g.beginPath(); g.moveTo(258, 0); g.lineTo(258, 512); g.moveTo(0, 258); g.lineTo(512, 258); g.stroke();
+  const t = new THREE.CanvasTexture(cv);
+  t.wrapS = t.wrapT = THREE.RepeatWrapping; t.anisotropy = 4;
+  return t;
+}
+function plasterMap() {
+  const { cv } = noiseCanvas(256, '#ffffff', 1800, () => [
+    Math.random() < 0.5 ? 214 : 255, Math.random() < 0.5 ? 208 : 255, Math.random() < 0.5 ? 196 : 255,
+    (Math.random() * 0.16).toFixed(3), Math.random() * 7 + 1]);
+  const t = new THREE.CanvasTexture(cv);
+  t.wrapS = t.wrapT = THREE.RepeatWrapping; t.repeat.set(3, 3); t.anisotropy = 4;
+  return t;
+}
+const FLOOR_TEX = floorMap(), PLASTER_TEX = plasterMap();
+// A gradient sky-to-ground probe: warm skylight overhead, stone bounce below.
+(function environment() {
+  const cv = document.createElement('canvas'); cv.width = 256; cv.height = 128;
+  const g = cv.getContext('2d');
+  const grd = g.createLinearGradient(0, 0, 0, 128);
+  grd.addColorStop(0, '#6b5b46'); grd.addColorStop(0.42, '#2c251d'); grd.addColorStop(1, '#12100d');
+  g.fillStyle = grd; g.fillRect(0, 0, 256, 128);
+  g.fillStyle = 'rgba(255,238,205,.5)'; g.fillRect(0, 0, 256, 22);
+  const t = new THREE.CanvasTexture(cv);
+  t.mapping = THREE.EquirectangularReflectionMapping;
+  const pm = new THREE.PMREMGenerator(renderer);
+  scene.environment = pm.fromEquirectangular(t).texture;
+  pm.dispose(); t.dispose();
+})();
+
 // ---------- MATERIALS ----------
-const mFloor = new THREE.MeshStandardMaterial({ color: 0x37302a, roughness: 0.85, metalness: 0.05 });
-const mWall = new THREE.MeshStandardMaterial({ color: 0xd9cfba, roughness: 0.95 });
+const mFloor = new THREE.MeshStandardMaterial({ color: 0x37302a, roughness: 0.62, metalness: 0.08, envMapIntensity: 0.45 });
+const mWall = new THREE.MeshStandardMaterial({ color: 0xd9cfba, roughness: 0.93, map: PLASTER_TEX, envMapIntensity: 0.22 });
 const mWood = new THREE.MeshStandardMaterial({ color: 0x2e2118, roughness: 0.7 });
-const mBronze = new THREE.MeshStandardMaterial({ color: 0x8a6e3f, roughness: 0.4, metalness: 0.7 });
+const mBronze = new THREE.MeshStandardMaterial({ color: 0x8a6e3f, roughness: 0.34, metalness: 0.78, envMapIntensity: 1.1 });
 const mCeil = new THREE.MeshStandardMaterial({ color: 0x1d1813, roughness: 1 });
 const mPlinth = new THREE.MeshStandardMaterial({ color: 0x3a332b, roughness: 0.8 });
-const mGlass = new THREE.MeshPhysicalMaterial({ color: 0xdfe8e4, transparent: true, opacity: 0.09, roughness: 0.05, metalness: 0, side: THREE.DoubleSide, depthWrite: false });
+const mGlass = new THREE.MeshPhysicalMaterial({ color: 0xdfe8e4, transparent: true, opacity: 0.13, envMapIntensity: 1.4, roughness: 0.05, metalness: 0, side: THREE.DoubleSide, depthWrite: false });
 
 // ---------- ARCHITECTURE ----------
 const colliders = []; // {minx,maxx,minz,maxz}
@@ -58,7 +109,10 @@ function solid(cx, cz, sx, sz, sy, mat, y) {
 function wallX(x, z1, z2, h) { solid(x, (z1 + z2) / 2, 0.3, Math.abs(z2 - z1), h, mWall); const w = new THREE.Mesh(new THREE.BoxGeometry(0.34, 0.9, Math.abs(z2 - z1)), mWood); w.position.set(x, 0.45, (z1 + z2) / 2); scene.add(w); }
 function wallZ(z, x1, x2, h) { solid((x1 + x2) / 2, z, Math.abs(x2 - x1), 0.3, h, mWall); const w = new THREE.Mesh(new THREE.BoxGeometry(Math.abs(x2 - x1), 0.9, 0.34), mWood); w.position.set((x1 + x2) / 2, 0.45, z); scene.add(w); }
 function room(x1, x2, z1, z2, h) {
-  const fl = new THREE.Mesh(new THREE.PlaneGeometry(x2 - x1, z2 - z1), mFloor);
+  const fm = mFloor.clone(); fm.map = FLOOR_TEX.clone();
+  fm.map.wrapS = fm.map.wrapT = THREE.RepeatWrapping;
+  fm.map.repeat.set((x2 - x1) / 2.9, (z2 - z1) / 2.9); fm.map.needsUpdate = true;
+  const fl = new THREE.Mesh(new THREE.PlaneGeometry(x2 - x1, z2 - z1), fm);
   fl.rotation.x = -Math.PI / 2; fl.position.set((x1 + x2) / 2, 0, (z1 + z2) / 2); fl.receiveShadow = true; scene.add(fl);
   const ce = new THREE.Mesh(new THREE.PlaneGeometry(x2 - x1, z2 - z1), mCeil);
   ce.rotation.x = Math.PI / 2; ce.position.set((x1 + x2) / 2, h, (z1 + z2) / 2); scene.add(ce);
@@ -80,6 +134,17 @@ wallZ(-54, -7, 7, 4.6); wallX(-7, -54, -40, 4.6); wallX(7, -54, -40, 4.6);
 [[0, -8, 4, 3.6], [0, -16, 4, 3.6], [0, -40, 4, 3.4]].forEach(([x, z, w, h]) => {
   const l = new THREE.Mesh(new THREE.BoxGeometry(w + 0.6, 0.22, 0.5), mBronze); l.position.set(x, h, z); scene.add(l);
 });
+// A soft top-down falloff so the daylight shaft fades out instead of ending on a hard rim.
+const SHAFT_TEX = (function () {
+  const cv = document.createElement('canvas'); cv.width = 4; cv.height = 128;
+  const g = cv.getContext('2d'), grd = g.createLinearGradient(0, 0, 0, 128);
+  grd.addColorStop(0, 'rgba(255,238,206,.5)');
+  grd.addColorStop(.32, 'rgba(255,236,203,.12)');
+  grd.addColorStop(.7, 'rgba(255,236,203,.03)');
+  grd.addColorStop(1, 'rgba(255,236,203,0)');
+  g.fillStyle = grd; g.fillRect(0, 0, 4, 128);
+  return new THREE.CanvasTexture(cv);
+})();
 // --- skylights: recessed ceiling windows casting daylight shafts ---
 function skylight(x, z, w, d, ceilY, inten) {
   const fr = new THREE.Mesh(new THREE.BoxGeometry(w + 0.55, 0.16, d + 0.55), mBronze);
@@ -88,8 +153,8 @@ function skylight(x, z, w, d, ceilY, inten) {
   glow.rotation.x = Math.PI / 2; glow.position.set(x, ceilY - 0.1, z); scene.add(glow);
   const s = new THREE.SpotLight(0xfff1d6, inten, 0, Math.PI / 3.1, 0.75, 1.55);
   s.position.set(x, ceilY + 2.6, z); s.target.position.set(x, 0, z); scene.add(s, s.target);
-  const shaft = new THREE.Mesh(new THREE.ConeGeometry(Math.max(w, d) * 0.8, ceilY - 0.1, 24, 1, true),
-    new THREE.MeshBasicMaterial({ color: 0xffeccb, transparent: true, opacity: 0.045, side: THREE.DoubleSide, depthWrite: false, blending: THREE.AdditiveBlending }));
+  const shaft = new THREE.Mesh(new THREE.ConeGeometry(Math.max(w, d) * 0.72, ceilY - 0.1, 28, 1, true),
+    new THREE.MeshBasicMaterial({ map: SHAFT_TEX, transparent: true, opacity: 0.30, side: THREE.BackSide, depthWrite: false, blending: THREE.AdditiveBlending }));
   shaft.position.set(x, (ceilY - 0.1) / 2, z); scene.add(shaft);
 }
 skylight(0, 0, 5, 5, 7, 60);
@@ -126,22 +191,49 @@ function textPanel(lines, w, h, opts) {
   const o = opts || {}, cv = document.createElement('canvas');
   cv.width = 1024; cv.height = Math.round(1024 * h / w);
   const g = cv.getContext('2d');
-  g.fillStyle = o.bg || 'rgba(0,0,0,0)'; g.fillRect(0, 0, cv.width, cv.height);
-  let y = o.pad || 90;
-  lines.forEach(L => {
-    g.font = L.font; g.fillStyle = L.color; g.textAlign = o.align || 'center';
-    const x = o.align === 'left' ? 70 : cv.width / 2;
-    g.fillText(L.text, x, y); y += L.gap || 90;
-  });
-  const tex = new THREE.CanvasTexture(cv); tex.anisotropy = 4;
-  const mesh = new THREE.Mesh(new THREE.PlaneGeometry(w, h), new THREE.MeshBasicMaterial({ map: tex, transparent: true }));
-  mesh.userData.redraw = (newLines) => {
+  const MARGIN = o.align === 'left' ? 70 : 46;
+  // Lines used to be drawn at fixed sizes from a fixed padding, so long strings ran off the
+  // right edge and the last line fell past the bottom of the canvas — both were simply cut off.
+  // Lay the block out first, shrink it to fit, then draw it centred in what is left.
+  function layout(src) {
+    const fit = src.map(L => {
+      let size = parseFloat((L.font.match(/(\d+(?:\.\d+)?)px/) || [0, 40])[1]), font = L.font;
+      g.font = font;
+      let guard = 0;
+      while (g.measureText(L.text).width > cv.width - MARGIN * 2 && size > 8 && guard++ < 60) {
+        size -= Math.max(1, size * 0.04);
+        font = L.font.replace(/(\d+(?:\.\d+)?)px/, size.toFixed(1) + 'px');
+        g.font = font;
+      }
+      return { text: L.text, color: L.color, font, size, gap: L.gap || 0 };
+    });
+    const rise = fit[0].size * 0.82, drop = fit[fit.length - 1].size * 0.3;
+    let span = rise + drop;
+    for (let i = 0; i < fit.length - 1; i++) span += fit[i].gap;
+    const room = cv.height - 24;
+    const k = span > room ? room / span : 1;          // squeeze the whole block, keep its rhythm
+    if (k < 1) fit.forEach(L => {
+      L.size *= k; L.gap *= k;
+      L.font = L.font.replace(/(\d+(?:\.\d+)?)px/, L.size.toFixed(1) + 'px');
+    });
+    const top = (cv.height - span * k) / 2 + rise * k;
+    return { fit, top };
+  }
+  function draw(src) {
     g.clearRect(0, 0, cv.width, cv.height);
     if (o.bg) { g.fillStyle = o.bg; g.fillRect(0, 0, cv.width, cv.height); }
-    let yy = o.pad || 90;
-    newLines.forEach(L => { g.font = L.font; g.fillStyle = L.color; g.textAlign = o.align || 'center'; g.fillText(L.text, o.align === 'left' ? 70 : cv.width / 2, yy); yy += L.gap || 90; });
-    tex.needsUpdate = true;
-  };
+    const { fit, top } = layout(src);
+    let y = o.top != null ? o.top : top;
+    fit.forEach(L => {
+      g.font = L.font; g.fillStyle = L.color; g.textAlign = o.align || 'center';
+      g.fillText(L.text, o.align === 'left' ? MARGIN : cv.width / 2, y);
+      y += L.gap;
+    });
+  }
+  draw(lines);
+  const tex = new THREE.CanvasTexture(cv); tex.anisotropy = 4;
+  const mesh = new THREE.Mesh(new THREE.PlaneGeometry(w, h), new THREE.MeshBasicMaterial({ map: tex, transparent: true }));
+  mesh.userData.redraw = (newLines) => { draw(newLines); tex.needsUpdate = true; };
   return mesh;
 }
 // hall title wall
@@ -153,19 +245,19 @@ function hallLines() {
     { text: lang() === 'vi' ? 'Hiện vật. Tri thức. Bằng chứng. Ký ức.' : 'Objects. Knowledge. Evidence. Memory.', font: `34px ${sans}`, color: '#8f8574', gap: 0 }
   ];
 }
-const hallTitle = textPanel(hallLines(), 9, 3.6, { pad: 170 });
-hallTitle.position.set(0, 4.1, -7.8); scene.add(hallTitle);
+const hallTitle = textPanel(hallLines(), 8, 2.5, {});
+hallTitle.position.set(0, 5.42, -7.78); scene.add(hallTitle);   // above the door lintel at y=3.6
 // directional signs
 function signLines(viTxt, enTxt, arrow) {
   return [{ text: arrow + '  ' + viTxt, font: `600 52px ${sans}`, color: '#e8dfce', gap: 78 }, { text: enTxt, font: `38px ${sans}`, color: '#8f8574', gap: 0 }];
 }
-const sign1 = textPanel(signLines('Phòng Gốm Việt', 'Ceramics Gallery', '↓'), 3.4, 0.85, { pad: 60 });
-sign1.position.set(3.2, 2.6, -7.8); scene.add(sign1);
+const sign1 = textPanel(signLines('Phòng Gốm Việt', 'Ceramics Gallery', '↓'), 3.2, 0.8, {});
+sign1.position.set(3.9, 2.5, -7.78); scene.add(sign1);
 // zone labels
 M.zones.forEach(z => {
-  const p = textPanel([{ text: z.vi, font: `500 120px ${serif}`, color: '#d9cfb9', gap: 105 }, { text: z.en, font: `44px ${sans}`, color: '#7d7361', gap: 0 }], 3, 1.15, { pad: 130 });
-  if (z.wall === 'west') { p.position.set(-10.8, 3.6, z.z); p.rotation.y = Math.PI / 2; }
-  else if (z.wall === 'east') { p.position.set(10.8, 3.6, z.z); p.rotation.y = -Math.PI / 2; }
+  const p = textPanel([{ text: z.vi, font: `500 120px ${serif}`, color: '#d9cfb9', gap: 105 }, { text: z.en, font: `44px ${sans}`, color: '#7d7361', gap: 0 }], 3, 1.15, {});
+  if (z.wall === 'west') { p.position.set(-10.72, 4.34, z.z); p.rotation.y = Math.PI / 2; }
+  else if (z.wall === 'east') { p.position.set(10.72, 4.34, z.z); p.rotation.y = -Math.PI / 2; }
   else { p.position.set(0, 4.4, -39.8); }
   p.userData.zone = z; scene.add(p);
 });
@@ -173,16 +265,179 @@ M.zones.forEach(z => {
 const digiTitle = textPanel([
   { text: lang() === 'vi' ? 'Không chỉ số hóa hình dạng.' : 'We do not digitize form alone.', font: `500 92px ${serif}`, color: '#efe7d5', gap: 105 },
   { text: lang() === 'vi' ? 'Chúng tôi số hóa tri thức bao quanh hiện vật.' : 'We preserve the knowledge surrounding the object.', font: `500 92px ${serif}`, color: '#a98e4b', gap: 0 }
-], 10, 2, { pad: 105 });
-digiTitle.position.set(0, 3.2, -53.8); scene.add(digiTitle);
+], 9, 1.7, {});
+digiTitle.position.set(0, 3.5, -53.8); scene.add(digiTitle);
+
+// ---------- INTERIOR DRESSING ----------
+// A gallery is never an empty box: it has cornice and skirting lines, wall bays, benches to sit
+// on, barriers around the hero object, visible light fittings and planting at the door. All of
+// it reuses two shared geometries and a handful of materials so phones keep their frame rate.
+const GBOX = new THREE.BoxGeometry(1, 1, 1);
+const mStone = new THREE.MeshStandardMaterial({ color: 0xb3a68d, roughness: 0.88, envMapIntensity: 0.3 });
+const mRope = new THREE.MeshStandardMaterial({ color: 0x4e1c17, roughness: 0.95 });
+const mLeaf = new THREE.MeshStandardMaterial({ color: 0x40573f, roughness: 0.92 });
+const mSoil = new THREE.MeshStandardMaterial({ color: 0x231b14, roughness: 1 });
+// Every dressing box shares one unit cube, so they are queued by material and emitted as a
+// single InstancedMesh each — 140-odd decorative meshes collapse into a handful of draw calls.
+const BOX_BATCH = new Map();
+const _v = new THREE.Vector3(), _q = new THREE.Quaternion(), _e = new THREE.Euler(), _s = new THREE.Vector3();
+function bx(w, h, d, mat, x, y, z, ry, rx, rz) {
+  let list = BOX_BATCH.get(mat); if (!list) BOX_BATCH.set(mat, list = []);
+  const m = new THREE.Matrix4();
+  _e.set(rx || 0, ry || 0, rz || 0);
+  m.compose(_v.set(x, y, z), _q.setFromEuler(_e), _s.set(w, h, d));
+  list.push(m);
+}
+function flushBoxes() {
+  BOX_BATCH.forEach((list, mat) => {
+    const im = new THREE.InstancedMesh(GBOX, mat, list.length);
+    list.forEach((m, i) => im.setMatrixAt(i, m));
+    im.instanceMatrix.needsUpdate = true; im.receiveShadow = true;
+    scene.add(im);
+  });
+  BOX_BATCH.clear();
+}
+// cornice at the wall head + a shadow reveal just under it
+function trim(x1, x2, z1, z2, h) {
+  const t = 0.18, d = 0.26, cx = (x1 + x2) / 2, cz = (z1 + z2) / 2, sx = x2 - x1, sz = z2 - z1;
+  [[sx, d, cx, z1 + d / 2], [sx, d, cx, z2 - d / 2]].forEach(([w, dd, px, pz]) => {
+    bx(w, t, dd, mStone, px, h - t / 2, pz); bx(w, 0.05, dd * 0.6, mCeil, px, h - t - 0.03, pz);
+  });
+  [[d, sz, x1 + d / 2, cz], [d, sz, x2 - d / 2, cz]].forEach(([dd, ll, px, pz]) => {
+    bx(dd, t, ll, mStone, px, h - t / 2, pz); bx(dd * 0.6, 0.05, ll, mCeil, px, h - t - 0.03, pz);
+  });
+}
+trim(-9, 9, -8, 8, 7); trim(-11, 11, -40, -16, 5.2); trim(-7, 7, -54, -40, 4.6);
+// wall bays: shallow pilasters break the long gallery walls into rhythm
+for (let z = -18.6; z > -40; z -= 4.4) {
+  [[-10.62, 0.3], [10.62, 0.3]].forEach(([x]) => {
+    bx(0.3, 4.1, 0.62, mStone, x, 2.5, z);
+    bx(0.42, 0.14, 0.78, mBronze, x, 4.6, z);        // capital
+  });
+}
+// ceiling beams over the hall and gallery — something for the dark above to read against
+for (let x = -6; x <= 6; x += 4) bx(0.34, 0.36, 15.4, mWood, x, 6.78, 0);
+for (let z = -19; z > -40; z -= 3.6) bx(21.4, 0.3, 0.3, mWood, 0, 5.02, z);
+// door jambs so the openings look built rather than cut
+[[-8, 2.1, 3.72], [-16, 2.1, 3.72], [-40, 2.1, 3.5]].forEach(([z, jx, jh]) => {
+  [-jx, jx].forEach(x => bx(0.24, jh, 0.46, mWood, x, jh / 2, z));
+});
+// floor inlay: a bronze band ringing the hall and a disc under the hero plinth
+[[-6.2, 6.2, -5.4, 5.4]].forEach(([x1, x2, z1, z2]) => {
+  bx(x2 - x1, 0.02, 0.09, mBronze, (x1 + x2) / 2, 0.012, z1);
+  bx(x2 - x1, 0.02, 0.09, mBronze, (x1 + x2) / 2, 0.012, z2);
+  bx(0.09, 0.02, z2 - z1, mBronze, x1, 0.012, (z1 + z2) / 2);
+  bx(0.09, 0.02, z2 - z1, mBronze, x2, 0.012, (z1 + z2) / 2);
+});
+const disc = new THREE.Mesh(new THREE.CircleGeometry(1.85, 48), new THREE.MeshStandardMaterial({ color: 0x2b241d, roughness: 0.5, metalness: 0.15, envMapIntensity: 0.6 }));
+disc.rotation.x = -Math.PI / 2; disc.position.set(0, 0.008, -2.5); scene.add(disc);
+// stanchions and rope around the hero object
+(function barrier() {
+  const post = new THREE.CylinderGeometry(0.045, 0.055, 0.86, 12);
+  const knob = new THREE.SphereGeometry(0.07, 12, 8);
+  const pts = [[-1.6, -0.9], [1.6, -0.9], [-1.6, -4.1], [1.6, -4.1]];
+  pts.forEach(([x, z]) => {
+    const p = new THREE.Mesh(post, mBronze); p.position.set(x, 0.43, z); scene.add(p);
+    const k = new THREE.Mesh(knob, mBronze); k.position.set(x, 0.9, z); scene.add(k);
+    bx(0.24, 0.04, 0.24, mPlinth, x, 0.02, z);
+    colliders.push({ minx: x - 0.32, maxx: x + 0.32, minz: z - 0.32, maxz: z + 0.32 });
+  });
+  [[-1.6, 1.6, -0.9, -0.9], [-1.6, 1.6, -4.1, -4.1], [-1.6, -1.6, -0.9, -4.1], [1.6, 1.6, -0.9, -4.1]].forEach(([x1, x2, z1, z2]) => {
+    const len = Math.hypot(x2 - x1, z2 - z1);
+    bx(x1 === x2 ? 0.028 : len, 0.028, x1 === x2 ? len : 0.028, mRope, (x1 + x2) / 2, 0.78, (z1 + z2) / 2);
+  });
+})();
+// benches down the middle of the ceramics gallery
+function bench(x, z, ry) {
+  const c = Math.cos(ry || 0), n = Math.sin(ry || 0);
+  const put = (lx, ly, w, h, d, mat) => bx(w, h, d, mat, x + lx * c, ly, z - lx * n, ry);
+  put(0, 0.44, 1.85, 0.11, 0.52, mWood);
+  [-0.72, 0.72].forEach(lx => put(lx, 0.22, 0.11, 0.44, 0.42, mPlinth));
+  const hw = ry ? 0.55 : 1.2, hd = ry ? 1.2 : 0.55;
+  colliders.push({ minx: x - hw, maxx: x + hw, minz: z - hd, maxz: z + hd });
+}
+[[-4.6, -22.5], [4.6, -22.5], [-4.6, -32.5], [4.6, -32.5]].forEach(([x, z]) => bench(x, z, Math.PI / 2));
+bench(-4.4, 3.4); bench(4.4, 3.4);
+// planting either side of the entrance
+[[-3.6, 6.4], [3.6, 6.4]].forEach(([x, z]) => {
+  const pot = new THREE.Mesh(new THREE.CylinderGeometry(0.36, 0.28, 0.5, 18), mPlinth);
+  pot.position.set(x, 0.25, z); scene.add(pot);
+  const soil = new THREE.Mesh(new THREE.CylinderGeometry(0.32, 0.32, 0.04, 18), mSoil);
+  soil.position.set(x, 0.5, z); scene.add(soil);
+  for (let i = 0; i < 9; i++) {
+    const a = (i / 9) * Math.PI * 2, len = 0.7 + Math.random() * 0.6;
+    bx(0.07, len, 0.012, mLeaf, x + Math.cos(a) * 0.13, 0.5 + len / 2, z + Math.sin(a) * 0.13, a, Math.sin(a) * 0.32, -Math.cos(a) * 0.32);
+  }
+  colliders.push({ minx: x - 0.62, maxx: x + 0.62, minz: z - 0.62, maxz: z + 0.62 });
+});
+// framed motif plates: a gallery wall needs something hung on it. These are decorative
+// pattern studies (the arch band that runs round the vessels), not claims about any object.
+function motifPlate(seed) {
+  const cv = document.createElement('canvas'); cv.width = 448; cv.height = 560;
+  const g = cv.getContext('2d');
+  g.fillStyle = '#dccfb2'; g.fillRect(0, 0, 448, 560);
+  for (let i = 0; i < 2200; i++) {
+    g.fillStyle = 'rgba(84,66,44,' + (Math.random() * 0.09).toFixed(3) + ')';
+    g.beginPath(); g.arc(Math.random() * 448, Math.random() * 560, Math.random() * 3 + 0.6, 0, 7); g.fill();
+  }
+  const inks = ['#9e3b2c', '#6d7f6a', '#8a6e3f'];
+  g.strokeStyle = 'rgba(110,80,42,.85)'; g.lineWidth = 4; g.strokeRect(24, 24, 400, 512);
+  g.strokeStyle = 'rgba(120,92,50,.26)'; g.lineWidth = 1.4; g.strokeRect(37, 37, 374, 486);
+  for (let band = 0; band < 4; band++) {
+    const y = 96 + band * 116, ink = inks[(band + seed) % 3], n = 4 + ((band + seed) % 3);
+    g.strokeStyle = ink; g.lineWidth = 5.5; g.globalAlpha = 1;
+    g.beginPath(); g.moveTo(58, y - 40); g.lineTo(390, y - 40); g.stroke();
+    const step = (390 - 58) / n;
+    for (let i = 0; i < n; i++) {
+      const cx = 58 + step * (i + 0.5);
+      g.beginPath(); g.arc(cx, y + 20, step * 0.42, Math.PI, 0); g.stroke();
+      g.beginPath(); g.arc(cx, y + 20, step * 0.2, Math.PI, 0); g.stroke();
+      g.beginPath(); g.arc(cx, y - 6, 3.4, 0, 7); g.fillStyle = ink; g.fill();
+    }
+    g.beginPath(); g.moveTo(58, y + 22); g.lineTo(390, y + 22); g.stroke();
+    g.globalAlpha = 1;
+  }
+  const t = new THREE.CanvasTexture(cv); t.anisotropy = 4;
+  return t;
+}
+const PLATES = [motifPlate(0), motifPlate(1), motifPlate(2)];
+function framed(i, w, h, x, y, z, ry) {
+  const nx = Math.sin(ry || 0), nz = Math.cos(ry || 0);
+  bx(w + 0.16, h + 0.16, 0.06, mWood, x, y, z, ry);                                   // frame
+  bx(w + 0.05, h + 0.05, 0.02, mBronze, x + nx * 0.035, y, z + nz * 0.035, ry);        // fillet
+  const p = new THREE.Mesh(new THREE.PlaneGeometry(w, h), new THREE.MeshStandardMaterial({ map: PLATES[i % 3], roughness: 0.94, envMapIntensity: 0.3 }));
+  p.position.set(x + nx * 0.05, y, z + nz * 0.05); p.rotation.y = ry || 0; scene.add(p);
+}
+// hall: flanking the title wall and along the side walls
+framed(0, 1.15, 1.45, -5.6, 2.5, -7.72, 0);
+framed(1, 1.15, 1.45, 5.6, 2.5, -7.72, 0);
+framed(2, 1.25, 1.55, -8.72, 2.6, -3.2, Math.PI / 2);
+framed(0, 1.25, 1.55, -8.72, 2.6, 2.6, Math.PI / 2);
+framed(1, 1.25, 1.55, 8.72, 2.6, -3.2, -Math.PI / 2);
+framed(2, 1.25, 1.55, 8.72, 2.6, 2.6, -Math.PI / 2);
+// ceramics gallery: one bay between each pair of pilasters
+[-20.8, -29.6, -34].forEach((z, i) => {
+  framed(i, 1.3, 1.6, -10.72, 2.55, z, Math.PI / 2);
+  framed(i + 1, 1.3, 1.6, 10.72, 2.55, z, -Math.PI / 2);
+});
+// picture rail running the gallery walls
+[-10.66, 10.66].forEach(x => bx(0.1, 0.07, 23.6, mBronze, x, 3.52, -28));
+flushBoxes();
 
 // ---------- LIGHTING ----------
 scene.add(new THREE.HemisphereLight(0x9f978a, 0x1a1512, 1.1));
 const fill = new THREE.DirectionalLight(0xfff0dd, 0.5); fill.position.set(3, 8, 2); scene.add(fill);
-function spot(x, y, z, tx, ty, tz, intensity, shadow) {
+const GHOUSE = new THREE.CylinderGeometry(0.075, 0.105, 0.26, 12);
+const GSTEM = new THREE.CylinderGeometry(0.022, 0.022, 0.3, 8);
+function spot(x, y, z, tx, ty, tz, intensity, shadow, fixture) {
   const s = new THREE.SpotLight(0xffe2bd, intensity, 0, Math.PI / 5.5, 0.6, 1.9);
   s.position.set(x, y, z);
   s.target.position.set(tx, ty, tz);
+  if (fixture !== false) {   // a light with no visible fitting reads as magic; hang one on a stem
+    const stem = new THREE.Mesh(GSTEM, mWood); stem.position.set(x, y + 0.15, z); scene.add(stem);
+    const hs = new THREE.Mesh(GHOUSE, mBronze); hs.position.set(x, y, z);
+    hs.lookAt(tx, ty, tz); hs.rotateX(Math.PI / 2); scene.add(hs);
+  }
   if (shadow && !TOUCH) { s.castShadow = true; s.shadow.mapSize.set(512, 512); s.shadow.bias = -0.0004; }
   scene.add(s, s.target);
   return s;
@@ -267,9 +522,23 @@ M.placements.forEach(placeArtifact);
   const nodes = textPanel([
     { text: lang() === 'vi' ? 'HIỆN VẬT → DỮ LIỆU → TRI THỨC' : 'OBJECT → DATA → KNOWLEDGE', font: `600 54px ${sans}`, color: '#a98e4b', gap: 80 },
     { text: lang() === 'vi' ? 'Ảnh · Quét 3D · Định danh số · Bằng chứng · Chuyên gia · AI' : 'Photo · 3D scan · Digital ID · Evidence · Experts · AI', font: `40px ${sans}`, color: '#c9bfa9', gap: 0 }
-  ], 5, 1, { pad: 95 });
-  nodes.position.set(-2.2, 2.4, -48.9); scene.add(nodes);
+  ], 4.3, 0.95, {});
+  nodes.position.set(-4.3, 2.12, -48.86); scene.add(nodes);
+  // the panel floated unsupported; stand it on a real board so it reads as gallery signage
+  bx(4.7, 1.32, 0.09, mWood, -4.3, 2.12, -48.94);
+  bx(4.82, 0.08, 0.14, mBronze, -4.3, 2.82, -48.94);
+  [-2.2, 2.2].forEach(dx => bx(0.1, 1.46, 0.1, mBronze, -4.3 + dx, 0.73, -48.94));
+  bx(1.3, 0.06, 0.45, mPlinth, -4.3, 0.03, -48.94);
 })();
+// digital gallery: give the room the same furniture language as the ceramics hall
+[[-6.72, Math.PI / 2], [6.72, -Math.PI / 2]].forEach(([x, ry], i) => {
+  framed(i, 1.2, 1.5, x, 2.5, -44.5, ry);
+  framed(i + 2, 1.2, 1.5, x, 2.5, -50.5, ry);
+  bx(0.28, 3.6, 0.6, mStone, x - Math.sign(x) * 0.06, 2.2, -47.5);
+});
+bench(-4.9, -43.6, Math.PI / 2); bench(4.9, -43.6, Math.PI / 2);
+for (let x = -4; x <= 4; x += 4) bx(0.3, 0.3, 13.4, mWood, x, 4.42, -47);
+flushBoxes();
 
 // AI kiosk (physical)
 const kioskPos = new THREE.Vector3(2.6, 1.0, -47);
@@ -694,7 +963,7 @@ let last = performance.now(), lastFrame = 0;
 // started) with performance.now() from input handlers made dt go negative on slow frames,
 // which pushed velocity away from its target and walked the player backwards.
 function requestRender() { if (performance.now() - lastFrame > 25) frame(); }
-window.__museum = { renderer, cam, scene, player, go(x, z, yaw) { player.x = x; player.z = z; player.yaw = yaw || 0; player.pitch = 0; requestRender(); } };
+window.__museum = { renderer, cam, scene, player, colliders, collide, go(x, z, yaw) { player.x = x; player.z = z; player.yaw = yaw || 0; player.pitch = 0; requestRender(); } };
 // Event-driven safety net: throttled iframes may freeze rAF AND timers — draw directly on input.
 ['mousemove', 'keydown', 'keyup', 'touchmove', 'touchstart', 'wheel'].forEach(ev =>
   addEventListener(ev, () => { if (started) requestRender(); }, { passive: true }));

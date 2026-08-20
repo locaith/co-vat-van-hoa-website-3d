@@ -92,6 +92,14 @@ Bảo tàng 3D có cần điều khiển tròn ở góc dưới trái (chỉ hi�
 kéo nút vàng để đi, kéo bất kỳ chỗ nào khác trên màn hình để quan sát, chạm hiện vật để xem.
 Trước đây vùng di chuyển là nửa trái màn hình nhưng không vẽ gì ra nên không ai biết.
 
+
+### Bảo tàng 3D — ngân sách cảnh
+
+229 mesh · ~215k tam giác · ~216 draw call (mobile ~200 sau frustum culling). Toàn bộ khối
+trang trí đi qua `bx()`, được gom theo vật liệu rồi phát ra `InstancedMesh` bằng `flushBoxes()` —
+thêm bx() mới thì phải nằm TRƯỚC một lời gọi `flushBoxes()`, nếu không nó sẽ không được vẽ.
+`window.__museum` có `colliders` và `collide()` để dò va chạm khi cần gỡ lỗi đường đi.
+
 ## Trạng thái dữ liệu
 
 Toàn bộ hiện vật, giá trị và hội thoại AI trong bản này là **DEMO minh hoạ** (`is_demo: true`).
