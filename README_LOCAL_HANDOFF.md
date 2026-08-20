@@ -21,8 +21,8 @@ Static site — không cần build. Serve thư mục bằng bất kỳ HTTP serv
 ## REAL SCAN TODO
 Khi có scan photogrammetry: thêm `model_url: 'public/museum/models/DS-001.glb'` vào record trong `artifacts-data.js`, load bằng GLTFLoader tại các điểm đánh dấu `REAL SCAN TODO` (museum.js, artifacts3d.js). Nén Draco/Meshopt + KTX2 khuyến nghị. Không cần đổi UI.
 
-## Audio — DEMO
-Thả file vào `public/museum/audio/ambient.mp3` (nhạc nền bảo tàng) và `assets/audio/heritage-theme.mp3` (trang triển lãm). UI bật/tắt đã sẵn; narration per-artifact hiện dùng browser TTS (`AI SERVICE TODO`).
+## Audio
+Nhạc nền đã có: `public/audio/hon-tranh-co.mp3` (bảo tàng 3D) và `public/audio/stone-lantern-archive.mp3` (trang triển lãm) — xem mục Nhạc nền trong README.md. Narration per-artifact vẫn dùng browser TTS (`AI SERVICE TODO`).
 
 ## REAL BACKEND TODO — contract đề xuất
 - GET /api/artifacts/:id · GET /api/artifacts/search?q=

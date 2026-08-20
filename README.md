@@ -69,6 +69,20 @@ Bản chữ đầy đủ có wordmark màu nâu đậm nên chỉ đọc rõ tr�
 **Lưu ý:** thẻ `og:image` đang để đường dẫn tương đối. Khi gắn domain thật, đổi thành URL tuyệt đối
 (vd. `https://disanviet.vn/public/og-image.png`) thì Facebook/Zalo mới lấy đúng ảnh preview.
 
+## Nhạc nền
+
+| Trang | File | Điều khiển |
+| --- | --- | --- |
+| Bảo tàng 3D (`/museum`) | `public/audio/hon-tranh-co.mp3` — 4:36 | Nút ♪ trên thanh trên cùng, hoặc ESC → Âm thanh |
+| Triển lãm (`/trien-lam`) | `public/audio/stone-lantern-archive.mp3` — 7:12 | Nút "Bật nhạc nền trải nghiệm" trên nav |
+
+Cả hai đặt `preload="none"` và chỉ phát khi người dùng bấm — không tự động chạy, không tốn
+băng thông của người không nghe. File đã hạ về 128 kbps 44.1 kHz và gỡ ảnh bìa nhúng
+(6.4 MB → 4.4 MB và 10.2 MB → 6.9 MB); bản gốc 187 kbps vẫn nằm trong thư mục Downloads.
+
+Thuộc tính `loop` được set bằng JS chứ không chỉ trong thẻ `<audio>`, vì DC runtime dựng lại
+thẻ này qua React và làm rơi mất thuộc tính boolean.
+
 ## Trạng thái dữ liệu
 
 Toàn bộ hiện vật, giá trị và hội thoại AI trong bản này là **DEMO minh hoạ** (`is_demo: true`).

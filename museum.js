@@ -12,8 +12,8 @@ const TOUCH = 'ontouchstart' in window;
 const lang = () => (window.DS_I18N ? window.DS_I18N.lang : 'vi');
 
 const T = {
-  vi: { kicker: 'Bảo tàng số di sản Việt Nam · Bản demo', title: 'Bước vào ký ức\ncủa Việt Nam.', sub: 'Hiện vật. Tri thức. Bằng chứng. Ký ức.', demo: 'Toàn bộ hiện vật trong bảo tàng là bản thể số minh họa (demo) — kiến trúc sẵn sàng thay bằng hiện vật quét thật.', back: '← Trở về website', free: 'Tham quan tự do', tour: 'Tham quan có hướng dẫn', exit: 'Thoát', map: 'Bản đồ', soundOn: 'Bật âm thanh', soundOff: 'Tắt âm thanh', soundNA: 'Chưa có bản thu (hook sẵn)', inspect: 'Xem hiện vật', pressE: ' — nhấn E', mapTitle: 'Bản đồ bảo tàng', mapHint: 'Chạm tên phòng để di chuyển nhanh tới đó', close: 'Đóng', resume: 'Tiếp tục tham quan', audio: 'Âm thanh', exitSite: 'Trở về website', kioskOpen: 'Mở bản thể số + hồ sơ', hints: TOUCH ? 'Joystick trái — di chuyển · Kéo phải — quan sát · Chạm hiện vật — xem' : 'WASD — Di chuyển · Chuột / kéo chuột — Quan sát · E hoặc click — Tương tác · ESC — Menu', stop: 'Điểm dừng', next: 'Tiếp tục →', quit: 'Kết thúc — tự do khám phá', hlight: 'Đã tô sáng các hiện vật thời ', kq: 'Tìm cho tôi một bình gốm men ngọc thời Trần.', ks: ['Đang hiểu câu hỏi', 'Đang tìm dữ liệu', 'Đang đối chiếu nguồn', 'Đang chuẩn bị bản thể số', 'Hoàn tất'] },
-  en: { kicker: 'Vietnam Heritage Digital Museum · Demo build', title: "Step into Vietnam's\nliving memory.", sub: 'Objects. Knowledge. Evidence. Memory.', demo: 'Every object in this museum is an illustrative digital twin (demo) — the architecture is ready for real scanned artifacts.', back: '← Back to website', free: 'Free explore', tour: 'Guided tour', exit: 'Exit', map: 'Map', soundOn: 'Enable sound', soundOff: 'Mute sound', soundNA: 'No recording yet (hook ready)', inspect: 'Inspect artifact', pressE: ' — press E', mapTitle: 'Museum map', mapHint: 'Tap a room name to travel there', close: 'Close', resume: 'Resume visit', audio: 'Audio', exitSite: 'Exit to website', kioskOpen: 'Open digital twin + record', hints: TOUCH ? 'Left joystick — move · Drag right — look · Tap artifact — inspect' : 'WASD — Move · Mouse / drag — Look · E or click — Interact · ESC — Menu', stop: 'Stop', next: 'Continue →', quit: 'End tour — explore freely', hlight: 'Highlighted objects from the ', kq: 'Find me a celadon ceramic jar from the Trần period.', ks: ['Understanding the question', 'Searching the database', 'Cross-checking sources', 'Preparing the digital twin', 'Done'] }
+  vi: { kicker: 'Bảo tàng số di sản Việt Nam · Bản demo', title: 'Bước vào ký ức\ncủa Việt Nam.', sub: 'Hiện vật. Tri thức. Bằng chứng. Ký ức.', demo: 'Toàn bộ hiện vật trong bảo tàng là bản thể số minh họa (demo) — kiến trúc sẵn sàng thay bằng hiện vật quét thật.', back: '← Trở về website', free: 'Tham quan tự do', tour: 'Tham quan có hướng dẫn', exit: 'Thoát', map: 'Bản đồ', soundOn: 'Bật âm thanh', soundOff: 'Tắt âm thanh', soundNA: 'Không phát được âm thanh', inspect: 'Xem hiện vật', pressE: ' — nhấn E', mapTitle: 'Bản đồ bảo tàng', mapHint: 'Chạm tên phòng để di chuyển nhanh tới đó', close: 'Đóng', resume: 'Tiếp tục tham quan', audio: 'Âm thanh', exitSite: 'Trở về website', kioskOpen: 'Mở bản thể số + hồ sơ', hints: TOUCH ? 'Joystick trái — di chuyển · Kéo phải — quan sát · Chạm hiện vật — xem' : 'WASD — Di chuyển · Chuột / kéo chuột — Quan sát · E hoặc click — Tương tác · ESC — Menu', stop: 'Điểm dừng', next: 'Tiếp tục →', quit: 'Kết thúc — tự do khám phá', hlight: 'Đã tô sáng các hiện vật thời ', kq: 'Tìm cho tôi một bình gốm men ngọc thời Trần.', ks: ['Đang hiểu câu hỏi', 'Đang tìm dữ liệu', 'Đang đối chiếu nguồn', 'Đang chuẩn bị bản thể số', 'Hoàn tất'] },
+  en: { kicker: 'Vietnam Heritage Digital Museum · Demo build', title: "Step into Vietnam's\nliving memory.", sub: 'Objects. Knowledge. Evidence. Memory.', demo: 'Every object in this museum is an illustrative digital twin (demo) — the architecture is ready for real scanned artifacts.', back: '← Back to website', free: 'Free explore', tour: 'Guided tour', exit: 'Exit', map: 'Map', soundOn: 'Enable sound', soundOff: 'Mute sound', soundNA: 'Audio unavailable', inspect: 'Inspect artifact', pressE: ' — press E', mapTitle: 'Museum map', mapHint: 'Tap a room name to travel there', close: 'Close', resume: 'Resume visit', audio: 'Audio', exitSite: 'Exit to website', kioskOpen: 'Open digital twin + record', hints: TOUCH ? 'Left joystick — move · Drag right — look · Tap artifact — inspect' : 'WASD — Move · Mouse / drag — Look · E or click — Interact · ESC — Menu', stop: 'Stop', next: 'Continue →', quit: 'End tour — explore freely', hlight: 'Highlighted objects from the ', kq: 'Find me a celadon ceramic jar from the Trần period.', ks: ['Understanding the question', 'Searching the database', 'Cross-checking sources', 'Preparing the digital twin', 'Done'] }
 };
 const t = k => (T[lang()] || T.vi)[k];
 function applyMT() {
@@ -299,7 +299,16 @@ const player = { x: 0, z: 5.5, yaw: Math.PI, pitch: 0, vx: 0, vz: 0 };
 player.yaw = 0;
 function forward() { return [-Math.sin(player.yaw), -Math.cos(player.yaw)]; }
 const keys = {};
-addEventListener('keydown', e => { keys[e.code] = true; if (e.code === 'KeyE') tryInteract(); });
+// Entry dolly and guided-tour moves drive the camera themselves. Only one may run, and the
+// player taking control must end it — otherwise it keeps writing yaw/x/z underneath them.
+let camAnim = null;
+function stopCamAnim() { if (camAnim) { cancelAnimationFrame(camAnim); camAnim = null; } }
+const MOVE_KEYS = /^(KeyW|KeyA|KeyS|KeyD|ArrowUp|ArrowDown|ArrowLeft|ArrowRight)$/;
+addEventListener('keydown', e => {
+  keys[e.code] = true;
+  if (mode === 'free' && MOVE_KEYS.test(e.code)) stopCamAnim();
+  if (e.code === 'KeyE') tryInteract();
+});
 addEventListener('keyup', e => { keys[e.code] = false; });
 const canvas = $('stage');
 let locked = false, started = false, mode = 'free', dragLook = false, plAvailable = true;
@@ -322,14 +331,19 @@ document.addEventListener('pointerlockchange', () => {
   locked = document.pointerLockElement === canvas;
   if (!locked && started && !uiOpen() && !dragLook) showMenu(true);
 });
+// Chrome reports one huge movementX/Y right after pointer lock is (re)acquired — the jump from
+// the old cursor position to the screen centre. Unclamped it whips the view a full turn.
+const LOOK_CLAMP = 200;
+const lookStep = v => Math.max(-LOOK_CLAMP, Math.min(LOOK_CLAMP, v || 0));
 addEventListener('mousemove', e => {
+  const dx = lookStep(e.movementX), dy = lookStep(e.movementY);
   if (locked) {
-    player.yaw -= e.movementX * 0.0021;
-    player.pitch = Math.max(-1.2, Math.min(1.2, player.pitch - e.movementY * 0.0019));
+    player.yaw -= dx * 0.0021;
+    player.pitch = Math.max(-1.2, Math.min(1.2, player.pitch - dy * 0.0019));
   } else if (md && started) {
-    md.moved += Math.abs(e.movementX) + Math.abs(e.movementY);
-    player.yaw -= e.movementX * 0.0035;
-    player.pitch = Math.max(-1.2, Math.min(1.2, player.pitch - e.movementY * 0.003));
+    md.moved += Math.abs(dx) + Math.abs(dy);
+    player.yaw -= dx * 0.0035;
+    player.pitch = Math.max(-1.2, Math.min(1.2, player.pitch - dy * 0.003));
   }
 });
 // touch: left joystick + right look
@@ -337,7 +351,7 @@ let joy = null, lookT = null;
 if (TOUCH) {
   canvas.addEventListener('touchstart', e => {
     for (const to of e.changedTouches) {
-      if (to.clientX < innerWidth / 2 && !joy) joy = { id: to.identifier, x0: to.clientX, y0: to.clientY, dx: 0, dy: 0 };
+      if (to.clientX < innerWidth / 2 && !joy) { joy = { id: to.identifier, x0: to.clientX, y0: to.clientY, dx: 0, dy: 0 }; if (mode === 'free') stopCamAnim(); }
       else if (!lookT) lookT = { id: to.identifier, x: to.clientX, y: to.clientY, moved: 0 };
     }
   }, { passive: true });
@@ -481,6 +495,7 @@ function openMap() {
     tx.addEventListener('click', () => {
       const r = M.rooms.find(rr => rr.id === tx.dataset.room);
       player.x = (r.x[0] + r.x[1]) / 2; player.z = (r.z[0] + r.z[1]) / 2 + 2;
+      stopCamAnim();
       player.yaw = 0; player.vx = player.vz = 0;
       $('map').style.display = 'none';
       lock();
@@ -490,12 +505,12 @@ function openMap() {
 }
 
 // ---------- AUDIO ----------
-// DEMO: drop real recordings at public/museum/audio/ambient.mp3 (room + narration tracks later).
+// Ambient bed: public/audio/hon-tranh-co.mp3 (per-artifact narration still browser TTS).
 let audioOn = false;
 function toggleAudio() {
   const el = $('amb');
   if (audioOn) { el.pause(); audioOn = false; $('audio-lb').textContent = t('soundOn'); return; }
-  el.volume = 0.5;
+  el.loop = true; el.volume = 0.5;
   el.play().then(() => { audioOn = true; $('audio-lb').textContent = t('soundOff'); })
     .catch(() => { $('audio-lb').textContent = t('soundNA'); });
 }
@@ -523,7 +538,7 @@ $('kiosk-close').onclick = () => { $('kiosk').style.display = 'none'; lock(); };
 $('kiosk-open').onclick = () => { $('kiosk').style.display = 'none'; openInspect('DS-001'); };
 
 // ---------- GUIDED TOUR ----------
-let tourI = -1, tourAnim = null;
+let tourI = -1;
 function startTour() {
   mode = 'tour'; tourI = -1;
   $('tour').style.display = 'block';
@@ -542,7 +557,7 @@ function nextStop() {
   const tyaw = Math.atan2(-dx, -dz);
   const tpitch = Math.atan2(s.look[1] - EYE, Math.hypot(dx, dz)) * -1;
   const t0 = performance.now(), dur = RED ? 1 : 2600;
-  cancelAnimationFrame(tourAnim);
+  stopCamAnim();
   const step = now => {
     const k = Math.min(1, (now - t0) / dur), e = k < 0.5 ? 2 * k * k : 1 - Math.pow(-2 * k + 2, 2) / 2;
     player.x = from.x + (s.pos[0] - from.x) * e;
@@ -550,11 +565,12 @@ function nextStop() {
     let dy = tyaw - from.yaw; while (dy > Math.PI) dy -= Math.PI * 2; while (dy < -Math.PI) dy += Math.PI * 2;
     player.yaw = from.yaw + dy * e;
     player.pitch = from.pitch + (-tpitch - from.pitch) * e;
-    if (k < 1) tourAnim = requestAnimationFrame(step);
+    camAnim = k < 1 ? requestAnimationFrame(step) : null;
   };
-  tourAnim = requestAnimationFrame(step);
+  camAnim = requestAnimationFrame(step);
 }
 function endTour() {
+  stopCamAnim();
   mode = 'free';
   $('tour').style.display = 'none';
   lock();
@@ -581,9 +597,9 @@ function begin(tourMode) {
     const step = now => {
       const k = Math.min(1, (now - t0) / 2200);
       player.z = 7.2 - k * 1.7;
-      if (k < 1 && mode === 'free') requestAnimationFrame(step);
+      camAnim = (k < 1 && mode === 'free') ? requestAnimationFrame(step) : null;
     };
-    requestAnimationFrame(step);
+    camAnim = requestAnimationFrame(step);
   }
 }
 $('btn-free').onclick = () => begin(false);
@@ -610,24 +626,27 @@ renderer.setSize(canvas.clientWidth || innerWidth, canvas.clientHeight || innerH
 cam.aspect = (canvas.clientWidth || innerWidth) / (canvas.clientHeight || innerHeight); cam.updateProjectionMatrix();
 addEventListener('resize', () => { renderer.setSize(canvas.clientWidth, canvas.clientHeight, false); cam.aspect = canvas.clientWidth / canvas.clientHeight; cam.updateProjectionMatrix(); });
 let last = performance.now(), lastFrame = 0;
-function requestRender() { const n = performance.now(); if (n - lastFrame > 25) frame(n); }
+// frame() always reads the clock itself. Mixing the rAF timestamp (taken when the frame
+// started) with performance.now() from input handlers made dt go negative on slow frames,
+// which pushed velocity away from its target and walked the player backwards.
+function requestRender() { if (performance.now() - lastFrame > 25) frame(); }
 window.__museum = { renderer, cam, scene, player, go(x, z, yaw) { player.x = x; player.z = z; player.yaw = yaw || 0; player.pitch = 0; requestRender(); } };
 // Event-driven safety net: throttled iframes may freeze rAF AND timers — draw directly on input.
 ['mousemove', 'keydown', 'keyup', 'touchmove', 'touchstart', 'wheel'].forEach(ev =>
   addEventListener(ev, () => { if (started) requestRender(); }, { passive: true }));
 // Resilient loop: rAF for smoothness + watchdog interval (some embedded iframes throttle/stop rAF).
-function loop(now) {
+function loop() {
   requestAnimationFrame(loop);
-  lastFrame = performance.now();
-  frame(now);
+  frame();
 }
 setInterval(() => {
   const now = performance.now();
-  if (now - lastFrame > 200) { lastFrame = now; frame(now); }
+  if (now - lastFrame > 200) frame();
 }, 50);
-function frame(now) {
-  lastFrame = performance.now();
-  const dt = Math.min(0.05, (now - last) / 1000); last = now;
+function frame() {
+  const now = performance.now();
+  lastFrame = now;
+  const dt = Math.min(0.05, Math.max(0, (now - last) / 1000)); last = now;
   const w = canvas.clientWidth, h = canvas.clientHeight;
   if (canvas.width !== Math.floor(w * renderer.getPixelRatio())) { renderer.setSize(w, h, false); cam.aspect = w / h; cam.updateProjectionMatrix(); }
   const modalEl = document.getElementById('art-modal');
